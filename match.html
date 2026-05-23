@@ -319,7 +319,7 @@
     document.getElementById('awayCrest').textContent = away.charAt(0);
     var hId = params.get("homeId") || 0;
     var aId = params.get("awayId") || 0;
-    if (hId > 0) { fetch("http://localhost:8080/api/matches?league=" + (params.get("league") || "PL")).then(function(r){return r.json();}).then(function(d){var ms=d.matches||[];for(var i=0;i<ms.length;i++){var m=ms[i];if(m.homeTeam&&m.homeTeam.id==hId&&m.homeTeam.crest){document.getElementById("homeCrest").innerHTML="<img src=\""+m.homeTeam.crest+"\" style=\"width:36px;height:36px;object-fit:contain;\">";}if(m.awayTeam&&m.awayTeam.id==aId&&m.awayTeam.crest){document.getElementById("awayCrest").innerHTML="<img src=\""+m.awayTeam.crest+"\" style=\"width:36px;height:36px;object-fit:contain;\">";}}}).catch(function(){}); }
+    if (hId > 0) { fetch("https://emascore-api.onrender.com/api/matches?league=" + (params.get("league") || "PL")).then(function(r){return r.json();}).then(function(d){var ms=d.matches||[];for(var i=0;i<ms.length;i++){var m=ms[i];if(m.homeTeam&&m.homeTeam.id==hId&&m.homeTeam.crest){document.getElementById("homeCrest").innerHTML="<img src=\""+m.homeTeam.crest+"\" style=\"width:36px;height:36px;object-fit:contain;\">";}if(m.awayTeam&&m.awayTeam.id==aId&&m.awayTeam.crest){document.getElementById("awayCrest").innerHTML="<img src=\""+m.awayTeam.crest+"\" style=\"width:36px;height:36px;object-fit:contain;\">";}}}).catch(function(){}); }
     document.getElementById('matchTime').textContent = time || 'À venir';
     document.getElementById('matchDate').textContent = new Date().toLocaleDateString('fr', {day:'2-digit', month:'long'});
 
@@ -366,7 +366,7 @@
       const awayId = params.get('awayId') || 0;
 
       // Appeler l'API pour les vraies probabilités
-      fetch('http://localhost:8080/api/probs?home=' + homeId + '&away=' + awayId + '&league=' + leagueParam + '&homeName=' + encodeURIComponent(home) + '&awayName=' + encodeURIComponent(away))
+      fetch('https://emascore-api.onrender.com/api/probs?home=' + homeId + '&away=' + awayId + '&league=' + leagueParam + '&homeName=' + encodeURIComponent(home) + '&awayName=' + encodeURIComponent(away))
         .then(function(r) { return r.json(); })
         .then(function(data) {
           const hWin = data.prob1 || 40;

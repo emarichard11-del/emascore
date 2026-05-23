@@ -133,7 +133,7 @@
 
     async function loadLeagueMatches() {
       try {
-        var res = await fetch('http://localhost:8080/api/matches?league=' + leagueCode);
+        var res = await fetch('https://emascore-api.onrender.com/api/matches?league=' + leagueCode);
         var data = await res.json();
         var matches = data.matches || [];
         matches = matches.filter(function(m) {
@@ -195,7 +195,7 @@
           var hId = match.homeTeam && match.homeTeam.id ? match.homeTeam.id : 0;
           var aId = match.awayTeam && match.awayTeam.id ? match.awayTeam.id : 0;
           if (hId === 0 && aId === 0) return;
-          fetch('http://localhost:8080/api/probs?home=' + hId + '&away=' + aId + '&league=' + leagueCode)
+          fetch('https://emascore-api.onrender.com/api/probs?home=' + hId + '&away=' + aId + '&league=' + leagueCode)
             .then(function(r) { return r.json(); })
             .then(function(p) {
               var el1 = document.getElementById('prob1-' + match.id);

@@ -170,7 +170,7 @@
           var aId = match.awayTeam && match.awayTeam.id ? match.awayTeam.id : 0;
           var code = match.competition && match.competition.code ? match.competition.code : 'PL';
           if (hId === 0 && aId === 0) return;
-          fetch('http://localhost:8080/api/probs?home=' + hId + '&away=' + aId + '&league=' + code)
+          fetch('https://emascore-api.onrender.com/api/probs?home=' + hId + '&away=' + aId + '&league=' + code)
             .then(function(r) { return r.json(); })
             .then(function(p) {
               var el1 = document.getElementById('prob1-' + match.id);
