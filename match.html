@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EMASCORE — Match</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Arial', sans-serif; background: #0a0e1a; color: #fff; min-height: 100vh; padding-bottom: 80px; }
+
+    /* HEADER */
+    .match-header {
+      background: linear-gradient(180deg, #0f1923 0%, #0a0e1a 100%);
+      padding: 16px 20px 0;
+      position: relative;
+    }
+    .league-badge {
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #1a2a2a; border: 1px solid #2a4a2a;
+      color: #5DBE74; font-size: 12px; font-weight: 700;
+      padding: 7px 14px; border-radius: 99px;
+      text-decoration: none; cursor: pointer;
+      transition: all 0.2s; letter-spacing: 0.5px;
+    }
+    .back-btn:active { background: #2a4a2a; transform: scale(0.95); }
+      text-align: center;
+      font-size: 11px; color: #556; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .teams-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 8px; margin-bottom: 20px;
+    }
+    .team-block { flex: 1; text-align: center; }
+    .team-crest {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, #1a2a3a, #0f1923);
+      border-radius: 50%; border: 2px solid #1e3a2a;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: bold; color: #5DBE74;
+      margin: 0 auto 8px;
+    }
+    .team-name { font-size: 14px; font-weight: 700; color: #fff; line-height: 1.2; }
+    .vs-block { text-align: center; padding: 0 12px; }
+    .vs-time {
+      background: #5DBE74; color: #0a0e1a;
+      font-size: 13px; font-weight: 800;
+      padding: 8px 16px; border-radius: 20px;
+      display: block; margin-bottom: 4px;
+    }
+    .vs-date { font-size: 10px; color: #556; }
+    .score-row {
+      display: flex; justify-content: center; gap: 8px;
+      padding-bottom: 20px;
+    }
+    .score-pill {
+      background: #1a2a1a; border: 1px solid #2a3a2a;
+      border-radius: 99px; padding: 4px 12px;
+      font-size: 11px; color: #5DBE74; font-weight: 600;
+    }
+
+    /* TABS */
+    .tabs {
+      display: flex; background: #0f1923;
+      border-bottom: 1px solid #1a2a1a;
+      position: sticky; top: 0; z-index: 50;
+    }
+    .tab {
+      flex: 1; padding: 14px 8px;
+      text-align: center; font-size: 12px; font-weight: 700;
+      color: #556; cursor: pointer; letter-spacing: 0.5px;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    .tab.active { color: #5DBE74; border-bottom-color: #5DBE74; }
+
+    /* CONTENT */
+    .content { padding: 16px; }
+
+    /* RECOMMANDATION */
+    .rec-card {
+      background: linear-gradient(135deg, #0d2016, #0f2a1a);
+      border: 1px solid #2a5a3a;
+      border-radius: 16px; padding: 16px; margin-bottom: 16px;
+      position: relative; overflow: hidden;
+    }
+    .rec-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, #5DBE74, #27500A);
+    }
+    .rec-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .rec-label {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 700; color: #5DBE74;
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+    .rec-badge {
+      background: #5DBE74; color: #0a0e1a;
+      font-size: 11px; font-weight: 800;
+      padding: 3px 10px; border-radius: 99px;
+    }
+    .rec-text {
+      font-size: 15px; font-weight: 700; color: #fff;
+      line-height: 1.4;
+    }
+    .rec-sub { font-size: 11px; color: #5DBE74; margin-top: 4px; }
+
+    /* STATS */
+    .stats-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px; margin-bottom: 16px;
+    }
+    .stat-box {
+      background: #0f1923; border: 1px solid #1a2a2a;
+      border-radius: 12px; padding: 12px 8px; text-align: center;
+    }
+    .stat-num { font-size: 22px; font-weight: 800; color: #fff; }
+    .stat-lbl { font-size: 9px; color: #556; margin-top: 3px; line-height: 1.3; }
+
+    /* SECTION LABEL */
+    .sec-lbl {
+      font-size: 10px; font-weight: 800; color: #556;
+      letter-spacing: 2px; text-transform: uppercase;
+      margin: 20px 0 10px; padding-left: 4px;
+    }
+
+    /* MARKET CARD */
+    .mkt-card {
+      background: #0f1923; border: 1px solid #1a2a2a;
+      border-radius: 14px; padding: 14px; margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .mkt-title {
+      font-size: 12px; font-weight: 700; color: #aaa;
+      margin-bottom: 12px; display: flex; align-items: center; gap: 6px;
+    }
+    .mrow {
+      padding: 8px 0;
+      border-bottom: 1px solid #1a2a2a;
+    }
+    .mrow:last-child { border-bottom: none; }
+    .mrow-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; }
+    .mrow-lbl { font-size: 12px; color: #ccc; font-weight: 500; }
+    .mrow-pct { font-size: 13px; font-weight: 800; color: #fff; min-width: 40px; text-align: right; }
+    .mrow-bar { height: 4px; background: #1a2a2a; border-radius: 99px; overflow: hidden; }
+    .mrow-fill { height: 100%; border-radius: 99px; background: #2a3a2a; transition: width 0.6s; }
+    .mrow.best .mrow-lbl { color: #5DBE74; font-weight: 700; }
+    .mrow.best .mrow-pct { color: #5DBE74; }
+    .mrow.best .mrow-fill { background: linear-gradient(90deg, #5DBE74, #27500A); }
+    .conf-tag {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 10px; font-weight: 700; padding: 3px 8px;
+      border-radius: 99px; margin-top: 6px;
+    }
+    .conf-high { background: #0d2016; color: #5DBE74; border: 1px solid #2a5a3a; }
+    .conf-mid { background: #1a1a0a; color: #f0a500; border: 1px solid #3a3a1a; }
+    .conf-low { background: #1a0a0a; color: #e84545; border: 1px solid #3a1a1a; }
+
+    /* BOTTOM NAV */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: #0f1923; border-top: 1px solid #1a2a2a;
+      display: flex; z-index: 100;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .bnav {
+      flex: 1; padding: 10px 0 8px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 4px;
+      text-decoration: none; cursor: pointer;
+    }
+    .bnav-icon {
+      width: 24px; height: 24px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .bnav-icon svg { width: 22px; height: 22px; }
+    .bnav-lbl { font-size: 9px; font-weight: 600; color: #556; letter-spacing: 0.5px; }
+    .bnav.active .bnav-lbl { color: #5DBE74; }
+    .bnav.active svg path, .bnav.active svg rect, .bnav.active svg circle { fill: #5DBE74; }
+    svg path, svg rect, svg circle { fill: #556; transition: fill 0.2s; }
+
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="match-header">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+      <button onclick="window.history.back()" style="background:#1a2a2a;border:1px solid #2a4a2a;color:#5DBE74;width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;">‹</button>
+      <span id="leagueName" style="color:#aaa;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;">Championnat</span>
+    </div>
+    <div class="teams-row">
+      <div class="team-block">
+        <div class="team-crest" id="homeCrest">H</div>
+        <div class="team-name" id="homeName">—</div>
+      </div>
+      <div class="vs-block">
+        <span class="vs-time" id="matchTime">—</span>
+        <div class="vs-date" id="matchDate">—</div>
+      </div>
+      <div class="team-block">
+        <div class="team-crest" id="awayCrest">A</div>
+        <div class="team-name" id="awayName">—</div>
+      </div>
+    </div>
+    <div class="score-row">
+      <span class="score-pill" id="pill1">📅 À venir</span>
+      <span class="score-pill" id="pill2">📍 —</span>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('pronostics', this)">Pronostics</div>
+    <div class="tab" onclick="showTab('stats', this)">Stats</div>
+    <div class="tab" onclick="showTab('h2h', this)">H2H</div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- PRONOSTICS TAB -->
+    <div id="tab-pronostics">
+      <!-- RECOMMANDATION -->
+      <div class="rec-card">
+        <div class="rec-header">
+          <div class="rec-label">💡 Recommandation IA</div>
+          <div class="rec-badge" id="aiConf">—%</div>
+        </div>
+        <div class="rec-text" id="aiText">Analyse en cours...</div>
+        <div class="rec-sub" id="aiSub"></div>
+      </div>
+
+      <!-- STATS RAPIDES -->
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-num" id="s1">—</div>
+          <div class="stat-lbl">Buts/match dom.</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="s2">—</div>
+          <div class="stat-lbl">Buts/match ext.</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="s3">—</div>
+          <div class="stat-lbl">Buts attendus</div>
+        </div>
+      </div>
+
+      <div id="marketsContainer"></div>
+    </div>
+
+    <!-- STATS TAB -->
+    <div id="tab-stats" class="hidden">
+      <div style="text-align:center;padding:40px;color:#556;">
+        <div style="font-size:32px;margin-bottom:12px;">📊</div>
+        <div style="font-size:14px;font-weight:700;">Stats détaillées</div>
+        <div style="font-size:12px;margin-top:6px;">Disponible avec le plan Pro</div>
+      </div>
+    </div>
+
+    <!-- H2H TAB -->
+    <div id="tab-h2h" class="hidden">
+      <div style="text-align:center;padding:40px;color:#556;">
+        <div style="font-size:32px;margin-bottom:12px;">⚔️</div>
+        <div style="font-size:14px;font-weight:700;">Historique H2H</div>
+        <div style="font-size:12px;margin-top:6px;">Disponible avec le plan Pro</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <a href="home.html" class="bnav">
+      <div class="bnav-icon">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </div>
+      <span class="bnav-lbl">Accueil</span>
+    </a>
+    <a href="matches.html" class="bnav">
+      <div class="bnav-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      </div>
+      <span class="bnav-lbl">Matchs</span>
+    </a>
+    <a href="favorites.html" class="bnav">
+      <div class="bnav-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <span class="bnav-lbl">Favoris</span>
+    </a>
+    <a href="account.html" class="bnav">
+      <div class="bnav-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      </div>
+      <span class="bnav-lbl">Compte</span>
+    
+  </nav>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const home = params.get('home') || 'Domicile';
+    const away = params.get('away') || 'Extérieur';
+    const league = params.get('league') || '';
+    const time = params.get('time') || '';
+
+    // Init header
+    var leagueNames = {"PL":"Premier League","PD":"La Liga","FL1":"Ligue 1","BL1":"Bundesliga","SA":"Serie A","PPL":"Liga Portugal","CL":"Champions League","BSA":"Brasileirao","WC":"Coupe du Monde 2026"};
+    document.getElementById("leagueName").textContent = leagueNames[league] || league;
+    document.getElementById('homeName').textContent = home;
+    document.getElementById('awayName').textContent = away;
+    document.getElementById('homeCrest').textContent = home.charAt(0);
+    document.getElementById('awayCrest').textContent = away.charAt(0);
+    var hId = params.get("homeId") || 0;
+    var aId = params.get("awayId") || 0;
+    if (hId > 0) { fetch("http://localhost:8080/api/matches?league=" + (params.get("league") || "PL")).then(function(r){return r.json();}).then(function(d){var ms=d.matches||[];for(var i=0;i<ms.length;i++){var m=ms[i];if(m.homeTeam&&m.homeTeam.id==hId&&m.homeTeam.crest){document.getElementById("homeCrest").innerHTML="<img src=\""+m.homeTeam.crest+"\" style=\"width:36px;height:36px;object-fit:contain;\">";}if(m.awayTeam&&m.awayTeam.id==aId&&m.awayTeam.crest){document.getElementById("awayCrest").innerHTML="<img src=\""+m.awayTeam.crest+"\" style=\"width:36px;height:36px;object-fit:contain;\">";}}}).catch(function(){}); }
+    document.getElementById('matchTime').textContent = time || 'À venir';
+    document.getElementById('matchDate').textContent = new Date().toLocaleDateString('fr', {day:'2-digit', month:'long'});
+
+    // Tabs
+    function showTab(id, el) {
+      document.querySelectorAll('[id^="tab-"]').forEach(t => t.classList.add('hidden'));
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('tab-' + id).classList.remove('hidden');
+      el.classList.add('active');
+    }
+
+    // Market card
+    function mktCard(icon, title, rows) {
+      var best = rows.reduce(function(a, b) { return a.pct > b.pct ? a : b; });
+      var confClass = best.pct >= 70 ? 'conf-high' : best.pct >= 55 ? 'conf-mid' : 'conf-low';
+      var confText = best.pct >= 70 ? '🔥 Haute confiance' : best.pct >= 55 ? '✅ Bonne option' : '⚠️ Incertain';
+      return `
+        <div class="mkt-card">
+          <div class="mkt-title">${icon} ${title}</div>
+          <div class="mrow best">
+            <div class="mrow-top">
+              <span class="mrow-lbl">${best.label}</span>
+              <span class="mrow-pct">${best.pct}%</span>
+            </div>
+            <div class="mrow-bar"><div class="mrow-fill" style="width:${best.pct}%"></div></div>
+            <span class="conf-tag ${confClass}">${confText}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    function secLbl(txt) {
+      return `<div class="sec-lbl">${txt}</div>`;
+    }
+
+    // Calcul pronostics
+   function calcPronostics() {
+      const homeParam = params.get('home') || '';
+      const awayParam = params.get('away') || '';
+      const leagueParam = params.get('league') || 'PL';
+
+      // Chercher les IDs dans l'URL
+      const homeId = params.get('homeId') || 0;
+      const awayId = params.get('awayId') || 0;
+
+      // Appeler l'API pour les vraies probabilités
+      fetch('http://localhost:8080/api/probs?home=' + homeId + '&away=' + awayId + '&league=' + leagueParam + '&homeName=' + encodeURIComponent(home) + '&awayName=' + encodeURIComponent(away))
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          const hWin = data.prob1 || 40;
+          const draw = data.probX || 28;
+          const aWin = data.prob2 || 32;
+          const over25 = data.over25 || 55;
+          const btts = data.btts || 50;
+          const hGoals = data.homeGoalsAvg || 1.5;
+          const aGoals = data.awayGoalsAvg || 1.2;
+          const expGoals = (hGoals + aGoals).toFixed(1);
+
+          document.getElementById('s1').textContent = hGoals;
+          document.getElementById('s2').textContent = aGoals;
+          document.getElementById('s3').textContent = expGoals;
+
+          // Recommandation
+          var rec = '', conf = 0, sub = '';
+          if (hWin > aWin && hWin > 45) {
+            rec = home + ' remporte la victoire';
+            conf = hWin; sub = 'Favori à domicile · ' + hWin + '% de probabilité';
+          } else if (aWin > hWin && aWin > 45) {
+            rec = away + ' remporte la victoire';
+            conf = aWin; sub = 'Favori à l\'extérieur · ' + aWin + '% de probabilité';
+          } else if (draw > 32) {
+            rec = 'Match nul probable';
+            conf = draw; sub = 'Équipes de force égale · ' + draw + '% de probabilité';
+          } else if (btts > 65) {
+            rec = 'Les deux équipes marquent';
+            conf = btts; sub = 'Attaques productives des deux côtés';
+          } else {
+            rec = 'Plus de 2.5 buts dans le match';
+            conf = over25; sub = 'Match ouvert attendu';
+          }
+
+          document.getElementById('aiConf').textContent = conf + '%';
+          document.getElementById('aiText').textContent = rec;
+         const p = { hWin, draw, aWin, over25, btts, expGoals, hGoals, aGoals };
+         renderMarkets(p);
+        })
+        .catch(function() {
+          // Fallback valeurs par défaut
+          const p = { hWin: 40, draw: 28, aWin: 32, over25: 55, btts: 50, expGoals: 2.7 };
+          document.getElementById('s1').textContent = '1.5';
+          document.getElementById('s2').textContent = '1.2';
+          document.getElementById('s3').textContent = '2.7';
+          document.getElementById('aiConf').textContent = '40%';
+          document.getElementById('aiText').textContent = 'Données insuffisantes';
+          document.getElementById('aiSub').textContent = 'Basé sur les statistiques générales';
+          renderMarkets(p);
+        });
+    }
+
+   
+
+    function renderMarkets(p) {
+      // Variables de base cohérentes
+      const hG = p.hGoals || 1.2;
+      const aG = p.aGoals || 1.0;
+      const totalG = hG + aG;
+      
+      // BTTS cohérent avec les moyennes de buts
+      const btts = hG >= 1 && aG >= 1 ? Math.max(p.btts, 55) : Math.min(p.btts, 45);
+      
+      // Over/Under cohérent avec totalG
+      const over25 = totalG > 2.5 ? Math.max(p.over25, 55) : Math.min(p.over25, 45);
+      const over15 = Math.min(over25 + 20, 92);
+      const over35 = Math.max(over25 - 25, 10);
+      
+      // Probabilités équipe de marquer cohérentes avec hG/aG
+      const hOver05 = hG >= 1 ? Math.max(p.hWin + 25, 65) : Math.min(p.hWin + 25, 55);
+      const aOver05 = aG >= 1 ? Math.max(p.aWin + 25, 60) : Math.min(p.aWin + 25, 50);
+      
+      // Score exact cohérent
+      const sc1 = p.draw > p.hWin && p.draw > p.aWin ? Math.round(hG) : (p.hWin > p.aWin ? Math.round(hG) : Math.max(Math.round(hG) - 1, 0));
+      const sc2 = p.draw > p.hWin && p.draw > p.aWin ? Math.round(aG) : (p.aWin > p.hWin ? Math.round(aG) : Math.max(Math.round(aG) - 1, 0));
+      
+      // Mi-temps cohérents avec résultat final
+      const hHalf = Math.round(p.hWin * 0.7);
+      const drawHalf = Math.round(p.draw * 1.3);
+      const aHalf = Math.round(p.aWin * 0.7);
+
+      const markets = `
+      ${secLbl('RÉSULTATS')}
+      ${mktCard('🏆', 'Résultat temps réglementaire', [
+        {label: home + ' gagne (1)', pct: p.hWin},
+        {label: 'Match nul (X)', pct: p.draw},
+        {label: away + ' gagne (2)', pct: p.aWin},
+      ])}
+      ${mktCard('✌️', 'Double chance', [
+        {label: '1X (' + home + ' ou Nul)', pct: Math.min(p.hWin + p.draw, 95)},
+        {label: '12 (Pas de Nul)', pct: Math.min(p.hWin + p.aWin, 90)},
+        {label: 'X2 (' + away + ' ou Nul)', pct: Math.min(p.aWin + p.draw, 85)},
+      ])}
+      ${mktCard('⚖️', 'Handicap', [
+        {label: home + ' -0.5', pct: p.hWin},
+        {label: away + ' +0.5', pct: 100 - p.hWin},
+        {label: home + ' -1.5', pct: Math.round(p.hWin * 0.65)},
+      ])}
+      ${secLbl('MI-TEMPS')}
+      ${mktCard('⏱️', 'Résultat 1ère mi-temps', [
+        {label: home + ' mène', pct: hHalf},
+        {label: 'Nul à la mi-temps', pct: drawHalf},
+        {label: away + ' mène', pct: aHalf},
+      ])}
+      ${mktCard('⏱️', 'Résultat 2ème mi-temps', [
+        {label: home + ' marque plus', pct: Math.round(p.hWin * 0.85)},
+        {label: 'Égalité en 2ème MT', pct: Math.round(p.draw * 1.1)},
+        {label: away + ' marque plus', pct: Math.round(p.aWin * 0.85)},
+      ])}
+      ${secLbl('BUTS')}
+      ${mktCard('⚽', 'Total buts dans le match', [
+        {label: 'Plus de 1.5 buts', pct: over15},
+        {label: 'Plus de 2.5 buts', pct: over25},
+        {label: 'Plus de 3.5 buts', pct: over35},
+      ])}
+      ${mktCard('🔵', home + ' — Total buts', [
+        {label: 'Plus de 0.5 buts', pct: hOver05},
+        {label: 'Plus de 1.5 buts', pct: Math.round(hOver05 * 0.65)},
+        {label: 'Plus de 2.5 buts', pct: Math.round(hOver05 * 0.35)},
+      ])}
+      ${mktCard('🔴', away + ' — Total buts', [
+        {label: 'Plus de 0.5 buts', pct: aOver05},
+        {label: 'Plus de 1.5 buts', pct: Math.round(aOver05 * 0.60)},
+        {label: 'Plus de 2.5 buts', pct: Math.round(aOver05 * 0.30)},
+      ])}
+      ${mktCard('🤝', 'Les deux équipes marquent', [
+        {label: 'Oui', pct: btts},
+        {label: 'Non', pct: 100 - btts},
+      ])}
+      ${mktCard('🤝', 'Les deux équipes marquent — 2ème MT', [
+        {label: 'Oui', pct: Math.round(btts * 0.70)},
+        {label: 'Non', pct: 100 - Math.round(btts * 0.70)},
+      ])}
+      ${secLbl('ÉQUIPES')}
+      ${mktCard('🎯', home + ' — Marquer', [
+        {label: home + ' marque', pct: hOver05},
+        {label: home + ' ne marque pas', pct: 100 - hOver05},
+      ])}
+      ${mktCard('🎯', away + ' — Marquer', [
+        {label: away + ' marque', pct: aOver05},
+        {label: away + ' ne marque pas', pct: 100 - aOver05},
+      ])}
+      ${secLbl('SCORE EXACT')}
+      ${mktCard('🔢', 'Score le plus probable', [
+        {label: sc1 + ' - ' + sc2, pct: Math.round(Math.max(p.hWin, p.aWin, p.draw) * 0.35)},
+        {label: (sc1+1) + ' - ' + sc2, pct: Math.round(Math.max(p.hWin, p.aWin, p.draw) * 0.22)},
+        {label: sc1 + ' - ' + (sc2+1), pct: Math.round(Math.max(p.hWin, p.aWin, p.draw) * 0.18)},
+      ])}
+      ${secLbl('CORNERS')}
+      ${mktCard('🚩', 'Total corners', [
+        {label: 'Plus de 8.5 corners', pct: Math.round(over25 * 1.3)},
+        {label: 'Plus de 9.5 corners', pct: Math.round(over25 * 1.0)},
+        {label: 'Moins de 9.5 corners', pct: 100 - Math.round(over25 * 1.0)},
+      ])}
+      ${mktCard('🚩', home + ' — Corners', [
+        {label: 'Plus de 4.5 corners', pct: Math.round(hOver05 * 0.85)},
+        {label: 'Plus de 5.5 corners', pct: Math.round(hOver05 * 0.60)},
+      ])}
+      ${mktCard('🚩', away + ' — Corners', [
+        {label: 'Plus de 4.5 corners', pct: Math.round(aOver05 * 0.80)},
+        {label: 'Plus de 5.5 corners', pct: Math.round(aOver05 * 0.55)},
+      ])}
+      ${secLbl('CARTONS')}
+      ${mktCard('🟨', 'Cartons jaunes', [
+        {label: 'Plus de 2.5 cartons', pct: Math.round(over25 * 1.2)},
+        {label: 'Plus de 3.5 cartons', pct: Math.round(over25 * 0.8)},
+      ])}
+      ${mktCard('🟥', 'Carton rouge', [
+        {label: 'Aucun carton rouge', pct: 72},
+        {label: 'Au moins 1 carton rouge', pct: 28},
+      ])}
+      ${secLbl('TIRS')}
+      ${mktCard('💥', 'Total tirs', [
+        {label: 'Plus de 20.5 tirs', pct: Math.round(over15 * 0.70)},
+        {label: 'Plus de 22.5 tirs', pct: Math.round(over15 * 0.50)},
+      ])}
+      ${mktCard('🎯', 'Tirs cadrés', [
+        {label: 'Plus de 7.5 total', pct: Math.round(over15 * 0.65)},
+        {label: 'Plus de 8.5 total', pct: Math.round(over15 * 0.45)},
+      ])}
+    `;
+    document.getElementById('marketsContainer').innerHTML = markets;
+    }
+    calcPronostics();
+  </script>
+</body>
+</html>

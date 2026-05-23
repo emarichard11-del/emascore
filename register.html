@@ -1,0 +1,302 @@
+  <!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EMASCORE — Inscription</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f1923;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .header {
+      width: 100%;
+      max-width: 340px;
+      padding: 16px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 0.5px solid #1e2e1e;
+    }
+    .back {
+      color: #5DBE74;
+      font-size: 22px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .header-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      flex: 1;
+      letter-spacing: 2px;
+    }
+    .body {
+      width: 100%;
+      max-width: 340px;
+      padding: 24px 0 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .form-label {
+      font-size: 11px;
+      font-weight: bold;
+      color: #5DBE74;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .form-input {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 10px;
+      background: #1a2a1a;
+      border: 0.5px solid #2a3a2a;
+      color: #ddd;
+      font-size: 14px;
+      outline: none;
+    }
+    .form-input:focus { border-color: #5DBE74; }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .plan-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .plan-opt {
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 0.5px solid #2a3a2a;
+      background: #1a2a1a;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .plan-opt.selected {
+      border-color: #5DBE74;
+      background: #0f2a1a;
+    }
+    .plan-name {
+      font-size: 13px;
+      font-weight: bold;
+      color: #aaa;
+    }
+    .plan-opt.selected .plan-name { color: #5DBE74; }
+    .plan-price { font-size: 12px; color: #556; }
+    .plan-opt.selected .plan-price { color: #5DBE74; }
+    .plan-badge {
+      font-size: 9px;
+      background: #0f2a0a;
+      color: #5DBE74;
+      padding: 2px 7px;
+      border-radius: 99px;
+      margin-left: 6px;
+    }
+    .pay-methods {
+      display: flex;
+      gap: 8px;
+    }
+    .pay-btn {
+      flex: 1;
+      padding: 12px 6px;
+      border-radius: 10px;
+      border: 0.5px solid #2a3a2a;
+      background: #1a2a1a;
+      color: #778;
+      font-size: 12px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .pay-btn.selected {
+      border-color: #5DBE74;
+      background: #0f2a1a;
+      color: #5DBE74;
+    }
+    .checklist {
+      background: #1a2a1a;
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .chk {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: #556;
+    }
+    .chk.done { color: #5DBE74; }
+    .chk-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #2a3a2a;
+      flex-shrink: 0;
+    }
+    .chk.done .chk-dot { background: #5DBE74; }
+    .btn-continue {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      border: 2px solid #2a3a2a;
+      background: #1a2a1a;
+      color: #3a5a3a;
+      cursor: not-allowed;
+      transition: all .25s;
+    }
+    .btn-continue.enabled {
+      background: #5DBE74;
+      border-color: #5DBE74;
+      color: #0f1923;
+      cursor: pointer;
+    }
+    .secure {
+      text-align: center;
+      font-size: 10px;
+      color: #445;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <a href="index.html" class="back">←</a>
+    <span class="header-title">CRÉER UN COMPTE</span>
+  </div>
+  <div class="body">
+    <div>
+      <label class="form-label">PRÉNOM</label>
+      <input class="form-input" id="prenom" placeholder="Jean" oninput="validate()">
+    </div>
+    <div>
+      <label class="form-label">NOM</label>
+      <input class="form-input" id="nom" placeholder="Dupont" oninput="validate()">
+    </div>
+    <div>
+      <label class="form-label">ADRESSE E-MAIL</label>
+      <input class="form-input" id="email" type="email" placeholder="exemple@email.com" oninput="validate()">
+    </div>
+    <div>
+      <label class="form-label">MOT DE PASSE</label>
+      <input class="form-input" id="pass" type="password" placeholder="Minimum 6 caractères" oninput="validate()">
+    </div>
+    <div>
+      <label class="form-label">PLAN D'ABONNEMENT</label>
+      <div class="plan-options">
+        <div class="plan-opt" onclick="selectPlan(this)">
+          <span class="plan-name">Hebdomadaire</span>
+          <span class="plan-price">2.99€/sem</span>
+        </div>
+        <div class="plan-opt selected" onclick="selectPlan(this)">
+          <div><span class="plan-name">Mensuel</span><span class="plan-badge">Populaire</span></div>
+          <span class="plan-price">9.99€/mois</span>
+        </div>
+        <div class="plan-opt" onclick="selectPlan(this)">
+          <div><span class="plan-name">Semi-annuel</span><span class="plan-badge">-30%</span></div>
+          <span class="plan-price">41.99€/6mois</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <label class="form-label">MOYEN DE PAIEMENT</label>
+      <div class="pay-methods">
+        <div class="pay-btn selected" onclick="selectPay(this,'card')">💳<br>Carte</div>
+        <div class="pay-btn" onclick="selectPay(this,'paypal')">PayPal</div>
+        <div class="pay-btn" onclick="selectPay(this,'mobile')">📱<br>Mobile</div>
+      </div>
+    </div>
+    <div id="card-fields">
+      <label class="form-label">NUMÉRO DE CARTE</label>
+      <input class="form-input" id="card" placeholder="4242 4242 4242 4242" maxlength="19" oninput="fmtCard(this);validate()">
+      <div class="form-row">
+        <div>
+          <label class="form-label">EXPIRATION</label>
+          <input class="form-input" id="exp" placeholder="MM/AA" maxlength="5" oninput="fmtExp(this);validate()">
+        </div>
+        <div>
+          <label class="form-label">CVV</label>
+          <input class="form-input" id="cvv" placeholder="•••" maxlength="3" oninput="validate()">
+        </div>
+      </div>
+    </div>
+    <div class="checklist">
+      <div class="chk" id="chk-info"><div class="chk-dot"></div>Informations personnelles</div>
+      <div class="chk done" id="chk-plan"><div class="chk-dot"></div>Plan sélectionné</div>
+      <div class="chk" id="chk-pay"><div class="chk-dot"></div>Paiement renseigné</div>
+    </div>
+    <button class="btn-continue" id="btn-continue" disabled>CONTINUER ET PAYER</button>
+    <div class="secure">🔒 Paiement 100% sécurisé</div>
+  </div>
+  <script>
+    let payMethod = 'card';
+    function fmtExp(inp) {
+      let v = inp.value.replace(/\D/g,"").substring(0,4);
+      if (v.length >= 2) v = v.substring(0,2) + "/" + v.substring(2);
+      inp.value = v;
+    }
+    function fmtCard(inp) {
+      let v = inp.value.replace(/\D/g,'').substring(0,16);
+      inp.value = v.replace(/(.{4})/g,'$1 ').trim();
+    }
+    function selectPlan(el) {
+      document.querySelectorAll('.plan-opt').forEach(p => p.classList.remove('selected'));
+      el.classList.add('selected');
+      validate();
+    }
+    function selectPay(el, method) {
+      document.querySelectorAll('.pay-btn').forEach(p => p.classList.remove('selected'));
+      el.classList.add('selected');
+      payMethod = method;
+      document.getElementById('card-fields').style.display = method === 'card' ? 'block' : 'none';
+      validate();
+    }
+    function validate() {
+      const prenom = document.getElementById('prenom').value.trim();
+      const nom = document.getElementById('nom').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const pass = document.getElementById('pass').value;
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      const infoOk = prenom.length > 1 && nom.length > 1 && emailOk && pass.length >= 6;
+      let payOk = false;
+      if (payMethod === 'card') {
+        const card = document.getElementById('card').value.replace(/\s/g,'');
+        const exp = document.getElementById('exp').value;
+        const cvv = document.getElementById('cvv').value;
+        payOk = card.length === 16 && exp.length === 5 && cvv.length === 3;
+      } else {
+        payOk = true;
+      }
+      document.getElementById('chk-info').className = 'chk' + (infoOk ? ' done' : '');
+      document.getElementById('chk-info').querySelector('.chk-dot').style.background = infoOk ? '#5DBE74' : '#2a3a2a';
+      document.getElementById('chk-pay').className = 'chk' + (payOk ? ' done' : '');
+      document.getElementById('chk-pay').querySelector('.chk-dot').style.background = payOk ? '#5DBE74' : '#2a3a2a';
+      const btn = document.getElementById('btn-continue');
+      if (infoOk && payOk) {
+        btn.classList.add('enabled');
+        btn.disabled = false;
+        btn.onclick = () => window.location.href = 'home.html';
+      } else {
+        btn.classList.remove('enabled');
+        btn.disabled = true;
+      }
+    }
+    validate();
+  </script>
+</body>
+</html>

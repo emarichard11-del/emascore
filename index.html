@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EMASCORE</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f1923;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .banner {
+      background: #071507;
+      height: 280px;
+      position: relative;
+      overflow: hidden;
+    }
+    .grass {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 80px;
+      display: flex;
+    }
+    .gs { flex: 1; }
+    .players-area {
+      position: absolute;
+      top: 55px;
+      left: 0; right: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 10px;
+      z-index: 2;
+    }
+    .pl {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .pl-body {
+      border-radius: 6px 6px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      width: 28px;
+    }
+    .pl-legs {
+      display: flex;
+      gap: 3px;
+      margin-top: 1px;
+    }
+    .pl-leg {
+      width: 9px;
+      height: 12px;
+      border-radius: 2px;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+        rgba(7,21,7,0) 0%,
+        rgba(15,25,35,0.7) 65%,
+        rgba(15,25,35,1) 100%
+      );
+    }
+    .banner-footer {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 20px;
+      gap: 5px;
+    }
+    .logo {
+      font-size: 32px;
+      font-weight: bold;
+      color: #5DBE74;
+      letter-spacing: 5px;
+    }
+    .tagline {
+      font-size: 10px;
+      color: #ccc;
+      letter-spacing: 4px;
+      margin-top: -3px;
+    }
+    .lang-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .lang-btn {
+      padding: 4px 14px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: bold;
+      border: 1px solid #445;
+      color: #889;
+      background: rgba(0,0,0,0.3);
+      cursor: pointer;
+    }
+    .lang-btn.active {
+      border-color: #5DBE74;
+      color: #5DBE74;
+    }
+    .bottom {
+      padding: 24px 20px 32px;
+      max-width: 300px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background: #0f1923;
+      flex: 1;
+    }
+    .tagline2 {
+      text-align: center;
+      font-size: 13px;
+      color: #778;
+      line-height: 1.6;
+    }
+    .btn-green {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      background: #5DBE74;
+      border: none;
+      color: #0f1923;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      letter-spacing: 1px;
+    }
+    .btn-outline {
+      width: 100%;
+      padding: 15px;
+      border-radius: 12px;
+      background: transparent;
+      border: 2px solid #5DBE74;
+      color: #5DBE74;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      letter-spacing: 1px;
+    }
+    .terms {
+      text-align: center;
+      font-size: 10px;
+      color: #778;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <div class="grass" id="grass"></div>
+    <div class="players-area" id="players"></div>
+    <div class="overlay"></div>
+    <div class="banner-footer">
+      <div class="logo">EMASCORE</div>
+      <div class="tagline">FOOTBALL INTELLIGENCE</div>
+      <div class="lang-row">
+        <button class="lang-btn active">FR</button>
+        <button class="lang-btn">EN</button>
+        <button class="lang-btn">ES</button>
+      </div>
+    </div>
+  </div>
+  <div class="bottom">
+    <div class="tagline2">Pronostics pour chaque match,<br>chaque marché, chaque championnat.</div>
+    <button class="btn-green" onclick="window.location.href='login.html'">SE CONNECTER</button>
+    <button class="btn-outline" onclick="window.location.href='register.html'">CRÉER UN COMPTE</button>
+    <div class="terms">En continuant, vous acceptez nos Conditions d'utilisation<br>et notre Politique de confidentialité.</div>
+  </div>
+
+  <script>
+    const grass = document.getElementById('grass');
+    for(let i=0;i<20;i++){
+      const s = document.createElement('div');
+      s.className = 'gs';
+      s.style.background = i%2===0 ? '#0d2a0d' : '#0a250a';
+      grass.appendChild(s);
+    }
+    const players = document.getElementById('players');
+    const pData = [
+      {bg:'#1e5c2a', legs:'#155222', emoji:'🧤', h:55, mb:0},
+      {bg:'#2a1a7a', legs:'#1e1260', emoji:'⚽', h:62, mb:18},
+      {bg:'#7a1a1a', legs:'#601212', emoji:'🏃', h:58, mb:8},
+      {bg:'#1e5c2a', legs:'#155222', emoji:'🏃', h:66, mb:24},
+      {bg:'#2a1a7a', legs:'#1e1260', emoji:'🏃', h:56, mb:10},
+      {bg:'#7a1a1a', legs:'#601212', emoji:'⚽', h:55, mb:0},
+    ];
+    pData.forEach(p => {
+      const wrap = document.createElement('div');
+      wrap.className = 'pl';
+      wrap.style.marginBottom = p.mb + 'px';
+      wrap.innerHTML = `
+        <div class="pl-body" style="background:${p.bg};height:${p.h}px;">${p.emoji}</div>
+        <div class="pl-legs">
+          <div class="pl-leg" style="background:${p.legs};"></div>
+          <div class="pl-leg" style="background:${p.legs};"></div>
+        </div>
+      `;
+      players.appendChild(wrap);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EMASCORE — Connexion</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f1923;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .phone {
+      background: #0f1923;
+      width: 320px;
+      border-radius: 40px;
+      overflow: hidden;
+      border: 8px solid #1a1a1a;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .notch-bar {
+      background: #1a1a1a;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .notch {
+      width: 80px;
+      height: 14px;
+      background: #000;
+      border-radius: 99px;
+    }
+    .header {
+      padding: 14px 16px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 0.5px solid #1e2e1e;
+    }
+    .back {
+      color: #5DBE74;
+      font-size: 22px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .header-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: #fff;
+      flex: 1;
+      letter-spacing: 1px;
+    }
+    .switch-link {
+      font-size: 11px;
+      color: #5DBE74;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .body {
+      padding: 24px 18px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .logo-center {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .logo-center .logo {
+      font-size: 20px;
+      font-weight: bold;
+      color: #5DBE74;
+      letter-spacing: 3px;
+    }
+    .logo-center .sub {
+      font-size: 10px;
+      color: #556;
+      margin-top: 4px;
+    }
+    .form-label {
+      font-size: 10px;
+      font-weight: bold;
+      color: #5DBE74;
+      letter-spacing: 0.05em;
+      margin-bottom: 5px;
+      display: block;
+    }
+    .form-input {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 8px;
+      background: #1a2a1a;
+      border: 0.5px solid #2a3a2a;
+      color: #ddd;
+      font-size: 13px;
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: #5DBE74;
+    }
+    .forgot {
+      text-align: right;
+      font-size: 11px;
+      color: #5DBE74;
+      cursor: pointer;
+      margin-top: -8px;
+    }
+    .btn-green {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      background: #5DBE74;
+      border: none;
+      color: #0f1923;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+    .signup-link {
+      text-align: center;
+      font-size: 11px;
+      color: #556;
+      line-height: 1.8;
+    }
+    .signup-link a {
+      color: #5DBE74;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    
+    <div class="header">
+      <a href="index.html" class="back">←</a>
+      <span class="header-title">CONNEXION</span>
+      <a href="register.html" class="switch-link">S'inscrire</a>
+    </div>
+    <div class="body">
+      <div class="logo-center">
+        <div class="logo">EMASCORE</div>
+        <div class="sub">Bienvenue</div>
+      </div>
+      <div>
+        <label class="form-label">ADRESSE E-MAIL</label>
+        <input class="form-input" type="email" placeholder="exemple@email.com">
+      </div>
+      <div>
+        <label class="form-label">MOT DE PASSE</label>
+        <input class="form-input" type="password" placeholder="••••••••">
+      </div>
+      <div class="forgot">Mot de passe oublié ?</div>
+      <button class="btn-green" onclick="window.location.href='home.html'">SE CONNECTER</button>
+      <div class="signup-link">
+        Pas encore de compte ?<br>
+        <a href="register.html">Créer un compte gratuitement</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
