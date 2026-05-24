@@ -67,7 +67,7 @@ class Handler(BaseHTTPRequestHandler):
                     if aw > hw: away_wins += 1
                     elif aw == hw: away_draws += 1
                     else: away_losses += 1
-           home_total = max(home_wins + home_draws + home_losses, 1)
+            home_total = max(home_wins + home_draws + home_losses, 1)
             away_total = max(away_wins + away_draws + away_losses, 1)
             # Force avec pondération buts
             home_strength = (home_wins * 3 + home_draws * 1 + (home_goals_for - home_goals_against) * 0.5 + 2) / home_total
