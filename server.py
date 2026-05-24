@@ -77,7 +77,8 @@ class Handler(BaseHTTPRequestHandler):
             total = home_strength + away_strength + 1.2
             prob1 = min(80, max(25, round((home_strength / total) * 100)))
             probX = min(40, max(15, round((1.2 / total) * 100)))
-            prob2 = 100 - prob1 - probX
+            prob2 = max(5, 100 - prob1 - probX)
+            prob1 = 100 - prob2 - probX
             all_goals = home_goals_for + away_goals_for
             all_games = home_total + away_total
             avg_goals = all_goals / max(all_games, 1)
