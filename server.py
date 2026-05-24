@@ -80,11 +80,14 @@ class Handler(BaseHTTPRequestHandler):
             avg_goals = all_goals / max(all_games, 1)
             btts = min(85, max(35, round(avg_goals * 15 + 30)))
             over25 = min(85, max(30, round(avg_goals * 12 + 25)))
+           best_market = max([('1', prob1), ('X', probX), ('2', prob2), ('BTTS', btts), ('Over2.5', over25)], key=lambda x: x[1])
+            high_confidence = best_market[1] >= 65
             return {
                 'prob1': prob1, 'probX': probX, 'prob2': prob2,
                 'btts': btts, 'over25': over25,
                 'homeGoalsAvg': round(home_goals_for / home_total, 1) if home_goals_for > 0 else 1.2,
-                'awayGoalsAvg': round(away_goals_for / away_total, 1) if away_goals_for > 0 else 1.0
+                'awayGoalsAvg': round(away_goals_for / away_total, 1) if away_goals_for > 0 else 1.0,
+                'bestMarket': best_market[0], 'bestProb': best_market[1], 'highConfidence': high_confidence
             }
         except Exception as e:
             print(f"calc_probs error: {e}")
