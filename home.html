@@ -401,7 +401,7 @@
       document.getElementById('matchesContainer').innerHTML = html;
       var confCount = 0;
       var confMatches = [];
-      allMatchesData.slice(0, 10).forEach(function(match) {
+      allMatchesData.forEach(function(match) {
         var hId = match.homeTeam && match.homeTeam.id ? match.homeTeam.id : 0;
         var aId = match.awayTeam && match.awayTeam.id ? match.awayTeam.id : 0;
         var code = match.competition && match.competition.code ? match.competition.code : "PL";
