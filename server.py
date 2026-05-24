@@ -67,21 +67,24 @@ class Handler(BaseHTTPRequestHandler):
                     if aw > hw: away_wins += 1
                     elif aw == hw: away_draws += 1
                     else: away_losses += 1
-            home_total = max(home_wins + home_draws + home_losses, 1)
+           home_total = max(home_wins + home_draws + home_losses, 1)
             away_total = max(away_wins + away_draws + away_losses, 1)
-            home_strength = (home_wins * 3 + home_draws + 1) / home_total
-            away_strength = (away_wins * 3 + away_draws + 1) / away_total
-            total = home_strength + away_strength + 1.5
-            prob1 = round((home_strength / total) * 100)
-            probX = round((1.5 / total) * 100)
+            # Force avec pondération buts
+            home_strength = (home_wins * 3 + home_draws * 1 + (home_goals_for - home_goals_against) * 0.5 + 2) / home_total
+            away_strength = (away_wins * 3 + away_draws * 1 + (away_goals_for - away_goals_against) * 0.5 + 1) / away_total
+            # Avantage domicile
+            home_strength *= 1.2
+            total = home_strength + away_strength + 1.2
+            prob1 = min(80, max(25, round((home_strength / total) * 100)))
+            probX = min(40, max(15, round((1.2 / total) * 100)))
             prob2 = 100 - prob1 - probX
             all_goals = home_goals_for + away_goals_for
             all_games = home_total + away_total
             avg_goals = all_goals / max(all_games, 1)
-            btts = min(85, max(35, round(avg_goals * 15 + 30)))
-            over25 = min(85, max(30, round(avg_goals * 12 + 25)))
-            best_market = max([('1', prob1), ('X', probX), ('2', prob2), ('BTTS', btts), ('Over2.5', over25)], key=lambda x: x[1])
-            high_confidence = best_market[1] >= 55
+            hG = home_goals_for / home_total
+            aG = away_goals_for / away_total
+            btts = min(80, max(30, round((hG * 0.7 + aG * 0.7) * 45 + 10)))
+            over25 = min(78, max(25, round(avg_goals * 18 + 15)))
             return {
                 'prob1': prob1, 'probX': probX, 'prob2': prob2,
                 'btts': btts, 'over25': over25,
