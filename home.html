@@ -466,7 +466,7 @@
       html += '<div style="background:#0f1923;border-radius:16px;padding:20px;max-width:500px;margin:0 auto;">';
       html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">';
       html += '<span style="font-size:16px;font-weight:800;color:#fff;">🔥 Haute Confiance</span>';
-      html += '<span onclick="document.getElementById(\'confModal\').remove()" style="color:#e84545;cursor:pointer;font-size:20px;">✕</span></div>';
+      html += '<span onclick="document.getElementById(\'confModal\').remove();document.body.style.overflow=\'\';" style="color:#e84545;cursor:pointer;font-size:20px;">✕</span></div>';
       confMatches.forEach(function(cm) {
         var m = cm.match;
         var home = m.homeTeam && m.homeTeam.shortName ? m.homeTeam.shortName : "Domicile";
