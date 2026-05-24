@@ -207,6 +207,7 @@
               if (elX) elX.textContent = p.probX + '%';
               if (el2) el2.textContent = p.prob2 + '%';
               if (elB) elB.textContent = 'BTTS — ' + p.btts + '%';
+              if (elO) elO.textContent = "+2.5 — " + p.over25 + "%";
               if (el1 && elX && el2) {
                 var best = Math.max(p.prob1, p.probX, p.prob2);
                 el1.closest(".odd").classList.remove("best"); elX.closest(".odd").classList.remove("best"); el2.closest(".odd").classList.remove("best");

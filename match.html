@@ -229,7 +229,7 @@
       <!-- RECOMMANDATION -->
       <div class="rec-card">
         <div class="rec-header">
-          <div class="rec-label">💡 Recommandation IA</div>
+          <div class="rec-label">💡 Pronostic EMASCORE</div>
           <div class="rec-badge" id="aiConf">—%</div>
         </div>
         <div class="rec-text" id="aiText">Analyse en cours...</div>
@@ -440,8 +440,10 @@
       const aOver05 = aG >= 1 ? Math.max(p.aWin + 25, 60) : Math.min(p.aWin + 25, 50);
       
       // Score exact cohérent
-      const sc1 = p.draw > p.hWin && p.draw > p.aWin ? Math.round(hG) : (p.hWin > p.aWin ? Math.round(hG) : Math.max(Math.round(hG) - 1, 0));
-      const sc2 = p.draw > p.hWin && p.draw > p.aWin ? Math.round(aG) : (p.aWin > p.hWin ? Math.round(aG) : Math.max(Math.round(aG) - 1, 0));
+      const hGr = Math.min(p.hGoals || 1.2, 2.5);
+      const aGr = Math.min(p.aGoals || 1.0, 2.5);
+      const sc1 = p.draw > p.hWin && p.draw > p.aWin ? Math.round(hGr) : (p.hWin > p.aWin ? Math.round(hGr) : Math.max(Math.round(hGr) - 1, 0));
+      const sc2 = btts > 50 ? Math.max(Math.round(aGr), 1) : (p.draw > p.hWin && p.draw > p.aWin ? Math.round(aGr) : (p.aWin > p.hWin ? Math.round(aGr) : Math.max(Math.round(aGr) - 1, 0)));
       
       // Mi-temps cohérents avec résultat final
       const hHalf = Math.round(p.hWin * 0.7);
