@@ -428,7 +428,7 @@
       const totalG = hG + aG;
       
       // BTTS cohérent avec les moyennes de buts
-      const btts = hG >= 1 && aG >= 1 ? Math.max(p.btts, 55) : Math.min(p.btts, 45);
+      const bttsBase = hG >= 1 && aG >= 1 ? Math.max(p.btts, 55) : Math.min(p.btts, 45);
       
       // Over/Under cohérent avec totalG
       const over25 = totalG > 2.5 ? Math.max(p.over25, 55) : Math.min(p.over25, 45);
@@ -443,7 +443,8 @@
       const hGr = Math.min(p.hGoals || 1.2, 2.5);
       const aGr = Math.min(p.aGoals || 1.0, 2.5);
       const sc1 = p.draw > p.hWin && p.draw > p.aWin ? Math.round(hGr) : (p.hWin > p.aWin ? Math.round(hGr) : Math.max(Math.round(hGr) - 1, 0));
-      const sc2 = btts > 50 ? Math.max(Math.round(aGr), 1) : (p.draw > p.hWin && p.draw > p.aWin ? Math.round(aGr) : (p.aWin > p.hWin ? Math.round(aGr) : Math.max(Math.round(aGr) - 1, 0)));
+      const sc2 = bttsBase > 50 ? Math.max(Math.round(aGr), 1) : (p.draw > p.hWin && p.draw > p.aWin ? Math.round(aGr) : (p.aWin > p.hWin ? Math.round(aGr) : Math.max(Math.round(aGr) - 1, 0)));
+      const btts = (sc1 === 0 || sc2 === 0) ? Math.min(bttsBase, 35) : bttsBase;
       
       // Mi-temps cohérents avec résultat final
       const hHalf = Math.round(p.hWin * 0.7);
