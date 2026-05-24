@@ -409,13 +409,13 @@
         fetch("https://emascore-api.onrender.com/api/probs?home=" + hId + "&away=" + aId + "&league=" + code)
           .then(function(r) { return r.json(); })
           .then(function(p) {
-            var rec = '';
-            var conf = 0;
-            if (p.prob1 > 55) { rec = ((match.homeTeam && match.homeTeam.shortName) || "Domicile") + " gagne"; conf = p.prob1; }
-            else if (p.prob2 > 55) { rec = ((match.awayTeam && match.awayTeam.shortName) || "Extérieur") + " gagne"; conf = p.prob2; }
-            else if (p.btts > 65) { rec = 'Les deux équipes marquent'; conf = p.btts; }
-            else if (p.over25 > 60) { rec = 'Plus de 2.5 buts'; conf = p.over25; }
-            if (conf > 55) {
+            var rec = p.bestMarket === '1' ? ((match.homeTeam && match.homeTeam.shortName) || 'Domicile') + ' gagne'
+                    : p.bestMarket === '2' ? ((match.awayTeam && match.awayTeam.shortName) || 'Extérieur') + ' gagne'
+                    : p.bestMarket === 'BTTS' ? 'Les deux équipes marquent'
+                    : p.bestMarket === 'X' ? 'Match nul'
+                    : 'Plus de 2.5 buts';
+            var conf = p.bestProb;
+            if (p.highConfidence) {
               confCount++;
               confMatches.push({ match: match, rec: rec, conf: conf });
               localStorage.setItem('ema_conf_matches', JSON.stringify(confMatches));
