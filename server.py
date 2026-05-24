@@ -81,7 +81,7 @@ class Handler(BaseHTTPRequestHandler):
             btts = min(85, max(35, round(avg_goals * 15 + 30)))
             over25 = min(85, max(30, round(avg_goals * 12 + 25)))
             best_market = max([('1', prob1), ('X', probX), ('2', prob2), ('BTTS', btts), ('Over2.5', over25)], key=lambda x: x[1])
-            high_confidence = best_market[1] >= 65
+            high_confidence = best_market[1] >= 55
             return {
                 'prob1': prob1, 'probX': probX, 'prob2': prob2,
                 'btts': btts, 'over25': over25,
