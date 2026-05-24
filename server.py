@@ -69,7 +69,7 @@ class Handler(BaseHTTPRequestHandler):
                     else: away_losses += 1
             home_total = max(home_wins + home_draws + home_losses, 1)
             away_total = max(away_wins + away_draws + away_losses, 1)
-            # Force avec pondération buts
+            # Force avec ponderation buts
             home_strength = (home_wins * 3 + home_draws * 1 + (home_goals_for - home_goals_against) * 0.5 + 2) / home_total
             away_strength = (away_wins * 3 + away_draws * 1 + (away_goals_for - away_goals_against) * 0.5 + 1) / away_total
             # Avantage domicile
