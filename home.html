@@ -400,6 +400,7 @@
       }
       document.getElementById('matchesContainer').innerHTML = html;
       var confCount = 0;
+      localStorage.removeItem('ema_conf_matches');
       var confMatches = [];
       allMatchesData.forEach(function(match) {
         var hId = match.homeTeam && match.homeTeam.id ? match.homeTeam.id : 0;
