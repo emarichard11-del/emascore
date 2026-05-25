@@ -416,7 +416,9 @@
                     : p.bestMarket === 'X' ? 'Match nul'
                     : 'Plus de 2.5 buts';
             var conf = p.bestProb;
-            if (p.highConfidence) {
+            var matchDate = new Date(match.utcDate).toISOString().split('T')[0];
+            var today = new Date().toISOString().split('T')[0];
+            if (p.highConfidence && matchDate === today) {
               confCount++;
               confMatches.push({ match: match, rec: rec, conf: conf });
               localStorage.setItem('ema_conf_matches', JSON.stringify(confMatches));
