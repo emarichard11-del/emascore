@@ -291,7 +291,7 @@
       if (infoOk && payOk) {
         btn.classList.add('enabled');
         btn.disabled = false;
-        btn.onclick = () => window.location.href = 'home.html';
+        btn.onclick = initPayPal;
       } else {
         btn.classList.remove('enabled');
         btn.disabled = true;
