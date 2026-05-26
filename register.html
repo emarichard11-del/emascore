@@ -299,5 +299,43 @@
     }
     validate();
   </script>
+<script src="https://www.paypal.com/sdk/js?client-id=AYRqCfyKR0EQ_etVneEi0D3F2X6VH_35ka2idwtn1aqiXhKLMBpbA0Ibst9Z7wh73Yel38llTx9vs7IJ&currency=USD"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://zgtilvrlozkurnrwkjvt.supabase.co";
+const SUPABASE_KEY = "sb_publishable_T-ufmToZRC3oneHG0gef6Q_wgfhaQ9D";
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const PLANS = { "Hebdomadaire": "14.99", "Mensuel": "39.99", "Annuel": "299.99" };
+function getSelectedPlan() {
+  const sel = document.querySelector(".plan-opt.selected .plan-name");
+  return sel ? sel.textContent.trim() : "Mensuel";
+}
+function initPayPal() {
+  const btn = document.getElementById("btn-continue");
+  btn.style.display = "none";
+  const container = document.getElementById("paypal-button-container");
+  container.style.display = "block";
+  container.innerHTML = "";
+  const plan = getSelectedPlan();
+  const amount = PLANS[plan] || "39.99";
+  paypal.Buttons({
+    createOrder: function(data, actions) {
+      return actions.order.create({ purchase_units: [{ amount: { value: amount }, description: "EMASCORE — Plan " + plan }] });
+    },
+    onApprove: async function(data, actions) {
+      const order = await actions.order.capture();
+      const email = document.getElementById("email").value;
+      const pass = document.getElementById("pass").value;
+      const prenom = document.getElementById("prenom").value;
+      const nom = document.getElementById("nom").value;
+      const { data: authData, error } = await supabase.auth.signUp({ email, password: pass, options: { data: { prenom, nom, plan } } });
+      if (error) { alert("Erreur inscription: " + error.message); return; }
+      localStorage.setItem("ema_user", JSON.stringify(authData.user));
+      window.location.href = "home.html";
+    },
+    onError: function(err) { alert("Erreur PayPal: " + err); }
+  }).render("#paypal-button-container");
+}
+</script>
 </body>
 </html>
