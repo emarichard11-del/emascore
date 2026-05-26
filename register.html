@@ -289,7 +289,7 @@ function initPayPal() {
   container.innerHTML = "";
   const plan = getSelectedPlan();
   const amount = PLANS[plan] || "39.99";
-  paypal.Buttons({
+  paypal.Buttons({ style: { color: "blue", shape: "rect", label: "pay" },
     createOrder: function(data, actions) {
       return actions.order.create({ purchase_units: [{ amount: { value: amount }, description: "EMASCORE — Plan " + plan }] });
     },
