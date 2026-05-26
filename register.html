@@ -240,7 +240,8 @@
       <div class="chk done" id="chk-plan"><div class="chk-dot"></div>Plan sélectionné</div>
       <div class="chk" id="chk-pay"><div class="chk-dot"></div>Paiement renseigné</div>
     </div>
-    <button class="btn-continue" id="btn-continue" disabled>CONTINUER ET PAYER</button>
+    <button class="btn-continue" id="btn-continue" disabled onclick="initPayPal()">CONTINUER ET PAYER</button>
+    <div id="paypal-button-container" style="display:none;margin-top:10px;"></div>
     <div class="secure">🔒 Paiement 100% sécurisé</div>
   </div>
   <script>
