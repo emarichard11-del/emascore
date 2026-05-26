@@ -166,5 +166,20 @@
       </div>
     </div>
   </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+var SUPABASE_URL = "https://zgtilvrlozkurnrwkjvt.supabase.co";
+var SUPABASE_KEY = "sb_publishable_T-ufmToZRC3oneHG0gef6Q_wgfhaQ9D";
+var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+async function login() {
+  var email = document.querySelector("input[type=email]").value;
+  var password = document.querySelector("input[type=password]").value;
+  if (!email || !password) { alert("Remplis tous les champs !"); return; }
+  var result = await supabase.auth.signInWithPassword({ email: email, password: password });
+  if (result.error) { alert("Erreur : " + result.error.message); return; }
+  localStorage.setItem("ema_user", JSON.stringify(result.data.user));
+  window.location.href = "home.html";
+}
+</script>
 </body>
 </html>
