@@ -213,28 +213,7 @@
         </div>
       </div>
     </div>
-    <div>
-      <label class="form-label">MOYEN DE PAIEMENT</label>
-      <div class="pay-methods">
-        <div class="pay-btn selected" onclick="selectPay(this,'card')">💳<br>Carte</div>
-        <div class="pay-btn" onclick="selectPay(this,'paypal')">PayPal</div>
-        <div class="pay-btn" onclick="selectPay(this,'mobile')">📱<br>Mobile</div>
-      </div>
-    </div>
-    <div id="card-fields">
-      <label class="form-label">NUMÉRO DE CARTE</label>
-      <input class="form-input" id="card" placeholder="4242 4242 4242 4242" maxlength="19" oninput="fmtCard(this);validate()">
-      <div class="form-row">
-        <div>
-          <label class="form-label">EXPIRATION</label>
-          <input class="form-input" id="exp" placeholder="MM/AA" maxlength="5" oninput="fmtExp(this);validate()">
-        </div>
-        <div>
-          <label class="form-label">CVV</label>
-          <input class="form-input" id="cvv" placeholder="•••" maxlength="3" oninput="validate()">
-        </div>
-      </div>
-    </div>
+
     <div class="checklist">
       <div class="chk" id="chk-info"><div class="chk-dot"></div>Informations personnelles</div>
       <div class="chk done" id="chk-plan"><div class="chk-dot"></div>Plan sélectionné</div>
@@ -245,7 +224,7 @@
     <div class="secure">🔒 Paiement 100% sécurisé</div>
   </div>
   <script>
-    let payMethod = 'card';
+
     function fmtExp(inp) {
       let v = inp.value.replace(/\D/g,"").substring(0,4);
       if (v.length >= 2) v = v.substring(0,2) + "/" + v.substring(2);
@@ -264,7 +243,7 @@
       document.querySelectorAll('.pay-btn').forEach(p => p.classList.remove('selected'));
       el.classList.add('selected');
       payMethod = method;
-      document.getElementById('card-fields').style.display = method === 'card' ? 'block' : 'none';
+
       validate();
     }
     function validate() {
@@ -274,15 +253,7 @@
       const pass = document.getElementById('pass').value;
       const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
       const infoOk = prenom.length > 1 && nom.length > 1 && emailOk && pass.length >= 6;
-      let payOk = false;
-      if (payMethod === 'card') {
-        const card = document.getElementById('card').value.replace(/\s/g,'');
-        const exp = document.getElementById('exp').value;
-        const cvv = document.getElementById('cvv').value;
-        payOk = card.length === 16 && exp.length === 5 && cvv.length === 3;
-      } else {
-        payOk = true;
-      }
+      let payOk = true;
       document.getElementById('chk-info').className = 'chk' + (infoOk ? ' done' : '');
       document.getElementById('chk-info').querySelector('.chk-dot').style.background = infoOk ? '#5DBE74' : '#2a3a2a';
       document.getElementById('chk-pay').className = 'chk' + (payOk ? ' done' : '');
