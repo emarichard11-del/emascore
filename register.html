@@ -273,10 +273,10 @@
 <script src="https://www.paypal.com/sdk/js?client-id=AYRqCfyKR0EQ_etVneEi0D3F2X6VH_35ka2idwtn1aqiXhKLMBpbA0Ibst9Z7wh73Yel38llTx9vs7IJ&currency=USD"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const SUPABASE_URL = "https://zgtilvrlozkurnrwkjvt.supabase.co";
-const SUPABASE_KEY = "sb_publishable_T-ufmToZRC3oneHG0gef6Q_wgfhaQ9D";
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-const PLANS = { "Hebdomadaire": "14.99", "Mensuel": "39.99", "Annuel": "299.99" };
+var SUPABASE_URL = "https://zgtilvrlozkurnrwkjvt.supabase.co";
+var SUPABASE_KEY = "sb_publishable_T-ufmToZRC3oneHG0gef6Q_wgfhaQ9D";
+var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+var PLANS = { "Hebdomadaire": "14.99", "Mensuel": "39.99", "Annuel": "299.99" };
 function getSelectedPlan() {
   const sel = document.querySelector(".plan-opt.selected .plan-name");
   return sel ? sel.textContent.trim() : "Mensuel";
