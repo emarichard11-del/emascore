@@ -89,15 +89,19 @@
   </nav>
 
   <script>
-    var defaultNotifs = [
-      { id: 1, icon: '⚽', type: 'green', title: 'Bienvenue sur EMASCORE !', text: 'Découvrez les meilleurs pronostics pour vos championnats préférés.', time: "Aujourd'hui", unread: true },
-      { id: 2, icon: '🏆', type: 'yellow', title: 'Coupe du Monde 2026', text: 'La Coupe du Monde commence le 11 juin 2026. Retrouvez tous les matchs et pronostics.', time: "Aujourd'hui", unread: true },
-      { id: 3, icon: '⚡', type: 'green', title: 'Nouveaux matchs disponibles', text: 'La Liga reprend ce week-end avec 10 matchs à venir.', time: 'Il y a 1h', unread: false },
-      { id: 4, icon: '📊', type: 'green', title: 'Statistiques mises à jour', text: 'Les probabilités de vos matchs favoris ont été recalculées.', time: 'Il y a 3h', unread: false },
-    ];
-
     function loadNotifs() {
+      var user = JSON.parse(localStorage.getItem('ema_user') || 'null');
+      var userName = user && user.user_metadata && user.user_metadata.prenom ? user.user_metadata.prenom : 'Champion';
+      var confMatches = JSON.parse(localStorage.getItem('ema_conf_matches') || '[]');
+      var favs = JSON.parse(localStorage.getItem('ema_favorites') || '[]');
+      var defaultNotifs = [
+        { id: 1, icon: '⚽', type: 'green', title: 'Bienvenue ' + userName + ' !', text: 'Découvrez les meilleurs pronostics pour vos championnats préférés.', time: "Aujourd'hui", unread: true },
+        { id: 2, icon: '🔥', type: 'yellow', title: confMatches.length + ' pronostics haute confiance', text: confMatches.length > 0 ? 'Nous avons trouvé ' + confMatches.length + ' matchs avec une haute probabilité de réussite aujourd hui.' : 'Aucun pronostic haute confiance disponible aujourd hui.', time: "Aujourd'hui", unread: true },
+        { id: 3, icon: '⚡', type: 'green', title: 'Matchs disponibles aujourd hui', text: 'Consultez les pronostics du jour et faites vos choix gagnants !', time: "Aujourd'hui", unread: false },
+        { id: 4, icon: '📊', type: 'green', title: favs.length + ' matchs en favoris', text: favs.length > 0 ? 'Vous avez ' + favs.length + ' match' + (favs.length > 1 ? 's' : '') + ' sauvegardé' + (favs.length > 1 ? 's' : '') + ' dans vos favoris.' : 'Ajoutez des matchs en favoris pour les retrouver facilement.', time: 'Il y a 1h', unread: false },
+      ];
       var notifs = JSON.parse(localStorage.getItem('ema_notifs') || JSON.stringify(defaultNotifs));
+      notifs = defaultNotifs;
       if (!notifs.length) {
         document.getElementById('notifsContainer').innerHTML = '<div class="empty-state"><div class="empty-icon">🔔</div><div class="empty-title">Aucune notification</div><div class="empty-sub">Vous êtes à jour !</div></div>';
         return;
