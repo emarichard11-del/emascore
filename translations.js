@@ -1,0 +1,153 @@
+var translations = {
+  fr: {
+    login_title: 'CONNEXION',
+    login_email: 'ADRESSE E-MAIL',
+    login_password: 'MOT DE PASSE',
+    login_forgot: 'Mot de passe oublié ?',
+    login_btn: 'SE CONNECTER',
+    login_no_account: 'Pas encore de compte ?',
+    login_create: 'Créer un compte gratuitement',
+    login_register: "S'inscrire",
+    home_title: 'EMASCORE',
+    home_live: 'En direct',
+    home_conf: 'Haute confiance',
+    home_all: 'Tous',
+    home_tonight: 'Ce soir',
+    home_favorites: 'Favoris',
+    settings_title: 'Paramètres',
+    settings_general: 'GÉNÉRAL',
+    settings_notifications: 'Notifications',
+    settings_notif_sub: 'Gérer les alertes',
+    settings_favorites: 'Mes Favoris',
+    settings_support: 'SUPPORT',
+    settings_faq: 'Support & FAQ',
+    settings_faq_sub: 'Aide et questions fréquentes',
+    settings_account: 'COMPTE',
+    settings_clear: 'Vider les favoris',
+    settings_clear_sub: 'Supprimer tous les favoris',
+    settings_logout: 'Déconnexion',
+    settings_logout_sub: 'Quitter votre session',
+    settings_language: 'Langue',
+    settings_language_sub: 'Français, Anglais, Espagnol',
+    confirm_clear: 'Vider les favoris',
+    confirm_clear_msg: 'Voulez-vous supprimer tous vos favoris ?',
+    confirm_cancel: 'Annuler',
+    confirm_delete: 'Supprimer',
+    confirm_logout: 'Déconnexion',
+    confirm_logout_msg: 'Voulez-vous vous déconnecter ?',
+    confirm_disconnect: 'Déconnecter',
+    nav_home: 'Accueil',
+    nav_matches: 'Matchs',
+    nav_favorites: 'Favoris',
+    nav_account: 'Compte',
+    lang_label: 'LANGUE'
+  },
+  en: {
+    login_title: 'LOGIN',
+    login_email: 'EMAIL ADDRESS',
+    login_password: 'PASSWORD',
+    login_forgot: 'Forgot password?',
+    login_btn: 'SIGN IN',
+    login_no_account: 'No account yet?',
+    login_create: 'Create a free account',
+    login_register: 'Sign up',
+    home_title: 'EMASCORE',
+    home_live: 'Live',
+    home_conf: 'High confidence',
+    home_all: 'All',
+    home_tonight: 'Tonight',
+    home_favorites: 'Favorites',
+    settings_title: 'Settings',
+    settings_general: 'GENERAL',
+    settings_notifications: 'Notifications',
+    settings_notif_sub: 'Manage alerts',
+    settings_favorites: 'My Favorites',
+    settings_support: 'SUPPORT',
+    settings_faq: 'Support & FAQ',
+    settings_faq_sub: 'Help and frequently asked questions',
+    settings_account: 'ACCOUNT',
+    settings_clear: 'Clear favorites',
+    settings_clear_sub: 'Delete all favorites',
+    settings_logout: 'Logout',
+    settings_logout_sub: 'Sign out of your session',
+    settings_language: 'Language',
+    settings_language_sub: 'French, English, Spanish',
+    confirm_clear: 'Clear favorites',
+    confirm_clear_msg: 'Do you want to delete all your favorites?',
+    confirm_cancel: 'Cancel',
+    confirm_delete: 'Delete',
+    confirm_logout: 'Logout',
+    confirm_logout_msg: 'Do you want to sign out?',
+    confirm_disconnect: 'Sign out',
+    nav_home: 'Home',
+    nav_matches: 'Matches',
+    nav_favorites: 'Favorites',
+    nav_account: 'Account',
+    lang_label: 'LANGUAGE'
+  },
+  es: {
+    login_title: 'CONEXIÓN',
+    login_email: 'CORREO ELECTRÓNICO',
+    login_password: 'CONTRASEÑA',
+    login_forgot: '¿Olvidaste tu contraseña?',
+    login_btn: 'INICIAR SESIÓN',
+    login_no_account: '¿No tienes cuenta?',
+    login_create: 'Crear una cuenta gratis',
+    login_register: 'Registrarse',
+    home_title: 'EMASCORE',
+    home_live: 'En vivo',
+    home_conf: 'Alta confianza',
+    home_all: 'Todos',
+    home_tonight: 'Esta noche',
+    home_favorites: 'Favoritos',
+    settings_title: 'Configuración',
+    settings_general: 'GENERAL',
+    settings_notifications: 'Notificaciones',
+    settings_notif_sub: 'Gestionar alertas',
+    settings_favorites: 'Mis Favoritos',
+    settings_support: 'SOPORTE',
+    settings_faq: 'Soporte & FAQ',
+    settings_faq_sub: 'Ayuda y preguntas frecuentes',
+    settings_account: 'CUENTA',
+    settings_clear: 'Vaciar favoritos',
+    settings_clear_sub: 'Eliminar todos los favoritos',
+    settings_logout: 'Cerrar sesión',
+    settings_logout_sub: 'Salir de tu sesión',
+    settings_language: 'Idioma',
+    settings_language_sub: 'Francés, Inglés, Español',
+    confirm_clear: 'Vaciar favoritos',
+    confirm_clear_msg: '¿Quieres eliminar todos tus favoritos?',
+    confirm_cancel: 'Cancelar',
+    confirm_delete: 'Eliminar',
+    confirm_logout: 'Cerrar sesión',
+    confirm_logout_msg: '¿Quieres cerrar sesión?',
+    confirm_disconnect: 'Cerrar sesión',
+    nav_home: 'Inicio',
+    nav_matches: 'Partidos',
+    nav_favorites: 'Favoritos',
+    nav_account: 'Cuenta',
+    lang_label: 'IDIOMA'
+  }
+};
+
+function getLang() {
+  return localStorage.getItem('ema_lang') || 'fr';
+}
+
+function t(key) {
+  var lang = getLang();
+  return (translations[lang] && translations[lang][key]) ? translations[lang][key] : (translations['fr'][key] || key);
+}
+
+function applyTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    el.textContent = t(el.getAttribute('data-i18n'));
+  });
+}
+
+function setLang(lang) {
+  localStorage.setItem('ema_lang', lang);
+  applyTranslations();
+}
+
+document.addEventListener('DOMContentLoaded', applyTranslations);

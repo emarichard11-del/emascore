@@ -117,14 +117,15 @@
     }
   </style>
 
+<script src="translations.js"></script>
 </head>
 <body>
 
     
     <div class="header">
       <a href="index.html" class="back">←</a>
-      <span class="header-title">CONNEXION</span>
-      <a href="register.html" class="switch-link">S'inscrire</a>
+      <span class="header-title" data-i18n="login_title">CONNEXION</span>
+      <a href="register.html" class="switch-link" data-i18n="login_register">S'inscrire</a>
     </div>
     <div class="body">
       <div class="logo-center">
@@ -132,19 +133,27 @@
         <div class="sub">Bienvenue</div>
       </div>
       <div>
-        <label class="form-label">ADRESSE E-MAIL</label>
+        <label class="form-label" data-i18n="login_email">ADRESSE E-MAIL</label>
         <input class="form-input" type="email" placeholder="exemple@email.com">
       </div>
       <div>
-        <label class="form-label">MOT DE PASSE</label>
+        <label class="form-label" data-i18n="login_password">MOT DE PASSE</label>
         <input class="form-input" type="password" placeholder="••••••••">
       </div>
-      <div class="forgot">Mot de passe oublié ?</div>
-      <button class="btn-green" onclick="login()">SE CONNECTER</button>
+      <div class="forgot" data-i18n="login_forgot">Mot de passe oublié ?</div>
+      <button class="btn-green" onclick="login()"><span data-i18n="login_btn">SE CONNECTER</span></button>
       <div class="signup-link">
         Pas encore de compte ?<br>
         <a href="register.html">Créer un compte gratuitement</a>
       </div>
+    <div style="text-align:center;margin-top:16px;">
+      <div style="font-size:10px;color:#556;margin-bottom:8px;" data-i18n="lang_label">LANGUE</div>
+      <div style="display:flex;gap:8px;justify-content:center;">
+        <button onclick="setLang('fr')" style="padding:6px 14px;border-radius:99px;border:1px solid #2a4a2a;background:#1a2a1a;color:#5DBE74;font-size:12px;cursor:pointer;">🇫🇷 FR</button>
+        <button onclick="setLang('en')" style="padding:6px 14px;border-radius:99px;border:1px solid #2a4a2a;background:#1a2a1a;color:#5DBE74;font-size:12px;cursor:pointer;">🇬🇧 EN</button>
+        <button onclick="setLang('es')" style="padding:6px 14px;border-radius:99px;border:1px solid #2a4a2a;background:#1a2a1a;color:#5DBE74;font-size:12px;cursor:pointer;">🇪🇸 ES</button>
+      </div>
+    </div>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>

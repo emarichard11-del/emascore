@@ -58,6 +58,7 @@
     .bnav.active svg path, .bnav.active svg rect, .bnav.active svg circle { fill: #5DBE74; }
   </style>
 
+<script src="translations.js"></script>
 </head>
 <body>
 
@@ -95,6 +96,21 @@
       <div class="menu-arrow">›</div>
     </div>
   </div>
+  <div class="section">
+    <div class="sec-title" data-i18n="lang_label">LANGUE</div>
+    <div class="menu-item">
+      <div class="menu-left">
+        <div class="menu-icon blue">🌐</div>
+        <div><div class="menu-name" data-i18n="settings_language">Langue</div><div class="menu-sub" data-i18n="settings_language_sub">Français, Anglais, Espagnol</div></div>
+      </div>
+      <div style="display:flex;gap:6px;">
+        <button onclick="setLang('fr')" style="padding:5px 10px;border-radius:99px;border:1px solid #2a4a2a;background:#1a2a1a;color:#5DBE74;font-size:11px;cursor:pointer;">🇫🇷 FR</button>
+        <button onclick="setLang('en')" style="padding:5px 10px;border-radius:99px;border:1px solid #2a4a2a;background:#1a2a1a;color:#5DBE74;font-size:11px;cursor:pointer;">🇬🇧 EN</button>
+        <button onclick="setLang('es')" style="padding:5px 10px;border-radius:99px;border:1px solid #2a4a2a;background:#1a2a1a;color:#5DBE74;font-size:11px;cursor:pointer;">🇪🇸 ES</button>
+      </div>
+    </div>
+  </div>
+
 
   <div class="section">
     <div class="sec-title">COMPTE</div>
