@@ -142,5 +142,13 @@
       </div>
     </div>
   </div>
+<script>
+  var favs = JSON.parse(localStorage.getItem("ema_favorites") || "[]");
+  if(document.getElementById("favSub")) document.getElementById("favSub").textContent = favs.length + " match" + (favs.length > 1 ? "s" : "") + " sauvegarde" + (favs.length > 1 ? "s" : "");
+  function clearFavs() { document.getElementById("confirmModal").style.display = "flex"; }
+  function doClear() { localStorage.removeItem("ema_favorites"); localStorage.removeItem("ema_fav_matches"); document.getElementById("confirmModal").style.display = "none"; window.location.reload(); }
+  function deconnexion() { document.getElementById("decoModal").style.display = "flex"; }
+  function doDeco() { localStorage.clear(); window.location.href = "home.html"; }
+</script>
 </body>
 </html>
