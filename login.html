@@ -130,7 +130,7 @@
     <div class="body">
       <div class="logo-center">
         <div class="logo">EMASCORE</div>
-        <div class="sub">Bienvenue</div>
+        <div class="sub" data-i18n="login_welcome">Bienvenue</div>
       </div>
       <div>
         <label class="form-label" data-i18n="login_email">ADRESSE E-MAIL</label>
@@ -143,8 +143,8 @@
       <div class="forgot" data-i18n="login_forgot">Mot de passe oublié ?</div>
       <button class="btn-green" onclick="login()"><span data-i18n="login_btn">SE CONNECTER</span></button>
       <div class="signup-link">
-        Pas encore de compte ?<br>
-        <a href="register.html">Créer un compte gratuitement</a>
+        <span data-i18n="login_no_account">Pas encore de compte ?</span><br>
+        <a href="register.html" data-i18n="login_create">Créer un compte gratuitement</a>
       </div>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
