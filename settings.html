@@ -66,6 +66,17 @@
   </div>
 
   <div class="section">
+    <div class="sec-title">AFFICHAGE</div>
+    <div class="menu-item" onclick="showThemeModal()">
+      <div class="menu-left">
+        <div class="menu-icon blue">🌓</div>
+        <div><div class="menu-name">Mode clair</div><div class="menu-sub" id="themeSub">Toujours sombre</div></div>
+      </div>
+      <div class="menu-arrow">›</div>
+    </div>
+  </div>
+
+  <div class="section">
     <div class="sec-title">GÉNÉRAL</div>
     <a href="notifications.html" class="menu-item">
       <div class="menu-left">
@@ -119,6 +130,33 @@
     <a href="account.html" class="bnav active"><div class="bnav-icon"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div><span class="bnav-lbl">Compte</span></a>
   </nav>
 
+  <div id="themeModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);z-index:9999;padding:20px;overflow-y:auto;">
+    <div style="background:#0f1923;border-radius:16px;padding:20px;max-width:400px;margin:40px auto;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+        <span style="font-size:16px;font-weight:800;color:#fff;">🌓 Mode clair</span>
+        <span onclick="document.getElementById('themeModal').style.display='none'" style="color:#e84545;cursor:pointer;font-size:20px;">✕</span>
+      </div>
+      <div onclick="setTheme('dark')" id="opt-dark" style="background:#1a2a2a;border-radius:12px;padding:14px;margin-bottom:10px;cursor:pointer;border:2px solid #2a4a2a;">
+        <div style="font-size:13px;font-weight:700;color:#fff;">🌙 Toujours sombre</div>
+        <div style="font-size:11px;color:#556;margin-top:4px;">Mode sombre permanent</div>
+      </div>
+      <div onclick="setTheme('auto')" id="opt-auto" style="background:#1a2a2a;border-radius:12px;padding:14px;margin-bottom:10px;cursor:pointer;border:2px solid #2a4a2a;">
+        <div style="font-size:13px;font-weight:700;color:#fff;">🌤️ Automatique (GPS)</div>
+        <div style="font-size:11px;color:#556;margin-top:4px;">Clair le jour, sombre la nuit</div>
+      </div>
+      <div onclick="setTheme('manual')" id="opt-manual" style="background:#1a2a2a;border-radius:12px;padding:14px;margin-bottom:10px;cursor:pointer;border:2px solid #2a4a2a;">
+        <div style="font-size:13px;font-weight:700;color:#fff;">⏰ Manuel</div>
+        <div style="font-size:11px;color:#556;margin-top:4px;">Choisir les heures</div>
+      </div>
+      <div id="manual-hours" style="display:none;margin-top:10px;">
+        <div style="display:flex;gap:10px;align-items:center;">
+          <div style="flex:1;"><div style="font-size:10px;color:#5DBE74;margin-bottom:4px;">DÉBUT</div><input type="time" id="timeStart" value="06:00" style="width:100%;padding:10px;background:#1a2a2a;border:1px solid #2a4a2a;border-radius:8px;color:#fff;font-size:14px;"></div>
+          <div style="flex:1;"><div style="font-size:10px;color:#5DBE74;margin-bottom:4px;">FIN</div><input type="time" id="timeEnd" value="18:00" style="width:100%;padding:10px;background:#1a2a2a;border:1px solid #2a4a2a;border-radius:8px;color:#fff;font-size:14px;"></div>
+        </div>
+        <button onclick="saveManualHours()" style="width:100%;margin-top:10px;padding:12px;background:#5DBE74;border:none;border-radius:10px;color:#0f1923;font-weight:800;cursor:pointer;">ENREGISTRER</button>
+      </div>
+    </div>
+  </div>
   <script>
     var favs = JSON.parse(localStorage.getItem('ema_favorites') || '[]');
     document.getElementById('favSub').textContent = favs.length + ' match' + (favs.length > 1 ? 's' : '') + ' sauvegardé' + (favs.length > 1 ? 's' : '');
@@ -138,6 +176,74 @@
         window.location.href = 'home.html';
       }
     }
+    function showThemeModal() {
+      document.getElementById("themeModal").style.display = "block";
+      var theme = localStorage.getItem("ema_theme") || "dark";
+      updateThemeUI(theme);
+    }
+    function setTheme(mode) {
+      localStorage.setItem("ema_theme", mode);
+      updateThemeUI(mode);
+      if (mode === "manual") {
+        document.getElementById("manual-hours").style.display = "block";
+      } else {
+        document.getElementById("manual-hours").style.display = "none";
+        document.getElementById("themeModal").style.display = "none";
+        applyTheme();
+      }
+    }
+    function updateThemeUI(mode) {
+      ["dark","auto","manual"].forEach(function(m) {
+        document.getElementById("opt-"+m).style.borderColor = m === mode ? "#5DBE74" : "#2a4a2a";
+      });
+      if (mode === "manual") document.getElementById("manual-hours").style.display = "block";
+      var labels = {"dark":"Toujours sombre","auto":"Automatique (GPS)","manual":"Manuel"};
+      document.getElementById("themeSub").textContent = labels[mode] || "Toujours sombre";
+    }
+    function saveManualHours() {
+      var start = document.getElementById("timeStart").value;
+      var end = document.getElementById("timeEnd").value;
+      localStorage.setItem("ema_time_start", start);
+      localStorage.setItem("ema_time_end", end);
+      document.getElementById("themeModal").style.display = "none";
+      applyTheme();
+    }
+    function applyTheme() {
+      var mode = localStorage.getItem("ema_theme") || "dark";
+      var isLight = false;
+      if (mode === "auto") {
+        navigator.geolocation.getCurrentPosition(function(pos) {
+          var lat = pos.coords.latitude;
+          var now = new Date();
+          var sunrise = 6 + (lat > 0 ? 0 : 1);
+          var sunset = 18 + (lat > 0 ? 0 : -1);
+          var hour = now.getHours();
+          isLight = hour >= sunrise && hour < sunset;
+          applyColors(isLight);
+        });
+      } else if (mode === "manual") {
+        var start = localStorage.getItem("ema_time_start") || "06:00";
+        var end = localStorage.getItem("ema_time_end") || "18:00";
+        var now = new Date();
+        var cur = now.getHours() * 60 + now.getMinutes();
+        var s = parseInt(start.split(":")[0]) * 60 + parseInt(start.split(":")[1]);
+        var e = parseInt(end.split(":")[0]) * 60 + parseInt(end.split(":")[1]);
+        isLight = cur >= s && cur < e;
+        applyColors(isLight);
+      }
+    }
+    function applyColors(isLight) {
+      if (isLight) {
+        document.body.style.background = "#f5f5f5";
+        document.body.style.color = "#0a0e1a";
+      } else {
+        document.body.style.background = "#0a0e1a";
+        document.body.style.color = "#fff";
+      }
+    }
+    var currentTheme = localStorage.getItem("ema_theme") || "dark";
+    if (currentTheme) updateThemeUI(currentTheme);
+    applyTheme();
   </script>
 </body>
 </html>
