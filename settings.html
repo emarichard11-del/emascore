@@ -210,6 +210,8 @@
     }
     function applyTheme() {
       var mode = localStorage.getItem("ema_theme") || "dark";
+      if (mode === "dark") { applyColors(false); return; }
+      var mode = localStorage.getItem("ema_theme") || "dark";
       var isLight = false;
       if (mode === "auto") {
         navigator.geolocation.getCurrentPosition(function(pos) {
