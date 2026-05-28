@@ -40,7 +40,12 @@ var translations = {
     nav_matches: 'Matchs',
     nav_favorites: 'Favoris',
     nav_account: 'Compte',
-    lang_label: 'LANGUE'
+    lang_label: 'LANGUE',
+    index_tagline: 'FOOTBALL INTELLIGENCE',
+    index_tagline2: 'Pronostics pour chaque match, chaque marche, chaque championnat.',
+    index_login: 'SE CONNECTER',
+    index_register: 'CREER UN COMPTE',
+    index_terms: 'En continuant, vous acceptez nos Conditions et notre Politique de confidentialite.'
   },
   en: {
     login_title: 'LOGIN',
@@ -83,7 +88,12 @@ var translations = {
     nav_matches: 'Matches',
     nav_favorites: 'Favorites',
     nav_account: 'Account',
-    lang_label: 'LANGUAGE'
+    lang_label: 'LANGUAGE',
+    index_tagline: 'FOOTBALL INTELLIGENCE',
+    index_tagline2: 'Predictions for every match, every market, every league.',
+    index_login: 'SIGN IN',
+    index_register: 'CREATE ACCOUNT',
+    index_terms: 'By continuing, you agree to our Terms of Use and Privacy Policy.'
   },
   es: {
     login_title: 'CONEXIÓN',
@@ -126,7 +136,12 @@ var translations = {
     nav_matches: 'Partidos',
     nav_favorites: 'Favoritos',
     nav_account: 'Cuenta',
-    lang_label: 'IDIOMA'
+    lang_label: 'IDIOMA',
+    index_tagline: 'INTELIGENCIA FUTBOLISTICA',
+    index_tagline2: 'Pronosticos para cada partido, cada mercado, cada campeonato.',
+    index_login: 'INICIAR SESION',
+    index_register: 'CREAR CUENTA',
+    index_terms: 'Al continuar, aceptas nuestros Terminos de uso y Politica de privacidad.'
   }
 };
 
