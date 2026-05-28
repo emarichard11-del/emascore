@@ -169,9 +169,9 @@
       <div class="logo">EMASCORE</div>
       <div class="tagline">FOOTBALL INTELLIGENCE</div>
       <div class="lang-row">
-        <button class="lang-btn active">FR</button>
-        <button class="lang-btn">EN</button>
-        <button class="lang-btn">ES</button>
+        <button class="lang-btn active" onclick="setLang('fr');this.parentNode.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active')">FR</button>
+        <button class="lang-btn" onclick="setLang('en');this.parentNode.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active')">EN</button>
+        <button class="lang-btn" onclick="setLang('es');this.parentNode.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active')">ES</button>
       </div>
     </div>
   </div>
