@@ -167,7 +167,7 @@
     <div class="overlay"></div>
     <div class="banner-footer">
       <div class="logo">EMASCORE</div>
-      <div class="tagline">FOOTBALL INTELLIGENCE</div>
+      <div class="tagline" data-i18n="index_tagline">FOOTBALL INTELLIGENCE</div>
       <div class="lang-row">
         <button class="lang-btn active" onclick="setLang('fr');this.parentNode.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active')">FR</button>
         <button class="lang-btn" onclick="setLang('en');this.parentNode.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active')">EN</button>
@@ -176,10 +176,10 @@
     </div>
   </div>
   <div class="bottom">
-    <div class="tagline2">Pronostics pour chaque match,<br>chaque marché, chaque championnat.</div>
-    <button class="btn-green" onclick="window.location.href='login.html'">SE CONNECTER</button>
-    <button class="btn-outline" onclick="window.location.href='register.html'">CRÉER UN COMPTE</button>
-    <div class="terms">En continuant, vous acceptez nos Conditions d'utilisation<br>et notre Politique de confidentialité.</div>
+    <div class="tagline2" data-i18n="index_tagline2">Pronostics pour chaque match, chaque marché, chaque championnat.</div>
+    <button class="btn-green" onclick="window.location.href='login.html'" data-i18n="index_login">SE CONNECTER</button>
+    <button class="btn-outline" onclick="window.location.href='register.html'" data-i18n="index_register">CRÉER UN COMPTE</button>
+    <div class="terms" data-i18n="index_terms">En continuant, vous acceptez nos Conditions d'utilisation et notre Politique de confidentialité.</div>
   </div>
 
   <script>
