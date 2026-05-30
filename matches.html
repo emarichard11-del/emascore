@@ -76,7 +76,7 @@
         var d = new Date();
         d.setDate(d.getDate() + i);
         var dateStr = d.toISOString().split('T')[0];
-        var label = i === 0 ? "Aujourd'hui" : days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()];
+        var label = i === 0 ? t('matches_today') : days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()];
         html += '<div class="date-btn' + (dateStr === selectedDate ? ' active' : '') + '" onclick="selectDate(\'' + dateStr + '\',this)">' + label + '</div>';
       }
       document.getElementById('dateSelector').innerHTML = html;

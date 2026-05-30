@@ -77,6 +77,8 @@ var translations = {
     home_tab_live: 'En direct',
     home_tab_tonight: 'Ce soir',
     home_tab_fav: 'Favoris',
+    matches_no_match: 'Aucun match disponible',
+    matches_today: 'Aujourd hui',
     index_terms: 'En continuant, vous acceptez nos Conditions et notre Politique de confidentialite.'
   },
   en: {
@@ -157,6 +159,8 @@ var translations = {
     home_tab_live: 'Live',
     home_tab_tonight: 'Tonight',
     home_tab_fav: 'Favorites',
+    matches_no_match: 'No matches available',
+    matches_today: 'Today',
     index_terms: 'By continuing, you agree to our Terms of Use and Privacy Policy.'
   },
   es: {
@@ -237,6 +241,8 @@ var translations = {
     home_tab_live: 'En vivo',
     home_tab_tonight: 'Esta noche',
     home_tab_fav: 'Favoritos',
+    matches_no_match: 'Sin partidos disponibles',
+    matches_today: 'Hoy',
     index_terms: 'Al continuar, aceptas nuestros Terminos de uso y Politica de privacidad.'
   }
 };
