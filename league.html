@@ -104,7 +104,8 @@
     var leagueMatchData = {};
     var params = new URLSearchParams(window.location.search);
     var leagueCode = params.get('code') || 'PL';
-    var leagueName = params.get('name') || 'Championnat';
+    var leagueRaw = params.get('name') || 'Championnat';
+    var leagueName = translateLeague(leagueRaw);
 
     document.getElementById('leagueTitle').textContent = leagueName;
     document.getElementById('heroTitle').textContent = leagueName;
