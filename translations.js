@@ -79,6 +79,11 @@ var translations = {
     home_tab_fav: 'Favoris',
     matches_no_match: 'Aucun match disponible',
     matches_today: 'Aujourd hui',
+    match_tab_prono: 'Pronostics',
+    match_prono_label: '💡 Pronostic EMASCORE',
+    match_goals_home: 'Buts/match dom.',
+    match_goals_away: 'Buts/match ext.',
+    match_goals_exp: 'Buts attendus',
     index_terms: 'En continuant, vous acceptez nos Conditions et notre Politique de confidentialite.'
   },
   en: {
@@ -161,6 +166,11 @@ var translations = {
     home_tab_fav: 'Favorites',
     matches_no_match: 'No matches available',
     matches_today: 'Today',
+    match_tab_prono: 'Predictions',
+    match_prono_label: '💡 EMASCORE Prediction',
+    match_goals_home: 'Goals/match home',
+    match_goals_away: 'Goals/match away',
+    match_goals_exp: 'Expected goals',
     index_terms: 'By continuing, you agree to our Terms of Use and Privacy Policy.'
   },
   es: {
@@ -243,6 +253,11 @@ var translations = {
     home_tab_fav: 'Favoritos',
     matches_no_match: 'Sin partidos disponibles',
     matches_today: 'Hoy',
+    match_tab_prono: 'Pronosticos',
+    match_prono_label: '💡 Pronostico EMASCORE',
+    match_goals_home: 'Goles/partido local',
+    match_goals_away: 'Goles/partido visitante',
+    match_goals_exp: 'Goles esperados',
     index_terms: 'Al continuar, aceptas nuestros Terminos de uso y Politica de privacidad.'
   }
 };
