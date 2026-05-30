@@ -69,6 +69,14 @@ var translations = {
     fav_empty: 'Aucun favori',
     fav_empty_sub: 'Ajoute des matchs depuis les championnats',
     fav_explore: 'Explorer les matchs',
+    home_hero: 'Les meilleurs',
+    home_hero2: 'pronostics',
+    home_live_label: 'En direct',
+    home_conf_label: '🔥 Haute confiance',
+    home_tab_all: 'Tous',
+    home_tab_live: 'En direct',
+    home_tab_tonight: 'Ce soir',
+    home_tab_fav: 'Favoris',
     index_terms: 'En continuant, vous acceptez nos Conditions et notre Politique de confidentialite.'
   },
   en: {
@@ -141,6 +149,14 @@ var translations = {
     fav_empty: 'No favorites',
     fav_empty_sub: 'Add matches from the leagues',
     fav_explore: 'Explore matches',
+    home_hero: 'The best',
+    home_hero2: 'predictions',
+    home_live_label: 'Live',
+    home_conf_label: '🔥 High confidence',
+    home_tab_all: 'All',
+    home_tab_live: 'Live',
+    home_tab_tonight: 'Tonight',
+    home_tab_fav: 'Favorites',
     index_terms: 'By continuing, you agree to our Terms of Use and Privacy Policy.'
   },
   es: {
@@ -213,6 +229,14 @@ var translations = {
     fav_empty: 'Sin favoritos',
     fav_empty_sub: 'Agrega partidos desde las ligas',
     fav_explore: 'Explorar partidos',
+    home_hero: 'Los mejores',
+    home_hero2: 'pronosticos',
+    home_live_label: 'En vivo',
+    home_conf_label: '🔥 Alta confianza',
+    home_tab_all: 'Todos',
+    home_tab_live: 'En vivo',
+    home_tab_tonight: 'Esta noche',
+    home_tab_fav: 'Favoritos',
     index_terms: 'Al continuar, aceptas nuestros Terminos de uso y Politica de privacidad.'
   }
 };

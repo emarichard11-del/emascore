@@ -170,9 +170,9 @@
   <!-- HERO -->
   <div class="hero">
     <div class="hero-greeting">Bienvenue sur</div>
-    <div class="hero-title">Les meilleurs <span>pronostics</span></div>
+    <div class="hero-title"><span data-i18n="home_hero">Les meilleurs</span> <span data-i18n="home_hero2">pronostics</span></div>
     <div class="stats-row">
-      <div class="stat-pill live" onclick="switchTab('live', document.querySelector('.tab:nth-child(2)'))" style="cursor:pointer;transition:all 0.2s;" onmousedown="this.style.transform='scale(0.9)'" onmouseup="this.style.transform='scale(1)'"><div class="stat-dot"></div><span id="liveCount">0</span> En direct</div>
+      <div class="stat-pill live" onclick="switchTab('live', document.querySelector('.tab:nth-child(2)'))" style="cursor:pointer;transition:all 0.2s;" onmousedown="this.style.transform='scale(0.9)'" onmouseup="this.style.transform='scale(1)'"><div class="stat-dot"></div><span id="liveCount">0</span> <span data-i18n="home_live_label">En direct</span></div>
       <div class="stat-pill conf" onclick="showConfMatches()" style="cursor:pointer;transition:all 0.2s;active:scale(0.9);" onmousedown="this.style.transform='scale(0.9)';this.style.opacity='0.7';" onmouseup="this.style.transform='scale(1)';this.style.opacity='1';">
         <div class="stat-dot"></div><span id="confCount">0</span> 🔥 Haute confiance
       </div>
@@ -180,10 +180,10 @@
 
     <!-- TABS -->
     <div class="tabs">
-      <div class="tab active" onclick="switchTab('all', this)">Tous</div>
-      <div class="tab" onclick="switchTab('live', this)">En direct</div>
-      <div class="tab" onclick="switchTab('tonight', this)">Ce soir</div>
-      <div class="tab" onclick="switchTab('favorites', this)">Favoris</div>
+      <div class="tab active" onclick="switchTab('all', this)" data-i18n="home_tab_all">Tous</div>
+      <div class="tab" onclick="switchTab('live', this)" data-i18n="home_tab_live">En direct</div>
+      <div class="tab" onclick="switchTab('tonight', this)" data-i18n="home_tab_tonight">Ce soir</div>
+      <div class="tab" onclick="switchTab('favorites', this)" data-i18n="home_tab_fav">Favoris</div>
     </div>
   </div>
 
