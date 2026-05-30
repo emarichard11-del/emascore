@@ -84,6 +84,8 @@ var translations = {
     match_goals_home: 'Buts/match dom.',
     match_goals_away: 'Buts/match ext.',
     match_goals_exp: 'Buts attendus',
+    league_title: 'Championnat',
+    league_no_match: 'Aucun match disponible',
     index_terms: 'En continuant, vous acceptez nos Conditions et notre Politique de confidentialite.'
   },
   en: {
@@ -171,6 +173,8 @@ var translations = {
     match_goals_home: 'Goals/match home',
     match_goals_away: 'Goals/match away',
     match_goals_exp: 'Expected goals',
+    league_title: 'League',
+    league_no_match: 'No matches available',
     index_terms: 'By continuing, you agree to our Terms of Use and Privacy Policy.'
   },
   es: {
@@ -258,6 +262,8 @@ var translations = {
     match_goals_home: 'Goles/partido local',
     match_goals_away: 'Goles/partido visitante',
     match_goals_exp: 'Goles esperados',
+    league_title: 'Campeonato',
+    league_no_match: 'Sin partidos disponibles',
     index_terms: 'Al continuar, aceptas nuestros Terminos de uso y Politica de privacidad.'
   }
 };
