@@ -105,6 +105,17 @@ var translations = {
     league_live: '● EN DIRECT',
     league_fav: 'Favori',
     league_upcoming: 'match a venir',
+    leagues: {
+      'Champions League': 'Ligue des Champions',
+      'Premier League': 'Premier League',
+      'La Liga': 'La Liga',
+      'Ligue 1': 'Ligue 1',
+      'Bundesliga': 'Bundesliga',
+      'Serie A': 'Serie A',
+      'Liga Portugal': 'Liga Portugal',
+      'Brasileirao': 'Brasileirao',
+      'Coupe Du Monde FIFA 2026': 'Coupe Du Monde FIFA 2026'
+    },
     countries: {
       'Mexique': 'Mexique', 'Afrique du Sud': 'Afrique du Sud', 'France': 'France',
       'Espagne': 'Espagne', 'Angleterre': 'Angleterre', 'Allemagne': 'Allemagne',
@@ -219,6 +230,17 @@ var translations = {
     league_live: '● LIVE',
     league_fav: 'Favorite',
     league_upcoming: 'match upcoming',
+    leagues: {
+      'Champions League': 'Champions League',
+      'Premier League': 'Premier League',
+      'La Liga': 'La Liga',
+      'Ligue 1': 'Ligue 1',
+      'Bundesliga': 'Bundesliga',
+      'Serie A': 'Serie A',
+      'Liga Portugal': 'Liga Portugal',
+      'Brasileirao': 'Brasileirao',
+      'Coupe Du Monde FIFA 2026': 'FIFA World Cup 2026'
+    },
     countries: {
       'Mexique': 'Mexico', 'Afrique du Sud': 'South Africa', 'France': 'France',
       'Espagne': 'Spain', 'Angleterre': 'England', 'Allemagne': 'Germany',
@@ -333,6 +355,17 @@ var translations = {
     league_live: '● EN VIVO',
     league_fav: 'Favorito',
     league_upcoming: 'partido por venir',
+    leagues: {
+      'Champions League': 'Liga de Campeones',
+      'Premier League': 'Premier League',
+      'La Liga': 'La Liga',
+      'Ligue 1': 'Liga 1',
+      'Bundesliga': 'Bundesliga',
+      'Serie A': 'Serie A',
+      'Liga Portugal': 'Liga Portugal',
+      'Brasileirao': 'Brasileirao',
+      'Coupe Du Monde FIFA 2026': 'Copa Mundial FIFA 2026'
+    },
     countries: {
       'Mexique': 'Mexico', 'Afrique du Sud': 'Sudafrica', 'France': 'Francia',
       'Espagne': 'Espana', 'Angleterre': 'Inglaterra', 'Allemagne': 'Alemania',
@@ -361,6 +394,12 @@ function applyTranslations() {
 function setLang(lang) {
   localStorage.setItem('ema_lang', lang);
   applyTranslations();
+}
+
+function translateLeague(name) {
+  var lang = getLang();
+  var dict = translations[lang] && translations[lang].leagues ? translations[lang].leagues : {};
+  return dict[name] || name;
 }
 
 function translateTeam(name) {
