@@ -101,6 +101,10 @@ var translations = {
     match_goals_exp: 'Buts attendus',
     league_title: 'Championnat',
     league_no_match: 'Aucun match disponible',
+    league_matches: 'MATCHS',
+    league_live: '● EN DIRECT',
+    league_fav: 'Favori',
+    league_upcoming: 'match a venir',
     index_terms: 'En continuant, vous acceptez nos Conditions et notre Politique de confidentialite.'
   },
   en: {
@@ -205,6 +209,10 @@ var translations = {
     match_goals_exp: 'Expected goals',
     league_title: 'League',
     league_no_match: 'No matches available',
+    league_matches: 'MATCHES',
+    league_live: '● LIVE',
+    league_fav: 'Favorite',
+    league_upcoming: 'match upcoming',
     index_terms: 'By continuing, you agree to our Terms of Use and Privacy Policy.'
   },
   es: {
@@ -309,6 +317,10 @@ var translations = {
     match_goals_exp: 'Goles esperados',
     league_title: 'Campeonato',
     league_no_match: 'Sin partidos disponibles',
+    league_matches: 'PARTIDOS',
+    league_live: '● EN VIVO',
+    league_fav: 'Favorito',
+    league_upcoming: 'partido por venir',
     index_terms: 'Al continuar, aceptas nuestros Terminos de uso y Politica de privacidad.'
   }
 };

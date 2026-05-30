@@ -90,7 +90,7 @@
     <div class="hero-sub" id="heroSub"></div>
   </div>
 
-  <div class="sec-lbl">MATCHS</div>
+  <div class="sec-lbl" data-i18n="league_matches">MATCHS</div>
   <div id="matchesContainer"><div class="spinner"></div></div>
 
   <nav class="bottom-nav">
@@ -121,12 +121,12 @@
         favs.push(id);
         var matchData = leagueMatchData[id];
         if (matchData) savedMatches.push(matchData);
-        el.innerHTML = '<span style="color:#f0c000;">★</span> Favori';
+        el.innerHTML = '<span style="color:#f0c000;">★</span> ' + t('league_fav');
         el.classList.add('fav');
       } else {
         favs = favs.filter(function(f) { return f != id; });
         savedMatches = savedMatches.filter(function(m) { return m.id != id; });
-        el.innerHTML = '<span style="color:#556;">★</span> Favori';
+        el.innerHTML = '<span style="color:#556;">★</span> ' + t('league_fav');
         el.classList.remove('fav');
       }
       localStorage.setItem('ema_favorites', JSON.stringify(favs));
@@ -178,7 +178,7 @@
         var d = new Date(m.utcDate);
         var time = d.toLocaleTimeString('fr', {hour:'2-digit', minute:'2-digit'});
         var date = d.toLocaleDateString('fr', {day:'2-digit', month:'2-digit'});
-        var statusHtml = isLive ? '<span class="mc-live">● EN DIRECT</span>' : '<span class="mc-time">' + date + ' · ' + time + '</span>';
+        var statusHtml = isLive ? '<span class="mc-live">' + t('league_live') + '</span>' : '<span class="mc-time">' + date + ' · ' + time + '</span>';
         var isFav = favs.some(function(f) { return f == m.id; });
         leagueMatchData[m.id] = m;
         var hId = m.homeTeam && m.homeTeam.id ? m.homeTeam.id : 0;
@@ -187,7 +187,7 @@
         html += '<div class="mc-top"><span class="mc-league">' + leagueName + '</span>' + statusHtml + '</div>';
         html += '<div class="match-teams"><span class="mt">' + homeDisplay + '</span><span class="mt-vs">vs</span><span class="mt r">' + awayDisplay + '</span></div>';
         html += '<div class="match-odds"><div class="odd best"><span class="odd-label">1</span><span class="odd-val" id="prob1-'+m.id+'">...</span></div><div class="odd"><span class="odd-label">X</span><span class="odd-val" id="probX-'+m.id+'">...</span></div><div class="odd"><span class="odd-label">2</span><span class="odd-val" id="prob2-'+m.id+'">...</span></div></div>';
-        html += '<div class="match-footer"><span class="mkt-tag hot" id="btts-'+m.id+'">BTTS — ...</span><span class="mkt-tag hot" id="over-'+m.id+'">+2.5 — ...</span><span class="mkt-tag' + (isFav ? ' fav' : '') + '" onclick="event.stopPropagation();toggleFav('+m.id+',this);" style="cursor:pointer;"><span style="color:' + (isFav ? '#f0c000' : '#556') + ';">★</span> Favori</span></div>';
+        html += '<div class="match-footer"><span class="mkt-tag hot" id="btts-'+m.id+'">BTTS — ...</span><span class="mkt-tag hot" id="over-'+m.id+'">+2.5 — ...</span><span class="mkt-tag' + (isFav ? ' fav' : '') + '" onclick="event.stopPropagation();toggleFav('+m.id+',this);" style="cursor:pointer;"><span style="color:' + (isFav ? '#f0c000' : '#556') + ';">★</span> ' + t('league_fav') + '</span></div>';
         html += '</div>';
       }
       document.getElementById('matchesContainer').innerHTML = html;
