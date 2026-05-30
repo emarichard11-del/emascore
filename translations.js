@@ -60,6 +60,11 @@ var translations = {
     account_favs: 'Mes Favoris',
     account_clear: 'Vider les favoris',
     account_clear_sub: 'Supprimer tous les favoris',
+    notif_title: 'Notifications',
+    notif_clear: 'Tout effacer',
+    notif_recent: 'RECENTES',
+    notif_empty: 'Aucune notification',
+    notif_empty_sub: 'Vous etes a jour !',
     index_terms: 'En continuant, vous acceptez nos Conditions et notre Politique de confidentialite.'
   },
   en: {
@@ -123,6 +128,11 @@ var translations = {
     account_favs: 'My Favorites',
     account_clear: 'Clear favorites',
     account_clear_sub: 'Delete all favorites',
+    notif_title: 'Notifications',
+    notif_clear: 'Clear all',
+    notif_recent: 'RECENT',
+    notif_empty: 'No notifications',
+    notif_empty_sub: 'You are up to date !',
     index_terms: 'By continuing, you agree to our Terms of Use and Privacy Policy.'
   },
   es: {
@@ -186,6 +196,11 @@ var translations = {
     account_favs: 'Mis Favoritos',
     account_clear: 'Vaciar favoritos',
     account_clear_sub: 'Eliminar todos los favoritos',
+    notif_title: 'Notificaciones',
+    notif_clear: 'Borrar todo',
+    notif_recent: 'RECIENTES',
+    notif_empty: 'Sin notificaciones',
+    notif_empty_sub: 'Estas al dia !',
     index_terms: 'Al continuar, aceptas nuestros Terminos de uso y Politica de privacidad.'
   }
 };

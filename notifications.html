@@ -76,8 +76,8 @@
 
   <div class="header">
     <button onclick="window.history.back()" class="back-btn">‹</button>
-    <span class="header-title">Notifications</span>
-    <span class="header-clear" onclick="clearNotifs()">Tout effacer</span>
+    <span class="header-title" data-i18n="notif_title">Notifications</span>
+    <span class="header-clear" onclick="clearNotifs()" data-i18n="notif_clear">Tout effacer</span>
   </div>
 
   <div id="notifsContainer"></div>
@@ -107,7 +107,7 @@
         document.getElementById('notifsContainer').innerHTML = '<div class="empty-state"><div class="empty-icon">🔔</div><div class="empty-title">Aucune notification</div><div class="empty-sub">Vous êtes à jour !</div></div>';
         return;
       }
-      var html = '<div class="sec-lbl">RÉCENTES</div>';
+      var html = '<div class="sec-lbl">' + t('notif_recent') + '</div>';
       notifs.forEach(function(n) {
         html += '<div class="notif-card' + (n.unread ? ' unread' : '') + '">';
         html += '<div class="notif-icon ' + n.type + '">' + n.icon + '</div>';
