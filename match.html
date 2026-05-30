@@ -337,7 +337,7 @@
     function mktCard(icon, title, rows) {
       var best = rows.reduce(function(a, b) { return a.pct > b.pct ? a : b; });
       var confClass = best.pct >= 70 ? 'conf-high' : best.pct >= 55 ? 'conf-mid' : 'conf-low';
-      var confText = best.pct >= 70 ? '🔥 Haute confiance' : best.pct >= 55 ? '✅ Bonne option' : '⚠️ Incertain';
+      var confText = best.pct >= 70 ? t('match_high_conf') : best.pct >= 55 ? t('match_good') : t('match_uncertain');
       return `
         <div class="mkt-card">
           <div class="mkt-title">${icon} ${title}</div>
@@ -387,16 +387,16 @@
           // Recommandation
           var rec = '', conf = 0, sub = '';
           if (hWin > aWin && hWin > 45) {
-            rec = home + ' remporte la victoire';
+            rec = home + ' ' + t('match_win');
             conf = hWin; sub = 'Favori à domicile · ' + hWin + '% de probabilité';
           } else if (aWin > hWin && aWin > 45) {
-            rec = away + ' remporte la victoire';
+            rec = away + ' ' + t('match_win');
             conf = aWin; sub = 'Favori à l\'extérieur · ' + aWin + '% de probabilité';
           } else if (draw > 32) {
-            rec = 'Match nul probable';
+            rec = t('match_draw') + ' probable';
             conf = draw; sub = 'Équipes de force égale · ' + draw + '% de probabilité';
           } else if (btts > 65) {
-            rec = 'Les deux équipes marquent';
+            rec = t('match_btts');
             conf = btts; sub = 'Attaques productives des deux côtés';
           } else {
             rec = 'Plus de 2.5 buts dans le match';
@@ -454,13 +454,13 @@
       const aHalf = Math.round(p.aWin * 0.7);
 
       const markets = `
-      ${secLbl('RÉSULTATS')}
-      ${mktCard('🏆', 'Résultat temps réglementaire', [
-        {label: home + ' gagne (1)', pct: p.hWin},
-        {label: 'Match nul (X)', pct: p.draw},
-        {label: away + ' gagne (2)', pct: p.aWin},
+      ${secLbl(t('match_results'))}
+      ${mktCard('🏆', t('match_result'), [
+        {label: home + ' ' + t('match_wins') + ' (1)', pct: p.hWin},
+        {label: t('match_draw') + ' (X)', pct: p.draw},
+        {label: away + ' ' + t('match_wins') + ' (2)', pct: p.aWin},
       ])}
-      ${mktCard('✌️', 'Double chance', [
+      ${mktCard('✌️', t('match_double'), [
         {label: '1X (' + home + ' ou Nul)', pct: Math.min(p.hWin + p.draw, 95)},
         {label: '12 (Pas de Nul)', pct: Math.min(p.hWin + p.aWin, 90)},
         {label: 'X2 (' + away + ' ou Nul)', pct: Math.min(p.aWin + p.draw, 85)},
@@ -470,58 +470,58 @@
         {label: away + ' +0.5', pct: 100 - p.hWin},
         {label: home + ' -1.5', pct: Math.round(p.hWin * 0.65)},
       ])}
-      ${secLbl('MI-TEMPS')}
-      ${mktCard('⏱️', 'Résultat 1ère mi-temps', [
-        {label: home + ' mène', pct: hHalf},
+      ${secLbl(t('match_halftime'))}
+      ${mktCard('⏱️', t('match_ht1'), [
+        {label: home + ' ' + t('match_leads'), pct: hHalf},
         {label: 'Nul à la mi-temps', pct: drawHalf},
-        {label: away + ' mène', pct: aHalf},
+        {label: away + ' ' + t('match_leads'), pct: aHalf},
       ])}
-      ${mktCard('⏱️', 'Résultat 2ème mi-temps', [
-        {label: home + ' marque plus', pct: Math.round(p.hWin * 0.85)},
+      ${mktCard('⏱️', t('match_ht2'), [
+        {label: home + ' ' + t('match_scores_more'), pct: Math.round(p.hWin * 0.85)},
         {label: 'Égalité en 2ème MT', pct: Math.round(p.draw * 1.1)},
-        {label: away + ' marque plus', pct: Math.round(p.aWin * 0.85)},
+        {label: away + ' ' + t('match_scores_more'), pct: Math.round(p.aWin * 0.85)},
       ])}
-      ${secLbl('BUTS')}
-      ${mktCard('⚽', 'Total buts dans le match', [
+      ${secLbl(t('match_goals'))}
+      ${mktCard('⚽', t('match_total_goals'), [
         {label: 'Plus de 1.5 buts', pct: over15},
         {label: 'Plus de 2.5 buts', pct: over25},
         {label: 'Plus de 3.5 buts', pct: over35},
       ])}
-      ${mktCard('🔵', home + ' — Total buts', [
+      ${mktCard('🔵', home + + ' — ' + t('match_total'), [
         {label: 'Plus de 0.5 buts', pct: hOver05},
         {label: 'Plus de 1.5 buts', pct: Math.round(hOver05 * 0.65)},
         {label: 'Plus de 2.5 buts', pct: Math.round(hOver05 * 0.35)},
       ])}
-      ${mktCard('🔴', away + ' — Total buts', [
+      ${mktCard('🔴', away + + ' — ' + t('match_total'), [
         {label: 'Plus de 0.5 buts', pct: aOver05},
         {label: 'Plus de 1.5 buts', pct: Math.round(aOver05 * 0.60)},
         {label: 'Plus de 2.5 buts', pct: Math.round(aOver05 * 0.30)},
       ])}
-      ${mktCard('🤝', 'Les deux équipes marquent', [
+      ${mktCard('🤝', t('match_btts'), [
         {label: 'Oui', pct: btts},
         {label: 'Non', pct: 100 - btts},
       ])}
-      ${mktCard('🤝', 'Les deux équipes marquent — 2ème MT', [
+      ${mktCard('🤝', t('match_btts2'), [
         {label: 'Oui', pct: Math.round(btts * 0.70)},
         {label: 'Non', pct: 100 - Math.round(btts * 0.70)},
       ])}
-      ${secLbl('ÉQUIPES')}
+      ${secLbl(t('match_teams'))}
       ${mktCard('🎯', home + ' — Marquer', [
-        {label: home + ' marque', pct: hOver05},
+        {label: home + ' ' + t('match_scores'), pct: hOver05},
         {label: home + ' ne marque pas', pct: 100 - hOver05},
       ])}
       ${mktCard('🎯', away + ' — Marquer', [
-        {label: away + ' marque', pct: aOver05},
+        {label: away + ' ' + t('match_scores'), pct: aOver05},
         {label: away + ' ne marque pas', pct: 100 - aOver05},
       ])}
-      ${secLbl('SCORE EXACT')}
-      ${mktCard('🔢', 'Score le plus probable', [
+      ${secLbl(t('match_score'))}
+      ${mktCard('🔢', t('match_score_label'), [
         {label: sc1 + ' - ' + sc2, pct: Math.round(Math.max(p.hWin, p.aWin, p.draw) * 0.35)},
         {label: (sc1+1) + ' - ' + sc2, pct: Math.round(Math.max(p.hWin, p.aWin, p.draw) * 0.22)},
         {label: sc1 + ' - ' + (sc2+1), pct: Math.round(Math.max(p.hWin, p.aWin, p.draw) * 0.18)},
       ])}
-      ${secLbl('CORNERS')}
-      ${mktCard('🚩', 'Total corners', [
+      ${secLbl(t('match_corners'))}
+      ${mktCard('🚩', t('match_total_corners'), [
         {label: 'Plus de 8.5 corners', pct: Math.round(over25 * 1.3)},
         {label: 'Plus de 9.5 corners', pct: Math.round(over25 * 1.0)},
         {label: 'Moins de 9.5 corners', pct: 100 - Math.round(over25 * 1.0)},
@@ -534,21 +534,21 @@
         {label: 'Plus de 4.5 corners', pct: Math.round(aOver05 * 0.80)},
         {label: 'Plus de 5.5 corners', pct: Math.round(aOver05 * 0.55)},
       ])}
-      ${secLbl('CARTONS')}
-      ${mktCard('🟨', 'Cartons jaunes', [
+      ${secLbl(t('match_cards'))}
+      ${mktCard('🟨', t('match_yellow'), [
         {label: 'Plus de 2.5 cartons', pct: Math.round(over25 * 1.2)},
         {label: 'Plus de 3.5 cartons', pct: Math.round(over25 * 0.8)},
       ])}
-      ${mktCard('🟥', 'Carton rouge', [
-        {label: 'Aucun carton rouge', pct: 72},
+      ${mktCard('🟥', t('match_red'), [
+        {label: t('match_no_red'), pct: 72},
         {label: 'Au moins 1 carton rouge', pct: 28},
       ])}
-      ${secLbl('TIRS')}
-      ${mktCard('💥', 'Total tirs', [
+      ${secLbl(t('match_shots'))}
+      ${mktCard('💥', t('match_total_shots'), [
         {label: 'Plus de 20.5 tirs', pct: Math.round(over15 * 0.70)},
         {label: 'Plus de 22.5 tirs', pct: Math.round(over15 * 0.50)},
       ])}
-      ${mktCard('🎯', 'Tirs cadrés', [
+      ${mktCard('🎯', t('match_shots_target'), [
         {label: 'Plus de 7.5 total', pct: Math.round(over15 * 0.65)},
         {label: 'Plus de 8.5 total', pct: Math.round(over15 * 0.45)},
       ])}
