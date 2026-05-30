@@ -141,7 +141,7 @@
         matches = matches.filter(function(m) {
           return m.status === 'SCHEDULED' || m.status === 'TIMED' || m.status === 'IN_PLAY' || m.status === 'LIVE' || m.status === 'PAUSED';
         });
-        document.getElementById('heroSub').textContent = matches.length + ' ' + t('league_upcoming') + (matches.length > 1 ? 's' : '');
+        document.getElementById('heroSub').textContent = matches.length + ' ' + t('league_upcoming');
         renderMatches(matches);
       } catch(e) {
         document.getElementById('matchesContainer').innerHTML = '<div style="text-align:center;padding:30px;color:#e84545;">⚠️ Serveur non connecté</div>';
@@ -184,7 +184,7 @@
         var hId = m.homeTeam && m.homeTeam.id ? m.homeTeam.id : 0;
         var aId = m.awayTeam && m.awayTeam.id ? m.awayTeam.id : 0;
         html += '<div class="match-card" onclick="goToMatch(\'' + homeName.replace(/\'/g,'') + '\',\'' + awayName.replace(/\'/g,'') + '\',\'' + leagueCode + '\',\'' + time + '\',' + hId + ',' + aId + ')">';
-        html += '<div class="mc-top"><span class="mc-league">' + leagueName + '</span>' + statusHtml + '</div>';
+        html += '<div class="mc-top"><span class="mc-league">' + translateLeague( ) + '</span>' + statusHtml + '</div>';
         html += '<div class="match-teams"><span class="mt">' + homeDisplay + '</span><span class="mt-vs">vs</span><span class="mt r">' + awayDisplay + '</span></div>';
         html += '<div class="match-odds"><div class="odd best"><span class="odd-label">1</span><span class="odd-val" id="prob1-'+m.id+'">...</span></div><div class="odd"><span class="odd-label">X</span><span class="odd-val" id="probX-'+m.id+'">...</span></div><div class="odd"><span class="odd-label">2</span><span class="odd-val" id="prob2-'+m.id+'">...</span></div></div>';
         html += '<div class="match-footer"><span class="mkt-tag hot" id="btts-'+m.id+'">BTTS — ...</span><span class="mkt-tag hot" id="over-'+m.id+'">+2.5 — ...</span><span class="mkt-tag' + (isFav ? ' fav' : '') + '" onclick="event.stopPropagation();toggleFav('+m.id+',this);" style="cursor:pointer;"><span style="color:' + (isFav ? '#f0c000' : '#556') + ';">★</span> ' + t('league_fav') + '</span></div>';
