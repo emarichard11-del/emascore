@@ -141,7 +141,7 @@
         matches = matches.filter(function(m) {
           return m.status === 'SCHEDULED' || m.status === 'TIMED' || m.status === 'IN_PLAY' || m.status === 'LIVE' || m.status === 'PAUSED';
         });
-        document.getElementById('heroSub').textContent = matches.length + ' match' + (matches.length > 1 ? 's' : '') + ' à venir';
+        document.getElementById('heroSub').textContent = matches.length + ' ' + t('league_upcoming') + (matches.length > 1 ? 's' : '');
         renderMatches(matches);
       } catch(e) {
         document.getElementById('matchesContainer').innerHTML = '<div style="text-align:center;padding:30px;color:#e84545;">⚠️ Serveur non connecté</div>';
