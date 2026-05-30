@@ -105,6 +105,12 @@ var translations = {
     league_live: '● EN DIRECT',
     league_fav: 'Favori',
     league_upcoming: 'match a venir',
+    countries: {
+      'Mexique': 'Mexique', 'Afrique du Sud': 'Afrique du Sud', 'France': 'France',
+      'Espagne': 'Espagne', 'Angleterre': 'Angleterre', 'Allemagne': 'Allemagne',
+      'Italie': 'Italie', 'Portugal': 'Portugal', 'Brésil': 'Bresil',
+      'Argentine': 'Argentine', 'Etats-Unis': 'Etats-Unis', 'Maroc': 'Maroc'
+    },
     index_terms: 'En continuant, vous acceptez nos Conditions et notre Politique de confidentialite.'
   },
   en: {
@@ -213,6 +219,12 @@ var translations = {
     league_live: '● LIVE',
     league_fav: 'Favorite',
     league_upcoming: 'match upcoming',
+    countries: {
+      'Mexique': 'Mexico', 'Afrique du Sud': 'South Africa', 'France': 'France',
+      'Espagne': 'Spain', 'Angleterre': 'England', 'Allemagne': 'Germany',
+      'Italie': 'Italy', 'Portugal': 'Portugal', 'Brésil': 'Brazil',
+      'Argentine': 'Argentina', 'Etats-Unis': 'United States', 'Maroc': 'Morocco'
+    },
     index_terms: 'By continuing, you agree to our Terms of Use and Privacy Policy.'
   },
   es: {
@@ -321,6 +333,12 @@ var translations = {
     league_live: '● EN VIVO',
     league_fav: 'Favorito',
     league_upcoming: 'partido por venir',
+    countries: {
+      'Mexique': 'Mexico', 'Afrique du Sud': 'Sudafrica', 'France': 'Francia',
+      'Espagne': 'Espana', 'Angleterre': 'Inglaterra', 'Allemagne': 'Alemania',
+      'Italie': 'Italia', 'Portugal': 'Portugal', 'Brésil': 'Brasil',
+      'Argentine': 'Argentina', 'Etats-Unis': 'Estados Unidos', 'Maroc': 'Marruecos'
+    },
     index_terms: 'Al continuar, aceptas nuestros Terminos de uso y Politica de privacidad.'
   }
 };
@@ -343,6 +361,12 @@ function applyTranslations() {
 function setLang(lang) {
   localStorage.setItem('ema_lang', lang);
   applyTranslations();
+}
+
+function translateTeam(name) {
+  var lang = getLang();
+  var dict = translations[lang] && translations[lang].countries ? translations[lang].countries : {};
+  return dict[name] || name;
 }
 
 document.addEventListener('DOMContentLoaded', applyTranslations);
