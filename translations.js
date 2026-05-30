@@ -65,6 +65,10 @@ var translations = {
     notif_recent: 'RECENTES',
     notif_empty: 'Aucune notification',
     notif_empty_sub: 'Vous etes a jour !',
+    fav_title: '⭐ Mes Favoris',
+    fav_empty: 'Aucun favori',
+    fav_empty_sub: 'Ajoute des matchs depuis les championnats',
+    fav_explore: 'Explorer les matchs',
     index_terms: 'En continuant, vous acceptez nos Conditions et notre Politique de confidentialite.'
   },
   en: {
@@ -133,6 +137,10 @@ var translations = {
     notif_recent: 'RECENT',
     notif_empty: 'No notifications',
     notif_empty_sub: 'You are up to date !',
+    fav_title: '⭐ My Favorites',
+    fav_empty: 'No favorites',
+    fav_empty_sub: 'Add matches from the leagues',
+    fav_explore: 'Explore matches',
     index_terms: 'By continuing, you agree to our Terms of Use and Privacy Policy.'
   },
   es: {
@@ -201,6 +209,10 @@ var translations = {
     notif_recent: 'RECIENTES',
     notif_empty: 'Sin notificaciones',
     notif_empty_sub: 'Estas al dia !',
+    fav_title: '⭐ Mis Favoritos',
+    fav_empty: 'Sin favoritos',
+    fav_empty_sub: 'Agrega partidos desde las ligas',
+    fav_explore: 'Explorar partidos',
     index_terms: 'Al continuar, aceptas nuestros Terminos de uso y Politica de privacidad.'
   }
 };
