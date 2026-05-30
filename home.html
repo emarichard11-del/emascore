@@ -169,7 +169,7 @@
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-greeting">Bienvenue sur</div>
+    <div class="hero-greeting" data-i18n="home_greeting">Bienvenue sur</div>
     <div class="hero-title"><span data-i18n="home_hero">Les meilleurs</span> <span data-i18n="home_hero2">pronostics</span></div>
     <div class="stats-row">
       <div class="stat-pill live" onclick="switchTab('live', document.querySelector('.tab:nth-child(2)'))" style="cursor:pointer;transition:all 0.2s;" onmousedown="this.style.transform='scale(0.9)'" onmouseup="this.style.transform='scale(1)'"><div class="stat-dot"></div><span id="liveCount">0</span> <span data-i18n="home_live_label">En direct</span></div>
@@ -189,26 +189,26 @@
 
   <!-- CHAMPIONNATS -->
   <div class="leagues-section">
-    <div class="sec-title">Championnats</div>
+    <div class="sec-title" data-i18n="home_leagues">Championnats</div>
     <div class="leagues-grid">
       <a href="league.html?code=PD&name=La%20Liga" class="league-card">
         <div class="league-left">
           <div class="league-flag"><img src="https://flagcdn.com/w40/es.png"></div>
-          <div><div class="league-name">La Liga</div><div class="league-sub">Espagne</div></div>
+          <div><div class="league-name">La Liga</div><div class="league-sub" data-i18n="country_spain">Espagne</div></div>
         </div>
         <div class="league-arrow">›</div>
       </a>
       <a href="league.html?code=FL1&name=Ligue%201" class="league-card">
         <div class="league-left">
           <div class="league-flag"><img src="https://flagcdn.com/w40/fr.png"></div>
-          <div><div class="league-name">Ligue 1</div><div class="league-sub">France</div></div>
+          <div><div class="league-name">Ligue 1</div><div class="league-sub" data-i18n="country_france">France</div></div>
         </div>
         <div class="league-arrow">›</div>
       </a>
       <a href="league.html?code=PL&name=Premier%20League" class="league-card">
         <div class="league-left">
           <div class="league-flag"><img src="https://flagcdn.com/w40/gb-eng.png"></div>
-          <div><div class="league-name">Premier League</div><div class="league-sub">Angleterre</div></div>
+          <div><div class="league-name">Premier League</div><div class="league-sub" data-i18n="country_england">Angleterre</div></div>
         </div>
         <div class="league-arrow">›</div>
       </a>
@@ -259,7 +259,7 @@
 
   <!-- MATCHS A LA UNE -->
   <div class="matches-section">
-    <div class="sec-title" style="padding:16px 0 8px;">Matchs à la une</div>
+    <div class="sec-title" style="padding:16px 0 8px;" data-i18n="home_featured">Matchs à la une</div>
     <div id="matchesContainer"><div class="spinner"></div></div>
   </div>
 
