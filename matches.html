@@ -69,7 +69,7 @@
     var allMatchesData = [];
 
     function buildDateSelector() {
-      var days = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+      var days = translations[getLang()] && translations[getLang()].days ? translations[getLang()].days : ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
       var months = ['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
       var html = '';
       for (var i = 0; i < 7; i++) {
