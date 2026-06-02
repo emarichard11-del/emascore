@@ -151,7 +151,7 @@
 
     function renderMatches(matches) {
       if (!matches.length) {
-        document.getElementById('matchesContainer').innerHTML = '<div style="text-align:center;padding:30px;color:#556;">Aucun match disponible</div>';
+        document.getElementById('matchesContainer').innerHTML = '<div style="text-align:center;padding:30px;color:#556;">' + t('league_no_match') + '</div>';
         return;
       }
       var favs = JSON.parse(localStorage.getItem('ema_favorites') || '[]');
