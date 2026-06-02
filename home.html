@@ -164,6 +164,34 @@
       <a href="notifications.html" class="icon-btn">
         <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
       </a>
+      <a href="league.html?code=ELC&name=Championship" class="league-card">
+        <div class="league-left">
+          <div class="league-flag"><img src="https://flagcdn.com/w40/gb-eng.png"></div>
+          <div><div class="league-name">Championship</div><div class="league-sub" data-i18n="country_england">Angleterre</div></div>
+        </div>
+        <div class="league-arrow">›</div>
+      </a>
+      <a href="league.html?code=DED&name=Eredivisie" class="league-card">
+        <div class="league-left">
+          <div class="league-flag"><img src="https://flagcdn.com/w40/nl.png"></div>
+          <div><div class="league-name">Eredivisie</div><div class="league-sub" data-i18n="country_netherlands">Pays-Bas</div></div>
+        </div>
+        <div class="league-arrow">›</div>
+      </a>
+      <a href="league.html?code=MLS&name=MLS" class="league-card">
+        <div class="league-left">
+          <div class="league-flag"><img src="https://flagcdn.com/w40/us.png"></div>
+          <div><div class="league-name">MLS</div><div class="league-sub" data-i18n="country_usa">Etats-Unis</div></div>
+        </div>
+        <div class="league-arrow">›</div>
+      </a>
+      <a href="league.html?code=FCWC&name=FIFA Club World Cup" class="league-card">
+        <div class="league-left">
+          <div class="league-flag" style="font-size:18px;">🏆</div>
+          <div><div class="league-name" data-i18n="fcwc_name">FIFA Club World Cup</div><div class="league-sub" data-i18n="fcwc_sub">International</div></div>
+        </div>
+        <div class="league-arrow">›</div>
+      </a>
     </div>
   </div>
 
@@ -338,7 +366,7 @@
 
     async function loadMatches() {
       try {
-        var leagues = ["PL","PD","FL1","BL1","SA","PPL","CL","BSA","WC"];
+        var leagues = ["PL","PD","FL1","BL1","SA","PPL","CL","BSA","WC","ELC","DED","MLS","FCWC"];
         var today = new Date().toISOString().split("T")[0];
         var next7 = new Date(Date.now() + 7*24*60*60*1000).toISOString().split("T")[0];
         var promises = leagues.map(function(code) {
