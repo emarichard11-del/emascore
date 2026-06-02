@@ -132,7 +132,7 @@
         var results = await Promise.all(promises);
         allMatchesData = results.reduce(function(a, b) { return a.concat(b); }, []);
         allMatchesData.sort(function(a, b) { return new Date(a.utcDate) - new Date(b.utcDate); });
-        document.getElementById('matchCount').textContent = allMatchesData.length + ' MATCH' + (allMatchesData.length > 1 ? 'S' : '') + ' DISPONIBLES';
+        document.getElementById('matchCount').textContent = allMatchesData.length + ' ' + t('matches_available');
         renderMatches(allMatchesData);
       } catch(e) {
         document.getElementById('matchesContainer').innerHTML = '<div style="text-align:center;padding:40px;color:#e84545;">⚠️ Serveur non connecté</div>';
