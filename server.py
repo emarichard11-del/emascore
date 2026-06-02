@@ -138,8 +138,14 @@ class Handler(BaseHTTPRequestHandler):
             else:
                 url = f"{API_BASE}/matches"
                 ck = "matches_all"
-            data = self.fetch_api(url, cache_key=ck, ttl=120)
-            self.send_json(data)
+            try:
+                data = self.fetch_api(url, cache_key=ck, ttl=120)
+                self.send_json(data)
+            except Exception as e:
+                if '403' in str(e):
+                    self.send_json({'error': 'plan_required', 'matches': []}, 200)
+                else:
+                    self.send_json({'error': str(e), 'matches': []}, 200)
 
         elif parsed.path == '/api/probs':
             home_id = int(params.get('home', [0])[0])
