@@ -1,0 +1,22 @@
+{
+  "name": "EMASCORE",
+  "short_name": "EMASCORE",
+  "description": "Les meilleurs pronostics football",
+  "start_url": "/home.html",
+  "display": "standalone",
+  "background_color": "#0a0e1a",
+  "theme_color": "#5DBE74",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://crests.football-data.org/PL.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://crests.football-data.org/PL.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

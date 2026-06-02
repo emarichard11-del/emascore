@@ -154,6 +154,8 @@
   </style>
 
 <script src="translations.js"></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#5DBE74">
 </head>
 <body>
 
@@ -492,5 +494,6 @@
       document.getElementById("confModal").addEventListener("click", function(e){ if(e.target===this){this.remove();document.body.style.overflow="";} });
     }
   </script>
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js").then(function(){console.log("SW registered");}).catch(function(e){console.log("SW error",e);});}</script>
 </body>
 </html>
