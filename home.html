@@ -367,7 +367,7 @@
 
     function renderMatches(matches) {
       if (!matches.length) {
-        document.getElementById('matchesContainer').innerHTML = '<div style="text-align:center;padding:30px;color:#556;font-size:13px;">Aucun match disponible</div>';
+        document.getElementById('matchesContainer').innerHTML = '<div style="text-align:center;padding:30px;color:#556;font-size:13px;">' + t('matches_no_match') + '</div>';
         return;
       }
       var favs = JSON.parse(localStorage.getItem('ema_favorites') || '[]');
