@@ -5,6 +5,83 @@ from urllib.parse import urlparse, parse_qs
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 API_KEY = '824faa7348564e16a5d4301ca43897a9'
+
+FIFA_RANKING = {
+    773: 1,   # France
+    760: 2,   # Spain
+    762: 3,   # Argentina
+    770: 4,   # England
+    765: 5,   # Portugal
+    764: 6,   # Brazil
+    8601: 7,  # Netherlands
+    815: 8,   # Morocco
+    805: 9,   # Belgium
+    759: 10,  # Germany
+    799: 11,  # Croatia
+    818: 13,  # Colombia
+    804: 14,  # Senegal
+    769: 15,  # Mexico
+    771: 16,  # USA
+    758: 17,  # Uruguay
+    766: 18,  # Japan
+    788: 19,  # Switzerland
+    792: 24,  # Sweden
+    772: 22,  # South Korea
+    779: 23,  # Australia
+    803: 28,  # Turkey
+    840: 21,  # Iran
+    791: 30,  # Ecuador
+    816: 33,  # Austria
+    802: 40,  # Tunisia
+    778: 35,  # Algeria
+    825: 34,  # Egypt
+    761: 50,  # Paraguay
+    8049: 85, # Jordan
+    801: 56,  # Saudi Arabia
+    8872: 25, # Norway
+    8062: 65, # Iraq
+    1935: 50, # Ivory Coast
+    828: 47,  # Canada
+    8030: 55, # Qatar
+    1060: 60, # Bosnia
+    836: 75,  # Haiti
+    8873: 39, # Scotland
+    9460: 120,# Curacao
+    774: 63,  # South Africa
+    798: 37,  # Czechia
+    783: 102, # New Zealand
+    1930: 72, # Cape Verde
+    763: 52,  # Ghana
+    1836: 78, # Panama
+    8070: 68, # Uzbekistan
+    1934: 90, # Congo DR
+    762: 3,   # Argentina
+}
+
+def fifa_prob(home_id, away_id):
+    home_rank = FIFA_RANKING.get(home_id, 80)
+    away_rank = FIFA_RANKING.get(away_id, 80)
+    home_pts = 1000 / home_rank
+    away_pts = 1000 / away_rank
+    home_adv = home_pts * 1.1
+    total = home_adv + away_pts + (home_pts + away_pts) * 0.15
+    prob1 = round((home_adv / total) * 100)
+    prob2 = round((away_pts / total) * 100)
+    probX = 100 - prob1 - prob2
+    prob1 = max(15, min(78, prob1))
+    prob2 = max(8, min(70, prob2))
+    probX = max(12, min(38, 100 - prob1 - prob2))
+    avg_goals = 2.5
+    btts = min(72, max(38, 55))
+    over25 = min(68, max(35, 52))
+    hG = round(avg_goals * (home_adv / (home_adv + away_pts)), 1)
+    aG = round(avg_goals * (away_pts / (home_adv + away_pts)), 1)
+    return {
+        'prob1': prob1, 'probX': probX, 'prob2': prob2,
+        'btts': btts, 'over25': over25,
+        'homeGoalsAvg': hG, 'awayGoalsAvg': aG
+    }
+
 API_BASE = 'https://api.football-data.org/v4'
 PORT = 8080
 CACHE = {}
@@ -98,7 +175,7 @@ class Handler(BaseHTTPRequestHandler):
             }
         except Exception as e:
             print(f"calc_probs error: {e}")
-            return {'prob1': 40, 'probX': 28, 'prob2': 32, 'btts': 55, 'over25': 50, 'homeGoalsAvg': 1.5, 'awayGoalsAvg': 1.2}
+            return fifa_prob(home_id, away_id)
 
     def find_team_id(self, name, league):
         try:
