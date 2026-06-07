@@ -114,6 +114,8 @@ class Handler(BaseHTTPRequestHandler):
         return data
 
     def calc_probs(self, home_id, away_id, league):
+        if league == "WC" and (home_id in FIFA_RANKING or away_id in FIFA_RANKING):
+            return fifa_prob(home_id, away_id)
         try:
             cache_key = f"{league}_finished"
             data = self.fetch_api(
