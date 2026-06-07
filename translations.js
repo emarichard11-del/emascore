@@ -564,6 +564,47 @@ function translateLeague(name) {
   return dict[name] || name;
 }
 
+
+function translateTeamName(name) {
+  var lang = getLang();
+  var en_fr = {
+    'Mexico': 'Mexique', 'South Africa': 'Afrique du Sud', 'Korea Republic': 'Coree du Sud',
+    'Czechia': 'Republique Tcheque', 'Canada': 'Canada', 'Bosnia-H.': 'Bosnie',
+    'Qatar': 'Qatar', 'Switzerland': 'Suisse', 'Brazil': 'Bresil', 'Morocco': 'Maroc',
+    'Haiti': 'Haiti', 'Scotland': 'Ecosse', 'Australia': 'Australie', 'Turkey': 'Turquie',
+    'Germany': 'Allemagne', 'Curacao': 'Curacao', 'Netherlands': 'Pays-Bas',
+    'Japan': 'Japon', 'Ivory Coast': 'Cote Ivoire', 'Ecuador': 'Equateur',
+    'Sweden': 'Suede', 'Tunisia': 'Tunisie', 'Spain': 'Espagne', 'Cape Verde': 'Cap-Vert',
+    'Belgium': 'Belgique', 'Egypt': 'Egypte', 'Saudi Arabia': 'Arabie Saoudite',
+    'Uruguay': 'Uruguay', 'Iran': 'Iran', 'New Zealand': 'Nouvelle-Zelande',
+    'France': 'France', 'Iraq': 'Irak', 'Norway': 'Norvege', 'Senegal': 'Senegal',
+    'Argentina': 'Argentine', 'Algeria': 'Algerie', 'Austria': 'Autriche',
+    'Jordan': 'Jordanie', 'Portugal': 'Portugal', 'Congo DR': 'Congo RD',
+    'England': 'Angleterre', 'Croatia': 'Croatie', 'Ghana': 'Ghana', 'Panama': 'Panama',
+    'Uzbekistan': 'Ouzbekistan', 'Colombia': 'Colombie', 'USA': 'Etats-Unis',
+    'Paraguay': 'Paraguay', 'Bosnia-Herzegovina': 'Bosnie'
+  };
+  var en_es = {
+    'Mexico': 'Mexico', 'South Africa': 'Sudafrica', 'Korea Republic': 'Corea del Sur',
+    'Czechia': 'Republica Checa', 'Canada': 'Canada', 'Bosnia-H.': 'Bosnia',
+    'Qatar': 'Qatar', 'Switzerland': 'Suiza', 'Brazil': 'Brasil', 'Morocco': 'Marruecos',
+    'Haiti': 'Haiti', 'Scotland': 'Escocia', 'Australia': 'Australia', 'Turkey': 'Turquia',
+    'Germany': 'Alemania', 'Curacao': 'Curacao', 'Netherlands': 'Paises Bajos',
+    'Japan': 'Japon', 'Ivory Coast': 'Costa de Marfil', 'Ecuador': 'Ecuador',
+    'Sweden': 'Suecia', 'Tunisia': 'Tunisia', 'Spain': 'Espana', 'Cape Verde': 'Cabo Verde',
+    'Belgium': 'Belgica', 'Egypt': 'Egipto', 'Saudi Arabia': 'Arabia Saudita',
+    'Uruguay': 'Uruguay', 'Iran': 'Iran', 'New Zealand': 'Nueva Zelanda',
+    'France': 'Francia', 'Iraq': 'Irak', 'Norway': 'Noruega', 'Senegal': 'Senegal',
+    'Argentina': 'Argentina', 'Algeria': 'Argelia', 'Austria': 'Austria',
+    'Jordan': 'Jordania', 'Portugal': 'Portugal', 'Congo DR': 'Congo RD',
+    'England': 'Inglaterra', 'Croatia': 'Croacia', 'Ghana': 'Ghana', 'Panama': 'Panama',
+    'Uzbekistan': 'Uzbekistan', 'Colombia': 'Colombia', 'USA': 'Estados Unidos',
+    'Paraguay': 'Paraguay', 'Bosnia-Herzegovina': 'Bosnia'
+  };
+  if (lang === 'fr') return en_fr[name] || name;
+  if (lang === 'es') return en_es[name] || name;
+  return name;
+}
 function translateTeam(name) {
   var lang = getLang();
   var dict = translations[lang] && translations[lang].countries ? translations[lang].countries : {};
