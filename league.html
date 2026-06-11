@@ -168,9 +168,9 @@
         var awayName = m.awayTeam && m.awayTeam.shortName ? m.awayTeam.shortName : (m.awayTeam && m.awayTeam.name ? m.awayTeam.name : 'Extérieur');
         var homeFlag = countryFlags[homeName] || countryFlags[m.homeTeam && m.homeTeam.name] || '';
         var awayFlag = countryFlags[awayName] || countryFlags[m.awayTeam && m.awayTeam.name] || '';
-        homeName = countryNames[homeName] || homeName;
+        homeName = translateTeamName(homeName) || homeName;
         homeName = teamNames[homeName] || translateTeamName(homeName);
-        awayName = countryNames[awayName] || awayName;
+        awayName = translateTeamName(awayName) || awayName;
         awayName = teamNames[awayName] || translateTeamName(awayName);
         var homeCrest = m.homeTeam && m.homeTeam.crest ? '<img src="'+m.homeTeam.crest+'" style="width:20px;height:20px;object-fit:contain;vertical-align:middle;margin-right:4px;">' : (homeFlag ? '<img src="https://flagcdn.com/w20/'+homeFlag+'.png" style="width:18px;border-radius:2px;vertical-align:middle;margin-right:4px;">' : '');
         var awayCrest = m.awayTeam && m.awayTeam.crest ? '<img src="'+m.awayTeam.crest+'" style="width:20px;height:20px;object-fit:contain;vertical-align:middle;margin-right:4px;">' : (awayFlag ? '<img src="https://flagcdn.com/w20/'+awayFlag+'.png" style="width:18px;border-radius:2px;vertical-align:middle;margin-right:4px;">' : '');
