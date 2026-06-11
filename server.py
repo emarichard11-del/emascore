@@ -242,6 +242,8 @@ class Handler(BaseHTTPRequestHandler):
                 ck = f"matches_{date}"
             else:
                 url = f"{API_BASE}/matches"
+                from datetime import datetime
+                today = datetime.utcnow().strftime("%Y-%m-%d")
                 ck = f"matches_all_{today}"
             try:
                 data = self.fetch_api(url, cache_key=ck, ttl=120)
