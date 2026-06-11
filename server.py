@@ -223,6 +223,8 @@ class Handler(BaseHTTPRequestHandler):
                 url = f"{API_BASE}/competitions/{league}/matches?dateFrom={date}&dateTo={date_next}"
                 ck = f"matches_{league}_{date}"
             elif league:
+                from datetime import datetime, timedelta
+                today = datetime.utcnow().strftime("%Y-%m-%d")
                 all_matches = params.get('all', [None])[0]
                 if all_matches:
                     url = f"{API_BASE}/competitions/{league}/matches"
