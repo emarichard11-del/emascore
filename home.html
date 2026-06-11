@@ -497,5 +497,10 @@
     }
   </script>
 <script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js").then(function(){console.log("SW registered");}).catch(function(e){console.log("SW error",e);});}</script>
+<script>
+setInterval(function() {
+  fetch('https://emascore-api.onrender.com/api/matches').catch(function(){});
+}, 600000);
+</script>
 </body>
 </html>
