@@ -241,9 +241,10 @@ class Handler(BaseHTTPRequestHandler):
                 url = f"{API_BASE}/matches?dateFrom={date}&dateTo={date_next}"
                 ck = f"matches_{date}"
             else:
-                url = f"{API_BASE}/matches"
-                from datetime import datetime
+                from datetime import datetime, timedelta
                 today = datetime.utcnow().strftime("%Y-%m-%d")
+                date_next = (datetime.utcnow() + timedelta(days=2)).strftime("%Y-%m-%d")
+                url = f"{API_BASE}/matches?dateFrom={today}&dateTo={date_next}"
                 ck = f"matches_all_{today}"
             try:
                 data = self.fetch_api(url, cache_key=ck, ttl=120)
