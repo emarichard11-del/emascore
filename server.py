@@ -223,11 +223,16 @@ class Handler(BaseHTTPRequestHandler):
                 url = f"{API_BASE}/competitions/{league}/matches?dateFrom={date}&dateTo={date_next}"
                 ck = f"matches_{league}_{date}"
             elif league:
-                from datetime import datetime, timedelta
-                today = datetime.utcnow().strftime("%Y-%m-%d")
-                date_next = (datetime.utcnow() + timedelta(days=1)).strftime("%Y-%m-%d")
-                url = f"{API_BASE}/competitions/{league}/matches?dateFrom={today}&dateTo={date_next}"
-                ck = f"matches_{league}_{today}"
+                all_matches = params.get('all', [None])[0]
+                if all_matches:
+                    url = f"{API_BASE}/competitions/{league}/matches"
+                    ck = f"matches_{league}_all"
+                else:
+                    from datetime import datetime, timedelta
+                    today = datetime.utcnow().strftime("%Y-%m-%d")
+                    date_next = (datetime.utcnow() + timedelta(days=1)).strftime("%Y-%m-%d")
+                    url = f"{API_BASE}/competitions/{league}/matches?dateFrom={today}&dateTo={date_next}"
+                    ck = f"matches_{league}_{today}"
             elif date:
                 from datetime import datetime, timedelta
                 date_next = (datetime.strptime(date, "%Y-%m-%d") + timedelta(days=1)).strftime("%Y-%m-%d")

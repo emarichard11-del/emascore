@@ -138,7 +138,7 @@
 
     async function loadLeagueMatches() {
       try {
-        var res = await fetch('https://emascore-api.onrender.com/api/matches?league=' + leagueCode);
+        var res = await fetch('https://emascore-api.onrender.com/api/matches?league=' + leagueCode + '&all=true');
         var data = await res.json();
         var matches = data.matches || [];
         matches = matches.filter(function(m) {
