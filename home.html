@@ -310,7 +310,9 @@
         var now = new Date();
         filtered = allMatchesData.filter(function(m) {
           var d = new Date(m.utcDate);
-          return d.getDate() === now.getDate() && d.getHours() >= now.getHours();
+          var localD = new Date(d.getTime());
+          var localNow = new Date();
+          return localD.toLocaleDateString() === localNow.toLocaleDateString();
         });
       } else if (currentTab === 'favorites') {
         filtered = allMatchesData.filter(function(m) { return favs.some(function(f) { return f == m.id; }); });
