@@ -75,8 +75,8 @@
       var months = ['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
       var html = '';
       for (var i = 0; i < 7; i++) {
-        var d = new Date();
-        d.setDate(d.getDate() + i);
+        var now = new Date();
+        var d = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i);
         var dateStr = d.toLocaleDateString('en-CA');
         var label = i === 0 ? t('matches_today') : days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()];
         html += '<div class="date-btn' + (dateStr === selectedDate ? ' active' : '') + '" onclick="selectDate(\'' + dateStr + '\',this)">' + label + '</div>';
