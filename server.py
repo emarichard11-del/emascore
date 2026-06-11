@@ -230,7 +230,7 @@ class Handler(BaseHTTPRequestHandler):
                 else:
                     from datetime import datetime, timedelta
                     today = datetime.utcnow().strftime("%Y-%m-%d")
-                    date_next = (datetime.utcnow() + timedelta(days=1)).strftime("%Y-%m-%d")
+                    date_next = (datetime.utcnow() + timedelta(days=2)).strftime("%Y-%m-%d")
                     url = f"{API_BASE}/competitions/{league}/matches?dateFrom={today}&dateTo={date_next}"
                     ck = f"matches_{league}_{today}"
             elif date:
