@@ -88,7 +88,7 @@
       selectedDate = date;
       document.querySelectorAll('.date-btn').forEach(function(b) { b.classList.remove('active'); });
       el.classList.add('active');
-      loadMatches();
+      filterAndRender();
     }
 
     function goToMatch(home, away, league, time, homeId, awayId) {
@@ -134,8 +134,7 @@
         var results = await Promise.all(promises);
         allMatchesData = results.reduce(function(a, b) { return a.concat(b); }, []);
         allMatchesData.sort(function(a, b) { return new Date(a.utcDate) - new Date(b.utcDate); });
-        document.getElementById('matchCount').textContent = allMatchesData.length + ' ' + t('matches_available');
-        renderMatches(allMatchesData);
+        filterAndRender();
       } catch(e) {
         document.getElementById('matchesContainer').innerHTML = '<div style="text-align:center;padding:40px;color:#e84545;">⚠️ Serveur non connecté</div>';
       }
@@ -208,6 +207,15 @@
     }
 
     buildDateSelector();
+    function filterAndRender() {
+      var filtered = allMatchesData.filter(function(m) {
+        if (!m.utcDate) return false;
+        var localDate = new Date(m.utcDate).toLocaleDateString("en-CA");
+        return localDate === selectedDate;
+      });
+      document.getElementById('matchCount').textContent = filtered.length + ' ' + t('matches_available');
+      renderMatches(filtered);
+    }
     loadMatches();
     document.addEventListener("visibilitychange", function() { if (!document.hidden) { document.getElementById("matchesContainer").innerHTML = ""; loadMatches(); } });
   </script>
