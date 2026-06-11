@@ -127,7 +127,7 @@
           return fetch('https://emascore-api.onrender.com/api/matches?league=' + code)
             .then(function(r) { return r.json(); })
             .then(function(d) {
-              return (d.matches || []).filter(function(m) { return m.utcDate && m.utcDate.startsWith(selectedDate); });
+              return (d.matches || []).filter(function(m) { if (!m.utcDate) return false; var localDate = new Date(m.utcDate).toLocaleDateString("en-CA"); return localDate === selectedDate; });
             })
             .catch(function() { return []; });
         });
