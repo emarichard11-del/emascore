@@ -224,7 +224,9 @@ class Handler(BaseHTTPRequestHandler):
                 url = f"{API_BASE}/competitions/{league}/matches"
                 ck = f"matches_{league}"
             elif date:
-                url = f"{API_BASE}/matches?dateFrom={date}&dateTo={date}"
+                from datetime import datetime, timedelta
+                date_next = (datetime.strptime(date, "%Y-%m-%d") + timedelta(days=1)).strftime("%Y-%m-%d")
+                url = f"{API_BASE}/matches?dateFrom={date}&dateTo={date_next}"
                 ck = f"matches_{date}"
             else:
                 url = f"{API_BASE}/matches"
