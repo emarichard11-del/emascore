@@ -232,7 +232,7 @@ class Handler(BaseHTTPRequestHandler):
                     today = datetime.utcnow().strftime("%Y-%m-%d")
                     date_next = (datetime.utcnow() + timedelta(days=2)).strftime("%Y-%m-%d")
                     url = f"{API_BASE}/competitions/{league}/matches?dateFrom={today}&dateTo={date_next}"
-                    ck = f"matches_{league}_{today}"
+                    ck = f"matches_{league}_{today}_v2"
             elif date:
                 from datetime import datetime, timedelta
                 date_next = (datetime.strptime(date, "%Y-%m-%d") + timedelta(days=1)).strftime("%Y-%m-%d")
@@ -240,7 +240,7 @@ class Handler(BaseHTTPRequestHandler):
                 ck = f"matches_{date}"
             else:
                 url = f"{API_BASE}/matches"
-                ck = "matches_all"
+                ck = f"matches_all_{today}"
             try:
                 data = self.fetch_api(url, cache_key=ck, ttl=120)
                 self.send_json(data)
