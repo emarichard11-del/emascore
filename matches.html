@@ -124,7 +124,7 @@
       try {
         var leagues = ['PL','PD','FL1','BL1','SA','PPL','CL','BSA','WC'];
         var promises = leagues.map(function(code) {
-          return fetch('https://emascore-api.onrender.com/api/matches?league=' + code + '&date=' + selectedDate)
+          return fetch('https://emascore-api.onrender.com/api/matches?league=' + code + '&all=true')
             .then(function(r) { return r.json(); })
             .then(function(d) {
               return (d.matches || []).filter(function(m) { if (!m.utcDate) return false; var localDate = new Date(m.utcDate).toLocaleDateString("en-CA"); return localDate === selectedDate; });
