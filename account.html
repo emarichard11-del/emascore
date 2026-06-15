@@ -105,26 +105,26 @@
 <body>
 
   <div class="header" style="display:flex;justify-content:space-between;align-items:center;">
-    <div class="header-title">Mon Compte</div>
+    <div class="header-title" data-i18n="account_title">Mon Compte</div>
     <a href="settings.html" style="font-size:22px;text-decoration:none;">⚙️</a>
   </div>
 
   <!-- PROFIL -->
   <div class="profile-section">
     <div class="avatar">E</div>
-    <div class="profile-name">Utilisateur</div>
-    <div class="profile-plan">⚡ Plan Gratuit</div>
+    <div class="profile-name" data-i18n="account_user">Utilisateur</div>
+    <div class="profile-plan" data-i18n="account_free">⚡ Plan Gratuit</div>
   </div>
 
   <!-- STATS -->
   <div class="stats-section">
     <div class="stat-box">
       <div class="stat-num" id="statFavs">0</div>
-      <div class="stat-lbl">Favoris</div>
+      <div class="stat-lbl" data-i18n="account_favorites">Favoris</div>
     </div>
     <div class="stat-box">
       <div class="stat-num">9</div>
-      <div class="stat-lbl">Championnats</div>
+      <div class="stat-lbl" data-i18n="account_leagues">Championnats</div>
     </div>
     <div class="stat-box">
       <div class="stat-num">100%</div>
@@ -134,33 +134,33 @@
 
   <!-- PLAN PRO -->
   <div class="section">
-    <div class="sec-title">PASSER AU PRO</div>
+    <div class="sec-title" data-i18n="account_upgrade">PASSER AU PRO</div>
   </div>
   <div class="plan-card">
-    <div class="plan-title">🚀 Plan Pro</div>
+    <div class="plan-title" data-i18n="account_pro">🚀 Plan Pro</div>
     <div class="plan-sub">Accès aux statistiques avancées, corners, cartons, tirs et cotes réelles</div>
     <a class="plan-btn">Bientôt disponible</a>
   </div>
   <div class="section">
-    <div class="sec-title">MENU</div>
+    <div class="sec-title" data-i18n="account_menu">MENU</div>
     <a href="notifications.html" class="menu-item">
       <div class="menu-left">
         <div class="menu-icon">🔔</div>
-        <div><div class="menu-name">Notifications</div><div class="menu-sub">Gérer les alertes</div></div>
+        <div><div class="menu-name" data-i18n="account_notif">Notifications</div><div class="menu-sub" data-i18n="account_notif_sub">Gérer les alertes</div></div>
       </div>
       <div class="menu-arrow">›</div>
     </a>
     <a href="favorites.html" class="menu-item">
       <div class="menu-left">
         <div class="menu-icon yellow">⭐</div>
-        <div><div class="menu-name">Mes Favoris</div><div class="menu-sub" id="favSub">0 match sauvegardé</div></div>
+        <div><div class="menu-name" data-i18n="account_fav">Mes Favoris</div><div class="menu-sub" id="favSub">0 match sauvegardé</div></div>
       </div>
       <div class="menu-arrow">›</div>
     </a>
     <div class="menu-item" onclick="clearFavs()">
       <div class="menu-left">
         <div class="menu-icon red">🗑️</div>
-        <div><div class="menu-name">Vider les favoris</div><div class="menu-sub">Supprimer tous les favoris</div></div>
+        <div><div class="menu-name" data-i18n="account_clear">Vider les favoris</div><div class="menu-sub" data-i18n="account_clear_sub">Supprimer tous les favoris</div></div>
       </div>
       <div class="menu-arrow">›</div>
     </div>
