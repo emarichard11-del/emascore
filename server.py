@@ -214,7 +214,9 @@ class Handler(BaseHTTPRequestHandler):
         parsed = urlparse(self.path)
         params = parse_qs(parsed.query)
 
-        if parsed.path == '/api/matches':
+        if parsed.path == '/ping':
+            self.send_json({"status": "ok"})
+        elif parsed.path == '/api/matches':
             league = params.get('league', [None])[0]
             date = params.get('date', [None])[0]
             if league and date:
