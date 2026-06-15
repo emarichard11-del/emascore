@@ -106,9 +106,9 @@
         <div><div class="menu-name" data-i18n="settings_language">Langue</div><div class="menu-sub" data-i18n="settings_language_sub">Français, Anglais, Espagnol</div></div>
       </div>
       <div style="display:flex;gap:6px;">
-        <button onclick="setLang('fr')" style="padding:5px 10px;border-radius:99px;border:1px solid #2a4a2a;background:#1a2a1a;color:#5DBE74;font-size:11px;cursor:pointer;">🇫🇷 FR</button>
-        <button onclick="setLang('en')" style="padding:5px 10px;border-radius:99px;border:1px solid #2a4a2a;background:#1a2a1a;color:#5DBE74;font-size:11px;cursor:pointer;">🇬🇧 EN</button>
-        <button onclick="setLang('es')" style="padding:5px 10px;border-radius:99px;border:1px solid #2a4a2a;background:#1a2a1a;color:#5DBE74;font-size:11px;cursor:pointer;">🇪🇸 ES</button>
+        <button id="btn-fr" onclick="setLang('fr')" style="padding:6px 14px;border-radius:99px;border:1px solid #2a4a2a;background:#1a2a1a;color:#5DBE74;font-size:12px;cursor:pointer;">🇫🇷 Français</button>
+        <button id="btn-en" onclick="setLang('en')" style="padding:6px 14px;border-radius:99px;border:1px solid #2a4a2a;background:#1a2a1a;color:#5DBE74;font-size:12px;cursor:pointer;">🇬🇧 English</button>
+        <button id="btn-es" onclick="setLang('es')" style="padding:6px 14px;border-radius:99px;border:1px solid #2a4a2a;background:#1a2a1a;color:#5DBE74;font-size:12px;cursor:pointer;">🇪🇸 Español</button>
       </div>
     </div>
   </div>
@@ -167,5 +167,30 @@
   function deconnexion() { document.getElementById("decoModal").style.display = "flex"; }
   function doDeco() { localStorage.clear(); window.location.href = "login.html"; }
 </script>
+
+  <script>
+  function updateLangButtons() {
+    var lang = getLang();
+    ['fr','en','es'].forEach(function(l) {
+      var btn = document.getElementById('btn-' + l);
+      if (btn) {
+        if (l === lang) {
+          btn.style.background = '#5DBE74';
+          btn.style.color = '#fff';
+          btn.style.borderColor = '#5DBE74';
+          btn.style.fontWeight = '700';
+        } else {
+          btn.style.background = '#1a2a1a';
+          btn.style.color = '#5DBE74';
+          btn.style.borderColor = '#2a4a2a';
+          btn.style.fontWeight = 'normal';
+        }
+      }
+    });
+  }
+  var origSetLang = setLang;
+  setLang = function(lang) { origSetLang(lang); updateLangButtons(); };
+  document.addEventListener('DOMContentLoaded', updateLangButtons);
+  </script>
 </body>
 </html>
