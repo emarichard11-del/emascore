@@ -106,9 +106,14 @@
         <div><div class="menu-name" data-i18n="settings_language">Langue</div><div class="menu-sub" data-i18n="settings_language_sub">Français, Anglais, Espagnol</div></div>
       </div>
       <div style="display:flex;gap:6px;">
-        <button id="btn-fr" onclick="setLang('fr')" style="padding:6px 14px;border-radius:99px;border:1px solid #2a4a2a;background:#1a2a1a;color:#5DBE74;font-size:12px;cursor:pointer;">🇫🇷 Français</button>
-        <button id="btn-en" onclick="setLang('en')" style="padding:6px 14px;border-radius:99px;border:1px solid #2a4a2a;background:#1a2a1a;color:#5DBE74;font-size:12px;cursor:pointer;">🇬🇧 English</button>
-        <button id="btn-es" onclick="setLang('es')" style="padding:6px 14px;border-radius:99px;border:1px solid #2a4a2a;background:#1a2a1a;color:#5DBE74;font-size:12px;cursor:pointer;">🇪🇸 Español</button>
+        <div style="position:relative;">
+          <button id="lang-current" onclick="document.getElementById('lang-dropdown').style.display=document.getElementById('lang-dropdown').style.display==='block'?'none':'block'" style="padding:6px 14px;border-radius:99px;border:1px solid #5DBE74;background:#1a2a1a;color:#5DBE74;font-size:12px;cursor:pointer;font-weight:700;">🇫🇷 Français ▾</button>
+          <div id="lang-dropdown" style="display:none;position:absolute;right:0;top:36px;background:#0f1923;border:1px solid #2a4a2a;border-radius:10px;overflow:hidden;z-index:999;min-width:140px;">
+            <div onclick="setLang('fr');document.getElementById('lang-dropdown').style.display='none';" style="padding:10px 16px;cursor:pointer;color:#5DBE74;font-size:13px;">🇫🇷 Français</div>
+            <div onclick="setLang('en');document.getElementById('lang-dropdown').style.display='none';" style="padding:10px 16px;cursor:pointer;color:#aaa;font-size:13px;border-top:1px solid #2a4a2a;">🇬🇧 English</div>
+            <div onclick="setLang('es');document.getElementById('lang-dropdown').style.display='none';" style="padding:10px 16px;cursor:pointer;color:#aaa;font-size:13px;border-top:1px solid #2a4a2a;">🇪🇸 Español</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -169,28 +174,15 @@
 </script>
 
   <script>
-  function updateLangButtons() {
+  var langs = {fr: '🇫🇷 Français', en: '🇬🇧 English', es: '🇪🇸 Español'};
+  function updateLangBtn() {
     var lang = getLang();
-    ['fr','en','es'].forEach(function(l) {
-      var btn = document.getElementById('btn-' + l);
-      if (btn) {
-        if (l === lang) {
-          btn.style.background = '#5DBE74';
-          btn.style.color = '#fff';
-          btn.style.borderColor = '#5DBE74';
-          btn.style.fontWeight = '700';
-        } else {
-          btn.style.background = '#1a2a1a';
-          btn.style.color = '#5DBE74';
-          btn.style.borderColor = '#2a4a2a';
-          btn.style.fontWeight = 'normal';
-        }
-      }
-    });
+    var btn = document.getElementById('lang-current');
+    if (btn) btn.textContent = langs[lang] + ' ▾';
   }
   var origSetLang = setLang;
-  setLang = function(lang) { origSetLang(lang); updateLangButtons(); };
-  document.addEventListener('DOMContentLoaded', updateLangButtons);
+  setLang = function(lang) { origSetLang(lang); updateLangBtn(); };
+  document.addEventListener('DOMContentLoaded', updateLangBtn);
   </script>
 </body>
 </html>
