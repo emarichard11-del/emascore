@@ -345,6 +345,16 @@
     }
 
     async function loadMatches() {
+      var cached = localStorage.getItem('ema_home_cache');
+      if (cached) {
+        try {
+          var cachedData = JSON.parse(cached);
+          allMatchesData = cachedData;
+          var live = allMatchesData.filter(function(m) { return m.status === 'IN_PLAY' || m.status === 'LIVE'; }).length;
+          document.getElementById('liveCount').textContent = live;
+          filterMatches();
+        } catch(e) {}
+      }
       try {
         var leagues = ["WC","PL","PD","FL1","BL1","SA","PPL","CL","BSA","ELC","DED"];
         var today = new Date().toISOString().split("T")[0];
