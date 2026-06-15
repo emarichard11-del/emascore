@@ -66,7 +66,7 @@
 
   <div class="header">
     <button onclick="window.history.back()" class="back-btn">‹</button>
-    <span class="header-title">Paramètres</span>
+    <span class="header-title" data-i18n="settings_title">Paramètres</span>
   </div>
   </div>
 
@@ -82,7 +82,7 @@
     <a href="favorites.html" class="menu-item">
       <div class="menu-left">
         <div class="menu-icon yellow">⭐</div>
-        <div><div class="menu-name" data-i18n="settings_favorites">Mes Favoris</div><div class="menu-sub" id="favSub">0 match sauvegardé</div></div>
+        <div><div class="menu-name" data-i18n="settings_favorites">Mes Favoris</div><div class="menu-sub" id="favSub">0 match</div></div>
       </div>
       <div class="menu-arrow">›</div>
     </a>
@@ -141,21 +141,21 @@
 
   <div id="confirmModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;">
     <div style="background:#0f1923;border-radius:16px;padding:24px;margin:20px;max-width:320px;width:100%;border:1px solid #2a4a2a;">
-      <div style="font-size:16px;font-weight:800;color:#fff;margin-bottom:8px;">🗑️ Vider les favoris</div>
-      <div style="font-size:13px;color:#556;margin-bottom:20px;">Voulez-vous supprimer tous vos favoris ?</div>
+      <div style="font-size:16px;font-weight:800;color:#fff;margin-bottom:8px;" data-i18n="settings_clear">🗑️ Vider les favoris</div>
+      <div style="font-size:13px;color:#556;margin-bottom:20px;" data-i18n="settings_clear_confirm">Voulez-vous supprimer tous vos favoris ?</div>
       <div style="display:flex;gap:10px;">
-        <button onclick="document.getElementById('confirmModal').style.display='none'" style="flex:1;padding:12px;border-radius:10px;border:1px solid #2a4a2a;background:#1a2a2a;color:#fff;font-weight:700;cursor:pointer;">Annuler</button>
-        <button onclick="doClear()" style="flex:1;padding:12px;border-radius:10px;border:none;background:#e84545;color:#fff;font-weight:700;cursor:pointer;">Supprimer</button>
+        <button onclick="document.getElementById('confirmModal').style.display='none'" style="flex:1;padding:12px;border-radius:10px;border:1px solid #2a4a2a;background:#1a2a2a;color:#fff;font-weight:700;cursor:pointer;" data-i18n="settings_cancel">Annuler</button>
+        <button onclick="doClear()" style="flex:1;padding:12px;border-radius:10px;border:none;background:#e84545;color:#fff;font-weight:700;cursor:pointer;" data-i18n="settings_delete">Supprimer</button>
       </div>
     </div>
   </div>
   <div id="decoModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;">
     <div style="background:#0f1923;border-radius:16px;padding:24px;margin:20px;max-width:320px;width:100%;border:1px solid #2a4a2a;">
-      <div style="font-size:16px;font-weight:800;color:#fff;margin-bottom:8px;">🚪 Déconnexion</div>
-      <div style="font-size:13px;color:#556;margin-bottom:20px;">Voulez-vous vous déconnecter ?</div>
+      <div style="font-size:16px;font-weight:800;color:#fff;margin-bottom:8px;" data-i18n="settings_logout">🚪 Déconnexion</div>
+      <div style="font-size:13px;color:#556;margin-bottom:20px;" data-i18n="settings_logout_confirm">Voulez-vous vous déconnecter ?</div>
       <div style="display:flex;gap:10px;">
-        <button onclick="document.getElementById('decoModal').style.display='none'" style="flex:1;padding:12px;border-radius:10px;border:1px solid #2a4a2a;background:#1a2a2a;color:#fff;font-weight:700;cursor:pointer;">Annuler</button>
-        <button onclick="doDeco()" style="flex:1;padding:12px;border-radius:10px;border:none;background:#e84545;color:#fff;font-weight:700;cursor:pointer;">Déconnecter</button>
+        <button onclick="document.getElementById('decoModal').style.display='none'" style="flex:1;padding:12px;border-radius:10px;border:1px solid #2a4a2a;background:#1a2a2a;color:#fff;font-weight:700;cursor:pointer;" data-i18n="settings_cancel">Annuler</button>
+        <button onclick="doDeco()" style="flex:1;padding:12px;border-radius:10px;border:none;background:#e84545;color:#fff;font-weight:700;cursor:pointer;" data-i18n="settings_disconnect">Déconnecter</button>
       </div>
     </div>
   </div>
