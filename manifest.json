@@ -9,12 +9,12 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "https://crests.football-data.org/PL.png",
+      "src": "/logo.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://crests.football-data.org/PL.png",
+      "src": "/logo.png",
       "sizes": "512x512",
       "type": "image/png"
     }
