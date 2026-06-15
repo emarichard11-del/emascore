@@ -98,10 +98,10 @@
       var confMatches = JSON.parse(localStorage.getItem('ema_conf_matches') || '[]');
       var favs = JSON.parse(localStorage.getItem('ema_favorites') || '[]');
       var defaultNotifs = [
-        { id: 1, icon: '⚽', type: 'green', title: 'Bienvenue ' + userName + ' !', text: 'Découvrez les meilleurs pronostics pour vos championnats préférés.', time: "Aujourd'hui", unread: true },
-        { id: 2, icon: '🔥', type: 'yellow', title: confMatches.length + ' pronostics haute confiance', text: confMatches.length > 0 ? 'Nous avons trouvé ' + confMatches.length + ' matchs avec une haute probabilité de réussite aujourd hui.' : 'Aucun pronostic haute confiance disponible aujourd hui.', time: "Aujourd'hui", unread: true },
-        { id: 3, icon: '⚡', type: 'green', title: 'Matchs disponibles aujourd hui', text: 'Consultez les pronostics du jour et faites vos choix gagnants !', time: "Aujourd'hui", unread: false },
-        { id: 4, icon: '📊', type: 'green', title: favs.length + ' matchs en favoris', text: favs.length > 0 ? 'Vous avez ' + favs.length + ' match' + (favs.length > 1 ? 's' : '') + ' sauvegardé' + (favs.length > 1 ? 's' : '') + ' dans vos favoris.' : 'Ajoutez des matchs en favoris pour les retrouver facilement.', time: 'Il y a 1h', unread: false },
+        { id: 1, icon: '⚽', type: 'green', title: t('notif_welcome') + ' ' + userName + ' !', text: t('notif_welcome_sub'), time: t('notif_today'), unread: true },
+        { id: 2, icon: '🔥', type: 'yellow', title: confMatches.length + ' ' + t('notif_conf'), text: confMatches.length > 0 ? t('notif_conf_found') + ' ' + confMatches.length + ' ' + t('notif_conf_prob') : t('notif_conf_none'), time: t('notif_today'), unread: true },
+        { id: 3, icon: '⚡', type: 'green', title: t('notif_matches'), text: t('notif_matches_sub'), time: t('notif_today'), unread: false },
+        { id: 4, icon: '📊', type: 'green', title: favs.length + ' ' + t('notif_favs'), text: favs.length > 0 ? t('notif_favs_sub') + ' ' + favs.length + ' ' + t('notif_favs_saved') : t('notif_favs_none'), time: t('notif_ago'), unread: false },
       ];
       var notifs = JSON.parse(localStorage.getItem('ema_notifs') || JSON.stringify(defaultNotifs));
       notifs = defaultNotifs;
@@ -124,7 +124,7 @@
     }
 
     function clearNotifs() {
-      if (confirm('Effacer toutes les notifications ?')) {
+      if (confirm(t('notif_confirm'))) {
         localStorage.removeItem('ema_notifs');
         document.getElementById('notifsContainer').innerHTML = '<div class="empty-state"><div class="empty-icon">🔔</div><div class="empty-title">Aucune notification</div><div class="empty-sub">Vous êtes à jour !</div></div>';
       }
