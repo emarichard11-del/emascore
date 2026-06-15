@@ -179,6 +179,17 @@
     var lang = getLang();
     var btn = document.getElementById('lang-current');
     if (btn) btn.textContent = langs[lang] + ' ▾';
+    var items = document.querySelectorAll('#lang-dropdown div');
+    var order = ['fr', 'en', 'es'];
+    items.forEach(function(item, i) {
+      if (order[i] === lang) {
+        item.style.color = '#5DBE74';
+        item.style.fontWeight = '700';
+      } else {
+        item.style.color = '#aaa';
+        item.style.fontWeight = 'normal';
+      }
+    });
   }
   var origSetLang = setLang;
   setLang = function(lang) { origSetLang(lang); updateLangBtn(); };
