@@ -120,7 +120,17 @@
     }
 
     async function loadMatches() {
-      document.getElementById('matchesContainer').innerHTML = '<div class="spinner"></div>';
+      // Afficher les données du cache local d'abord
+      var cached = localStorage.getItem('ema_matches_cache');
+      if (cached) {
+        try {
+          var cachedData = JSON.parse(cached);
+          allMatchesData = cachedData;
+          filterAndRender();
+        } catch(e) {}
+      } else {
+        document.getElementById('matchesContainer').innerHTML = '<div class="spinner"></div>';
+      }
       try {
         var leagues = ['WC','PL','PD','FL1','BL1','SA','PPL','CL','BSA'];
         var promises = leagues.map(function(code) {
@@ -134,6 +144,7 @@
         var results = await Promise.all(promises);
         allMatchesData = results.reduce(function(a, b) { return a.concat(b); }, []);
         allMatchesData.sort(function(a, b) { return new Date(a.utcDate) - new Date(b.utcDate); });
+        try { localStorage.setItem('ema_matches_cache', JSON.stringify(allMatchesData)); } catch(e) {}
         filterAndRender();
       } catch(e) {
         document.getElementById('matchesContainer').innerHTML = '<div style="text-align:center;padding:40px;color:#e84545;">⚠️ Serveur non connecté</div>';
