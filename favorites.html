@@ -126,7 +126,7 @@
       var favs = JSON.parse(localStorage.getItem('ema_favorites') || '[]');
       document.getElementById('favCount').textContent = favs.length;
       if (favs.length === 0) {
-        document.getElementById('favContainer').innerHTML = '<div class="empty-state"><div class="empty-icon">⭐</div><div class="empty-title">Aucun favori</div><div class="empty-sub">Ajoute des matchs depuis les championnats</div><a href="home.html" class="empty-btn">Explorer les matchs</a></div>';
+        document.getElementById('favContainer').innerHTML = '<div class="empty-state"><div class="empty-icon">⭐</div><div class="empty-title">' + t('fav_empty') + '</div><div class="empty-sub">' + t('fav_empty_sub') + '</div><a href="home.html" class="empty-btn">' + t('fav_explore') + '</a></div>';
       }
     }
 
@@ -136,7 +136,7 @@
       document.getElementById('favCount').textContent = favs.length;
 
       if (!savedMatches.length) {
-        document.getElementById('favContainer').innerHTML = '<div class="empty-state"><div class="empty-icon">⭐</div><div class="empty-title">Aucun favori</div><div class="empty-sub">Ajoute des matchs depuis les championnats</div><a href="home.html" class="empty-btn">Explorer les matchs</a></div>';
+        document.getElementById('favContainer').innerHTML = '<div class="empty-state"><div class="empty-icon">⭐</div><div class="empty-title">' + t('fav_empty') + '</div><div class="empty-sub">' + t('fav_empty_sub') + '</div><a href="home.html" class="empty-btn">' + t('fav_explore') + '</a></div>';
         return;
       }
 
