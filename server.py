@@ -231,6 +231,7 @@ class Handler(BaseHTTPRequestHandler):
                 if all_matches:
                     url = f"{API_BASE}/competitions/{league}/matches"
                     ck = f"matches_{league}_all"
+                    ttl_val = 600
                 else:
                     from datetime import datetime, timedelta
                     today = datetime.utcnow().strftime("%Y-%m-%d")
@@ -249,7 +250,7 @@ class Handler(BaseHTTPRequestHandler):
                 url = f"{API_BASE}/matches?dateFrom={today}&dateTo={date_next}"
                 ck = f"matches_all_{today}"
             try:
-                data = self.fetch_api(url, cache_key=ck, ttl=120)
+                data = self.fetch_api(url, cache_key=ck, ttl=locals().get("ttl_val", 120))
                 self.send_json(data)
             except Exception as e:
                 if '403' in str(e):
