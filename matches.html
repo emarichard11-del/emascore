@@ -122,7 +122,7 @@
     async function loadMatches() {
       document.getElementById('matchesContainer').innerHTML = '<div class="spinner"></div>';
       try {
-        var leagues = ['PL','PD','FL1','BL1','SA','PPL','CL','BSA','WC'];
+        var leagues = ['WC','PL','PD','FL1','BL1','SA','PPL','CL','BSA'];
         var promises = leagues.map(function(code) {
           return fetch('https://emascore-api.onrender.com/api/matches?league=' + code + '&all=true')
             .then(function(r) { return r.json(); })

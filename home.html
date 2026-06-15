@@ -346,7 +346,7 @@
 
     async function loadMatches() {
       try {
-        var leagues = ["PL","PD","FL1","BL1","SA","PPL","CL","BSA","WC","ELC","DED","MLS","FCWC"];
+        var leagues = ["WC","PL","PD","FL1","BL1","SA","PPL","CL","BSA","ELC","DED"];
         var today = new Date().toISOString().split("T")[0];
         var next7 = new Date(Date.now() + 7*24*60*60*1000).toISOString().split("T")[0];
         var promises = leagues.map(function(code) {
