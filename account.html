@@ -128,7 +128,7 @@
     </div>
     <div class="stat-box">
       <div class="stat-num">100%</div>
-      <div class="stat-lbl">Gratuit</div>
+      <div class="stat-lbl" data-i18n="account_free_lbl">Gratuit</div>
     </div>
   </div>
 
@@ -138,8 +138,8 @@
   </div>
   <div class="plan-card">
     <div class="plan-title" data-i18n="account_pro">🚀 Plan Pro</div>
-    <div class="plan-sub">Accès aux statistiques avancées, corners, cartons, tirs et cotes réelles</div>
-    <a class="plan-btn">Bientôt disponible</a>
+    <div class="plan-sub" data-i18n="account_pro_desc">Accès aux statistiques avancées, corners, cartons, tirs et cotes réelles</div>
+    <a class="plan-btn" data-i18n="account_pro_soon">Bientôt disponible</a>
   </div>
   <div class="section">
     <div class="sec-title" data-i18n="account_menu">MENU</div>
@@ -186,7 +186,7 @@
         localStorage.removeItem('ema_favorites');
         localStorage.removeItem('ema_fav_matches');
         document.getElementById('statFavs').textContent = '0';
-        document.getElementById('favSub').textContent = '0 match sauvegardé';
+        document.getElementById('favSub').textContent = '0 ' + t('account_fav_sub');
         alert('Favoris vidés !');
       }
     }
