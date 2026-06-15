@@ -644,6 +644,11 @@ function applyTranslations() {
   document.querySelectorAll('[data-i18n]').forEach(function(el) {
     el.textContent = t(el.getAttribute('data-i18n'));
   });
+  var favSub = document.getElementById('favSub');
+  if (favSub) {
+    var favs = JSON.parse(localStorage.getItem('ema_favorites') || '[]');
+    favSub.textContent = favs.length + ' ' + t('account_fav_sub');
+  }
 }
 
 function setLang(lang) {
