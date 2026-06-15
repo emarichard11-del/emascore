@@ -88,10 +88,12 @@ def fifa_prob(home_id, away_id):
     prob1 = min(78, 100 - prob2 - probX)
     hG = round(avg_goals * (home_adv / (home_adv + away_pts)), 1)
     aG = round(avg_goals * (away_pts / (home_adv + away_pts)), 1)
+    best = max([('1', prob1), ('X', probX), ('2', prob2)], key=lambda x: x[1])
     return {
         'prob1': prob1, 'probX': probX, 'prob2': prob2,
         'btts': btts, 'over25': over25,
-        'homeGoalsAvg': hG, 'awayGoalsAvg': aG
+        'homeGoalsAvg': hG, 'awayGoalsAvg': aG,
+        'bestMarket': best[0], 'bestProb': best[1], 'highConfidence': best[1] >= 55
     }
 
 API_BASE = 'https://api.football-data.org/v4'
