@@ -127,9 +127,12 @@
           var cachedData = JSON.parse(cached);
           allMatchesData = cachedData;
           filterAndRender();
-        } catch(e) {}
+        } catch(e) {
+          document.getElementById('matchesContainer').innerHTML = '<div class="spinner"></div>';
+        }
       } else {
         document.getElementById('matchesContainer').innerHTML = '<div class="spinner"></div>';
+        document.getElementById('matchCount').textContent = '';
       }
       try {
         var leagues = ['WC','PL','PD','FL1','BL1','SA','PPL','CL','BSA'];
