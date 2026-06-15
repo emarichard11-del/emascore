@@ -475,8 +475,8 @@
       var confMatches = JSON.parse(localStorage.getItem("ema_conf_matches") || "[]");
       if (!confMatches.length) {
         var msg = document.createElement('div');
-        msg.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#1a1f35;border:1px solid #5DBE74;border-radius:16px;padding:28px 32px;z-index:9999;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.5);min-width:260px;';
-        msg.innerHTML = '<div style="font-size:32px;margin-bottom:12px;">🔥</div><div style="color:#fff;font-weight:700;font-size:16px;margin-bottom:6px;">Aucun match haute confiance</div><div style="color:#556;font-size:13px;margin-bottom:20px;">Revenez plus tard</div><button onclick="this.parentElement.remove();" style="background:#5DBE74;color:#fff;border:none;border-radius:8px;padding:10px 28px;font-weight:700;font-size:14px;cursor:pointer;">OK</button>';
+        msg.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#0f1923;border:1px solid #222;border-radius:8px;padding:24px 28px;z-index:9999;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.7);min-width:240px;max-width:300px;';
+        msg.innerHTML = '<div style="color:#aaa;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Haute confiance</div><div style="color:#fff;font-weight:600;font-size:15px;margin-bottom:20px;">Aucun match disponible pour le moment</div><button onclick="this.parentElement.remove();" style="background:#1e2d1e;color:#5DBE74;border:1px solid #5DBE74;border-radius:6px;padding:9px 24px;font-weight:600;font-size:13px;cursor:pointer;width:100%;">Fermer</button>';
         document.body.appendChild(msg);
         return;
       }
