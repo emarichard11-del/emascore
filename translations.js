@@ -641,6 +641,7 @@ function t(key) {
 }
 
 function applyTranslations() {
+  if (typeof updateLangBtn === "function") updateLangBtn();
   document.querySelectorAll('[data-i18n]').forEach(function(el) {
     el.textContent = t(el.getAttribute('data-i18n'));
   });
