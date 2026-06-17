@@ -1,5 +1,6 @@
 import json
 import time
+import os
 import urllib.request
 from urllib.parse import urlparse, parse_qs
 from http.server import HTTPServer, BaseHTTPRequestHandler
@@ -345,8 +346,8 @@ class Handler(BaseHTTPRequestHandler):
         elif parsed.path == '/api/admin/login':
             email = params.get('email', [''])[0]
             password = params.get('password', [''])[0]
-            ADMIN_EMAILS = ['emarichard11@gmail.com']
-            ADMIN_PASS = 'RITCHJS97'
+            ADMIN_EMAILS = os.environ.get('ADMIN_EMAILS', 'emarichard11@gmail.com').split(',')
+            ADMIN_PASS = os.environ.get('ADMIN_PASS', '')
             if email in ADMIN_EMAILS and password == ADMIN_PASS:
                 self.send_json({'success': True, 'token': 'EMA_ADMIN_' + email})
             else:
