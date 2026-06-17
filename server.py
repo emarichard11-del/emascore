@@ -5,6 +5,8 @@ from urllib.parse import urlparse, parse_qs
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 API_KEY = '824faa7348564e16a5d4301ca43897a9'
+API_FOOTBALL_KEY = 'e49778fd035bade96e4537dd0a4a2032'
+API_FOOTBALL_BASE = 'https://v3.football.api-sports.io'
 
 FIFA_RANKING = {
     773: 1,   # France
@@ -95,6 +97,21 @@ def fifa_prob(home_id, away_id):
         'homeGoalsAvg': hG, 'awayGoalsAvg': aG,
         'bestMarket': best[0], 'bestProb': best[1], 'highConfidence': best[1] >= 55
     }
+
+
+def fetch_api_football(endpoint, params={}):
+    import urllib.parse
+    url = API_FOOTBALL_BASE + endpoint
+    if params:
+        url += '?' + urllib.parse.urlencode(params)
+    req = urllib.request.Request(url)
+    req.add_header('x-apisports-key', API_FOOTBALL_KEY)
+    try:
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            return json.loads(resp.read().decode())
+    except Exception as e:
+        print(f"API-Football error: {e}")
+        return None
 
 API_BASE = 'https://api.football-data.org/v4'
 PORT = 8080
@@ -274,6 +291,40 @@ class Handler(BaseHTTPRequestHandler):
             self.send_json(probs)
 
         else:
+        elif parsed.path == '/api/fixture_stats':
+            fixture_id = params.get('id', [None])[0]
+            if fixture_id:
+                ck = f"fixture_stats_{fixture_id}"
+                cached = CACHE.get(ck)
+                if cached and time.time() - CACHE_TIME.get(ck, 0) < 300:
+                    self.send_json(cached)
+                else:
+                    data = fetch_api_football('/fixtures/statistics', {'fixture': fixture_id})
+                    if data:
+                        CACHE[ck] = data
+                        CACHE_TIME[ck] = time.time()
+                        self.send_json(data)
+                    else:
+                        self.send_json({'error': 'not found'}, 404)
+            else:
+                self.send_json({'error': 'missing id'}, 400)
+        elif parsed.path == '/api/fixture_odds':
+            fixture_id = params.get('id', [None])[0]
+            if fixture_id:
+                ck = f"fixture_odds_{fixture_id}"
+                cached = CACHE.get(ck)
+                if cached and time.time() - CACHE_TIME.get(ck, 0) < 300:
+                    self.send_json(cached)
+                else:
+                    data = fetch_api_football('/odds', {'fixture': fixture_id})
+                    if data:
+                        CACHE[ck] = data
+                        CACHE_TIME[ck] = time.time()
+                        self.send_json(data)
+                    else:
+                        self.send_json({'error': 'not found'}, 404)
+            else:
+                self.send_json({'error': 'missing id'}, 400)
             self.send_json({'error': 'not found'}, 404)
 
 print("Serveur EMASCORE demarré sur http://localhost:8080")
