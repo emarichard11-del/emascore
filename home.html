@@ -303,7 +303,7 @@
 
     function filterMatches() {
       var favs = JSON.parse(localStorage.getItem('ema_favorites') || '[]');
-      var filtered = allMatchesData;
+      var filtered = allMatchesData.filter(function(m) { return m.status !== 'FINISHED'; });
       if (currentTab === 'live') {
         filtered = allMatchesData.filter(function(m) { return m.status === 'IN_PLAY' || m.status === 'LIVE'; });
       } else if (currentTab === 'tonight') {
