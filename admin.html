@@ -333,11 +333,7 @@ tr:last-child td { border-bottom:none; }
 function doLogin() {
   var email = document.getElementById('loginEmail').value;
   var pass = document.getElementById('loginPass').value;
-  fetch('https://emascore-api.onrender.com/api/admin/login', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({email: email, password: pass})
-  }).then(function(r) { return r.json(); }).then(function(d) {
+  fetch('https://emascore-api.onrender.com/api/admin/login?email=' + encodeURIComponent(email) + '&password=' + encodeURIComponent(pass)).then(function(r) { return r.json(); }).then(function(d) {
     if (d.success) {
       localStorage.setItem('ema_admin', d.token);
       localStorage.setItem('ema_admin_email', email);

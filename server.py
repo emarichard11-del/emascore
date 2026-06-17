@@ -230,10 +230,40 @@ class Handler(BaseHTTPRequestHandler):
             pass
         return 0
 
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        self.end_headers()
+
+    def do_POST(self):
+        import urllib.parse as up
+        parsed = up.urlparse(self.path)
+        params = up.parse_qs(parsed.query)
+        if parsed.path == '/api/admin/login':
+            import json as json2
+            try:
+                length = int(self.headers.get('Content-Length', 0))
+                body = json2.loads(self.rfile.read(length).decode())
+                email = body.get('email', '')
+                password = body.get('password', '')
+                ADMIN_EMAILS = ['emarichard11@gmail.com']
+                ADMIN_PASS = 'RITCHJS97'
+                if email in ADMIN_EMAILS and password == ADMIN_PASS:
+                    self.send_json({'success': True, 'token': 'EMA_ADMIN_' + email})
+                else:
+                    self.send_json({'success': False, 'error': 'Accès refusé'}, 403)
+            except Exception as e:
+                self.send_json({'error': str(e)}, 400)
+        else:
+            self.send_json({'error': 'not found'}, 404)
+
     def do_GET(self):
         parsed = urlparse(self.path)
         params = parse_qs(parsed.query)
 
+        print("PATH:", repr(parsed.path))
         if parsed.path == '/ping':
             self.send_json({"status": "ok"})
         elif parsed.path == '/api/matches':
@@ -314,20 +344,14 @@ class Handler(BaseHTTPRequestHandler):
                 else:
                     self.send_json({'error': 'not found'}, 404)
         elif parsed.path == '/api/admin/login':
-            import json as json2
-            try:
-                length = int(self.headers.get('Content-Length', 0))
-                body = json2.loads(self.rfile.read(length).decode())
-                email = body.get('email', '')
-                password = body.get('password', '')
-                ADMIN_EMAILS = ['emarichard11@gmail.com']
-                ADMIN_PASS = 'RITCHJS97'
-                if email in ADMIN_EMAILS and password == ADMIN_PASS:
-                    self.send_json({'success': True, 'token': 'EMA_ADMIN_' + email})
-                else:
-                    self.send_json({'success': False, 'error': 'Accès refusé'}, 403)
-            except Exception as e:
-                self.send_json({'error': str(e)}, 400)
+            email = params.get('email', [''])[0]
+            password = params.get('password', [''])[0]
+            ADMIN_EMAILS = ['emarichard11@gmail.com']
+            ADMIN_PASS = 'RITCHJS97'
+            if email in ADMIN_EMAILS and password == ADMIN_PASS:
+                self.send_json({'success': True, 'token': 'EMA_ADMIN_' + email})
+            else:
+                self.send_json({'success': False, 'error': 'Accès refusé'}, 403)
         elif parsed.path == '/api/fixture_stats':
             fixture_id = params.get('id', [None])[0]
             if fixture_id:
@@ -362,7 +386,6 @@ class Handler(BaseHTTPRequestHandler):
                         self.send_json({'error': 'not found'}, 404)
             else:
                 self.send_json({'error': 'missing id'}, 400)
-            self.send_json({'error': 'not found'}, 404)
 
 print("Serveur EMASCORE demarré sur http://localhost:8080")
 HTTPServer(('0.0.0.0', PORT), Handler).serve_forever()
