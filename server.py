@@ -290,6 +290,28 @@ class Handler(BaseHTTPRequestHandler):
             probs = self.calc_probs(home_id, away_id, league)
             self.send_json(probs)
 
+        elif parsed.path == '/api/af_fixtures':
+            date = params.get('date', [None])[0]
+            league = params.get('league', [None])[0]
+            if not date:
+                from datetime import datetime
+                date = datetime.utcnow().strftime('%Y-%m-%d')
+            ck = f"af_fixtures_{date}_{league}"
+            cached = CACHE.get(ck)
+            if cached and time.time() - CACHE_TIME.get(ck, 0) < 300:
+                self.send_json(cached)
+            else:
+                p = {'date': date}
+                if league:
+                    p['league'] = league
+                    p['season'] = '2026'
+                data = fetch_api_football('/fixtures', p)
+                if data:
+                    CACHE[ck] = data
+                    CACHE_TIME[ck] = time.time()
+                    self.send_json(data)
+                else:
+                    self.send_json({'error': 'not found'}, 404)
         elif parsed.path == '/api/fixture_stats':
             fixture_id = params.get('id', [None])[0]
             if fixture_id:
