@@ -80,6 +80,23 @@ tr:last-child td { border-bottom:none; }
 .notif-text { font-size:13px; }
 .notif-time { font-size:11px; color:#556; margin-top:4px; }
 
+/* RESPONSIVE MOBILE */
+@media (max-width: 768px) {
+  .sidebar { width:60px; }
+  .sidebar-logo { padding:10px; }
+  .sidebar-logo span, .sidebar-logo p { display:none; }
+  .nav-item span:not(.icon) { display:none; }
+  .nav-item { padding:14px; justify-content:center; }
+  .main { margin-left:60px; padding:12px; }
+  .stats-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+  .stat-card { padding:14px; }
+  .stat-card .value { font-size:20px; }
+  .form-row { grid-template-columns:1fr; }
+  table { font-size:11px; }
+  th, td { padding:8px 10px; }
+  .btn-action { padding:3px 6px; font-size:10px; }
+  #adminDate { display:none; }
+}
 /* LOGOUT */
 .btn-logout { background:none; border:1px solid #e84545; color:#e84545; border-radius:8px; padding:8px 16px; font-size:12px; cursor:pointer; }
 
