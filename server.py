@@ -74,18 +74,18 @@ def fifa_prob(home_id, away_id):
     prob2 = max(8, min(70, prob2))
     probX = max(12, min(38, 100 - prob1 - prob2))
     avg_goals = 2.5
+    import math
+    p_home_scores = 1 - math.exp(-hG)
+    p_away_scores = 1 - math.exp(-aG)
+    btts = min(80, max(25, round(p_home_scores * p_away_scores * 100)))
+    avg_goals = hG + aG
+    over25 = min(75, max(20, round((1 - math.exp(-avg_goals) * (1 + avg_goals + avg_goals**2/2)) * 100)))
     rank_diff = abs(home_rank - away_rank)
     if rank_diff < 10:
-        btts = 65
-        over25 = 60
         probX = max(20, probX)
     elif rank_diff < 30:
-        btts = 55
-        over25 = 50
         probX = max(17, probX)
     else:
-        btts = 42
-        over25 = 38
         probX = max(12, probX)
     prob1 = min(78, 100 - prob2 - probX)
     hG = round(avg_goals * (home_adv / (home_adv + away_pts)), 1)
