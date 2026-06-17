@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMASCORE — Admin</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#0a0e1a; color:#fff; font-family:'Segoe UI',sans-serif; min-height:100vh; }
+
+/* LOGIN */
+#loginScreen { display:flex; align-items:center; justify-content:center; min-height:100vh; }
+.login-card { background:#0f1923; border:1px solid #1e2d3d; border-radius:16px; padding:40px; width:360px; }
+.login-logo { text-align:center; margin-bottom:30px; }
+.login-logo span { font-size:24px; font-weight:900; color:#5DBE74; letter-spacing:2px; }
+.login-logo p { color:#556; font-size:12px; margin-top:4px; }
+.form-group { margin-bottom:16px; }
+.form-group label { display:block; font-size:12px; color:#aaa; margin-bottom:6px; text-transform:uppercase; letter-spacing:1px; }
+.form-group input { width:100%; background:#1a2a2a; border:1px solid #2a3a3a; border-radius:8px; padding:12px 14px; color:#fff; font-size:14px; outline:none; }
+.form-group input:focus { border-color:#5DBE74; }
+.btn-login { width:100%; background:#5DBE74; color:#fff; border:none; border-radius:8px; padding:14px; font-size:15px; font-weight:700; cursor:pointer; margin-top:8px; }
+.btn-login:hover { background:#4aad63; }
+.login-error { color:#e84545; font-size:13px; text-align:center; margin-top:10px; display:none; }
+
+/* ADMIN */
+#adminScreen { display:none; }
+.sidebar { position:fixed; left:0; top:0; bottom:0; width:220px; background:#0f1923; border-right:1px solid #1e2d3d; padding:20px 0; }
+.sidebar-logo { padding:0 20px 20px; border-bottom:1px solid #1e2d3d; margin-bottom:10px; }
+.sidebar-logo span { font-size:18px; font-weight:900; color:#5DBE74; }
+.sidebar-logo p { font-size:10px; color:#556; margin-top:2px; }
+.nav-item { display:flex; align-items:center; gap:10px; padding:12px 20px; cursor:pointer; color:#aaa; font-size:13px; transition:all 0.2s; }
+.nav-item:hover, .nav-item.active { background:#1a2a2a; color:#5DBE74; border-right:3px solid #5DBE74; }
+.nav-item .icon { font-size:16px; width:20px; }
+.main { margin-left:220px; padding:24px; }
+.page { display:none; }
+.page.active { display:block; }
+
+/* HEADER */
+.page-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; }
+.page-title { font-size:20px; font-weight:800; }
+.badge { background:#5DBE74; color:#fff; font-size:10px; padding:3px 8px; border-radius:99px; font-weight:700; }
+
+/* CARDS */
+.stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px; }
+.stat-card { background:#0f1923; border:1px solid #1e2d3d; border-radius:12px; padding:20px; }
+.stat-card .label { font-size:11px; color:#556; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+.stat-card .value { font-size:28px; font-weight:800; color:#5DBE74; }
+.stat-card .sub { font-size:11px; color:#556; margin-top:4px; }
+
+/* TABLE */
+.table-card { background:#0f1923; border:1px solid #1e2d3d; border-radius:12px; overflow:hidden; margin-bottom:20px; }
+.table-header { display:flex; justify-content:space-between; align-items:center; padding:16px 20px; border-bottom:1px solid #1e2d3d; }
+.table-header h3 { font-size:14px; font-weight:700; }
+.btn-add { background:#5DBE74; color:#fff; border:none; border-radius:8px; padding:8px 16px; font-size:12px; font-weight:700; cursor:pointer; }
+table { width:100%; border-collapse:collapse; }
+th { background:#1a2a2a; padding:12px 20px; text-align:left; font-size:11px; color:#556; text-transform:uppercase; letter-spacing:1px; }
+td { padding:14px 20px; border-bottom:1px solid #1e2d3d; font-size:13px; }
+tr:last-child td { border-bottom:none; }
+.role-badge { padding:3px 10px; border-radius:99px; font-size:11px; font-weight:700; }
+.role-admin { background:#e84545; color:#fff; }
+.role-editor { background:#5DBE74; color:#fff; }
+.role-user { background:#2a3a4a; color:#aaa; }
+.status-active { color:#5DBE74; }
+.status-inactive { color:#e84545; }
+.btn-action { background:none; border:1px solid #2a3a3a; border-radius:6px; padding:4px 10px; font-size:11px; color:#aaa; cursor:pointer; margin-right:4px; }
+.btn-action:hover { border-color:#5DBE74; color:#5DBE74; }
+.btn-delete { border-color:#e84545; color:#e84545; }
+
+/* FORM */
+.form-card { background:#0f1923; border:1px solid #1e2d3d; border-radius:12px; padding:24px; margin-bottom:20px; }
+.form-card h3 { font-size:14px; font-weight:700; margin-bottom:20px; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+.form-card input, .form-card select, .form-card textarea { width:100%; background:#1a2a2a; border:1px solid #2a3a3a; border-radius:8px; padding:10px 14px; color:#fff; font-size:13px; outline:none; }
+.form-card input:focus, .form-card select:focus { border-color:#5DBE74; }
+.form-card label { display:block; font-size:11px; color:#aaa; margin-bottom:6px; text-transform:uppercase; letter-spacing:1px; }
+.btn-submit { background:#5DBE74; color:#fff; border:none; border-radius:8px; padding:12px 24px; font-size:13px; font-weight:700; cursor:pointer; }
+
+/* NOTIF */
+.notif-item { background:#1a2a2a; border-radius:10px; padding:16px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; }
+.notif-text { font-size:13px; }
+.notif-time { font-size:11px; color:#556; margin-top:4px; }
+
+/* LOGOUT */
+.btn-logout { background:none; border:1px solid #e84545; color:#e84545; border-radius:8px; padding:8px 16px; font-size:12px; cursor:pointer; }
+
+/* MODAL */
+.modal { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.8); z-index:999; align-items:center; justify-content:center; }
+.modal.open { display:flex; }
+.modal-card { background:#0f1923; border:1px solid #1e2d3d; border-radius:16px; padding:28px; width:400px; }
+.modal-card h3 { font-size:16px; font-weight:700; margin-bottom:20px; }
+.modal-actions { display:flex; gap:10px; margin-top:20px; }
+.btn-cancel { flex:1; background:none; border:1px solid #2a3a3a; color:#aaa; border-radius:8px; padding:10px; cursor:pointer; }
+.btn-confirm { flex:1; background:#5DBE74; color:#fff; border:none; border-radius:8px; padding:10px; font-weight:700; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">
+      <span>EMASCORE</span>
+      <p>Panneau d'administration</p>
+    </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="loginEmail" placeholder="admin@email.com">
+    </div>
+    <div class="form-group">
+      <label>Mot de passe</label>
+      <input type="password" id="loginPass" placeholder="••••••••">
+    </div>
+    <button class="btn-login" onclick="doLogin()">Se connecter</button>
+    <div class="login-error" id="loginError">Email ou mot de passe incorrect</div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="adminScreen">
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <span>EMASCORE</span>
+      <p>Admin Panel</p>
+    </div>
+    <div class="nav-item active" onclick="showPage('dashboard', this)"><span class="icon">📊</span> Dashboard</div>
+    <div class="nav-item" onclick="showPage('users', this)"><span class="icon">👥</span> Utilisateurs</div>
+    <div class="nav-item" onclick="showPage('editors', this)"><span class="icon">✏️</span> Éditeurs</div>
+    <div class="nav-item" onclick="showPage('subscriptions', this)"><span class="icon">💳</span> Abonnements</div>
+    <div class="nav-item" onclick="showPage('pronostics', this)"><span class="icon">🔥</span> Pronostics</div>
+    <div class="nav-item" onclick="showPage('notifications', this)"><span class="icon">🔔</span> Notifications</div>
+    <div class="nav-item" onclick="showPage('settings', this)"><span class="icon">⚙️</span> Paramètres</div>
+    <div style="position:absolute;bottom:20px;left:20px;right:20px;">
+      <button class="btn-logout" onclick="doLogout()" style="width:100%;">🚪 Déconnexion</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header">
+        <div class="page-title">Dashboard</div>
+        <div style="font-size:12px;color:#556;" id="adminDate"></div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="label">Utilisateurs total</div>
+          <div class="value" id="statUsers">0</div>
+          <div class="sub">Comptes enregistrés</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Abonnés Pro</div>
+          <div class="value" id="statPro">0</div>
+          <div class="sub">Plan payant actif</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Revenus</div>
+          <div class="value" id="statRevenue">$0</div>
+          <div class="sub">Ce mois</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Matchs haute confiance</div>
+          <div class="value" id="statConf">0</div>
+          <div class="sub">Aujourd'hui</div>
+        </div>
+      </div>
+      <div class="table-card">
+        <div class="table-header"><h3>Activité récente</h3></div>
+        <table>
+          <tr><th>Utilisateur</th><th>Action</th><th>Date</th><th>Statut</th></tr>
+          <tr><td>emarichard11@gmail.com</td><td>Connexion Admin</td><td id="nowDate"></td><td><span class="status-active">✓ Actif</span></td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- USERS -->
+    <div class="page" id="page-users">
+      <div class="page-header">
+        <div class="page-title">Gestion Utilisateurs</div>
+        <button class="btn-add" onclick="openModal('addUser')">+ Ajouter</button>
+      </div>
+      <div class="table-card">
+        <div class="table-header"><h3>Tous les utilisateurs</h3><span id="userCount" class="badge">0</span></div>
+        <table>
+          <tr><th>Email</th><th>Rôle</th><th>Plan</th><th>Statut</th><th>Actions</th></tr>
+          <tbody id="usersTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- EDITORS -->
+    <div class="page" id="page-editors">
+      <div class="page-header">
+        <div class="page-title">Éditeurs</div>
+        <button class="btn-add" onclick="openModal('addEditor')">+ Ajouter éditeur</button>
+      </div>
+      <div class="form-card">
+        <h3>Éditeurs actifs</h3>
+        <table>
+          <tr><th>Email</th><th>Permissions</th><th>Ajouté le</th><th>Actions</th></tr>
+          <tbody id="editorsTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SUBSCRIPTIONS -->
+    <div class="page" id="page-subscriptions">
+      <div class="page-header"><div class="page-title">Abonnements</div></div>
+      <div class="stats-grid" style="grid-template-columns:repeat(3,1fr);">
+        <div class="stat-card"><div class="label">Hebdo $9.99</div><div class="value" id="subWeekly">0</div></div>
+        <div class="stat-card"><div class="label">Mensuel $19.99</div><div class="value" id="subMonthly">0</div></div>
+        <div class="stat-card"><div class="label">Annuel $99.99</div><div class="value" id="subYearly">0</div></div>
+      </div>
+      <div class="table-card">
+        <div class="table-header"><h3>Abonnements actifs</h3></div>
+        <table>
+          <tr><th>Email</th><th>Plan</th><th>Début</th><th>Fin</th><th>Statut</th></tr>
+          <tbody id="subsTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PRONOSTICS -->
+    <div class="page" id="page-pronostics">
+      <div class="page-header"><div class="page-title">Pronostics Haute Confiance</div></div>
+      <div class="form-card">
+        <h3>Ajouter un pronostic manuel</h3>
+        <div class="form-row">
+          <div><label>Équipe domicile</label><input type="text" id="proHome" placeholder="ex: France"></div>
+          <div><label>Équipe extérieur</label><input type="text" id="proAway" placeholder="ex: Espagne"></div>
+        </div>
+        <div class="form-row">
+          <div><label>Championnat</label><input type="text" id="proLeague" placeholder="ex: WC"></div>
+          <div><label>Pronostic</label><select id="proPick"><option>Domicile gagne</option><option>Match nul</option><option>Extérieur gagne</option><option>BTTS Oui</option><option>Plus de 2.5 buts</option></select></div>
+        </div>
+        <div class="form-row">
+          <div><label>Confiance %</label><input type="number" id="proConf" placeholder="ex: 78" min="55" max="99"></div>
+          <div><label>Date du match</label><input type="date" id="proDate"></div>
+        </div>
+        <button class="btn-submit" onclick="addPronostic()">Ajouter le pronostic</button>
+      </div>
+      <div class="table-card">
+        <div class="table-header"><h3>Pronostics manuels</h3></div>
+        <table>
+          <tr><th>Match</th><th>Pronostic</th><th>Confiance</th><th>Date</th><th>Actions</th></tr>
+          <tbody id="proTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- NOTIFICATIONS -->
+    <div class="page" id="page-notifications">
+      <div class="page-header"><div class="page-title">Notifications</div></div>
+      <div class="form-card">
+        <h3>Envoyer une notification</h3>
+        <div class="form-group" style="margin-bottom:16px;">
+          <label>Titre</label>
+          <input type="text" id="notifTitle" placeholder="ex: Nouveau pronostic disponible">
+        </div>
+        <div class="form-group" style="margin-bottom:16px;">
+          <label>Message</label>
+          <textarea id="notifMsg" rows="3" style="width:100%;background:#1a2a2a;border:1px solid #2a3a3a;border-radius:8px;padding:10px;color:#fff;resize:none;" placeholder="Message pour tous les utilisateurs..."></textarea>
+        </div>
+        <div class="form-group" style="margin-bottom:16px;">
+          <label>Destinataires</label>
+          <select id="notifTarget" style="width:100%;background:#1a2a2a;border:1px solid #2a3a3a;border-radius:8px;padding:10px;color:#fff;">
+            <option>Tous les utilisateurs</option>
+            <option>Abonnés Pro seulement</option>
+            <option>Utilisateurs gratuits</option>
+          </select>
+        </div>
+        <button class="btn-submit" onclick="sendNotif()">Envoyer</button>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="page" id="page-settings">
+      <div class="page-header"><div class="page-title">Paramètres</div></div>
+      <div class="form-card">
+        <h3>Paramètres de l'application</h3>
+        <div class="form-row">
+          <div><label>Nom de l'app</label><input type="text" value="EMASCORE"></div>
+          <div><label>Email admin</label><input type="email" value="emarichard11@gmail.com"></div>
+        </div>
+        <div class="form-row">
+          <div><label>Seuil haute confiance (%)</label><input type="number" value="55" id="confThreshold"></div>
+          <div><label>Mode maintenance</label><select><option>Désactivé</option><option>Activé</option></select></div>
+        </div>
+        <button class="btn-submit" onclick="saveSettings()">Sauvegarder</button>
+      </div>
+      <div class="form-card">
+        <h3>Changer le mot de passe admin</h3>
+        <div class="form-row">
+          <div><label>Nouveau mot de passe</label><input type="password" id="newPass" placeholder="••••••••"></div>
+          <div><label>Confirmer</label><input type="password" id="confirmPass" placeholder="••••••••"></div>
+        </div>
+        <button class="btn-submit" onclick="changePass()">Changer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL AJOUTER UTILISATEUR -->
+<div class="modal" id="modal-addUser">
+  <div class="modal-card">
+    <h3>Ajouter un utilisateur</h3>
+    <div class="form-group" style="margin-bottom:14px;"><label>Email</label><input type="email" id="newUserEmail" placeholder="email@exemple.com"></div>
+    <div class="form-group" style="margin-bottom:14px;"><label>Rôle</label><select id="newUserRole" style="width:100%;background:#1a2a2a;border:1px solid #2a3a3a;border-radius:8px;padding:10px;color:#fff;"><option>user</option><option>editor</option><option>admin</option></select></div>
+    <div class="form-group" style="margin-bottom:14px;"><label>Plan</label><select id="newUserPlan" style="width:100%;background:#1a2a2a;border:1px solid #2a3a3a;border-radius:8px;padding:10px;color:#fff;"><option>free</option><option>weekly</option><option>monthly</option><option>yearly</option></select></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('addUser')">Annuler</button>
+      <button class="btn-confirm" onclick="addUser()">Ajouter</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL AJOUTER EDITEUR -->
+<div class="modal" id="modal-addEditor">
+  <div class="modal-card">
+    <h3>Ajouter un éditeur</h3>
+    <div class="form-group" style="margin-bottom:14px;"><label>Email</label><input type="email" id="newEditorEmail" placeholder="email@exemple.com"></div>
+    <div class="form-group" style="margin-bottom:14px;"><label>Permissions</label><select id="newEditorPerm" style="width:100%;background:#1a2a2a;border:1px solid #2a3a3a;border-radius:8px;padding:10px;color:#fff;"><option>Pronostics</option><option>Notifications</option><option>Pronostics + Notifications</option></select></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('addEditor')">Annuler</button>
+      <button class="btn-confirm" onclick="addEditor()">Ajouter</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const ADMIN_EMAIL = 'emarichard11@gmail.com';
+const ADMIN_PASS = 'RITCHJS97';
+
+function doLogin() {
+  var email = document.getElementById('loginEmail').value;
+  var pass = document.getElementById('loginPass').value;
+  if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
+    localStorage.setItem('ema_admin', '1');
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminScreen').style.display = 'block';
+    initAdmin();
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+  }
+}
+
+function doLogout() {
+  localStorage.removeItem('ema_admin');
+  document.getElementById('adminScreen').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+}
+
+function showPage(name, el) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
+  document.getElementById('page-' + name).classList.add('active');
+  el.classList.add('active');
+}
+
+function openModal(name) { document.getElementById('modal-' + name).classList.add('open'); }
+function closeModal(name) { document.getElementById('modal-' + name).classList.remove('open'); }
+
+function getUsers() { return JSON.parse(localStorage.getItem('ema_admin_users') || '[]'); }
+function saveUsers(u) { localStorage.setItem('ema_admin_users', JSON.stringify(u)); }
+function getEditors() { return JSON.parse(localStorage.getItem('ema_admin_editors') || '[]'); }
+function saveEditors(e) { localStorage.setItem('ema_admin_editors', JSON.stringify(e)); }
+function getPros() { return JSON.parse(localStorage.getItem('ema_admin_pros') || '[]'); }
+function savePros(p) { localStorage.setItem('ema_admin_pros', JSON.stringify(p)); }
+
+function renderUsers() {
+  var users = getUsers();
+  var tbody = document.getElementById('usersTable');
+  document.getElementById('userCount').textContent = users.length;
+  document.getElementById('statUsers').textContent = users.length;
+  var pros = users.filter(function(u) { return u.plan !== 'free'; }).length;
+  document.getElementById('statPro').textContent = pros;
+  tbody.innerHTML = users.map(function(u, i) {
+    return '<tr><td>' + u.email + '</td><td><span class="role-badge role-' + u.role + '">' + u.role + '</span></td><td>' + u.plan + '</td><td><span class="status-active">✓ Actif</span></td><td><button class="btn-action" onclick="editUser(' + i + ')">Éditer</button><button class="btn-action btn-delete" onclick="deleteUser(' + i + ')">Suppr.</button></td></tr>';
+  }).join('') || '<tr><td colspan="5" style="text-align:center;color:#556;padding:20px;">Aucun utilisateur</td></tr>';
+}
+
+function renderEditors() {
+  var editors = getEditors();
+  var tbody = document.getElementById('editorsTable');
+  tbody.innerHTML = editors.map(function(e, i) {
+    return '<tr><td>' + e.email + '</td><td>' + e.perm + '</td><td>' + e.date + '</td><td><button class="btn-action btn-delete" onclick="deleteEditor(' + i + ')">Suppr.</button></td></tr>';
+  }).join('') || '<tr><td colspan="4" style="text-align:center;color:#556;padding:20px;">Aucun éditeur</td></tr>';
+}
+
+function renderSubs() {
+  var users = getUsers();
+  var subs = users.filter(function(u) { return u.plan !== 'free'; });
+  document.getElementById('subWeekly').textContent = users.filter(function(u) { return u.plan === 'weekly'; }).length;
+  document.getElementById('subMonthly').textContent = users.filter(function(u) { return u.plan === 'monthly'; }).length;
+  document.getElementById('subYearly').textContent = users.filter(function(u) { return u.plan === 'yearly'; }).length;
+  var rev = users.filter(function(u) { return u.plan === 'weekly'; }).length * 9.99 + users.filter(function(u) { return u.plan === 'monthly'; }).length * 19.99 + users.filter(function(u) { return u.plan === 'yearly'; }).length * 99.99;
+  document.getElementById('statRevenue').textContent = '$' + rev.toFixed(2);
+  var tbody = document.getElementById('subsTable');
+  tbody.innerHTML = subs.map(function(u) {
+    return '<tr><td>' + u.email + '</td><td>' + u.plan + '</td><td>' + (u.date || '—') + '</td><td>—</td><td><span class="status-active">✓ Actif</span></td></tr>';
+  }).join('') || '<tr><td colspan="5" style="text-align:center;color:#556;padding:20px;">Aucun abonnement</td></tr>';
+}
+
+function renderPros() {
+  var pros = getPros();
+  var conf = JSON.parse(localStorage.getItem('ema_conf_matches') || '[]');
+  document.getElementById('statConf').textContent = conf.length;
+  var tbody = document.getElementById('proTable');
+  tbody.innerHTML = pros.map(function(p, i) {
+    return '<tr><td>' + p.home + ' vs ' + p.away + '</td><td>' + p.pick + '</td><td>' + p.conf + '%</td><td>' + p.date + '</td><td><button class="btn-action btn-delete" onclick="deletePro(' + i + ')">Suppr.</button></td></tr>';
+  }).join('') || '<tr><td colspan="5" style="text-align:center;color:#556;padding:20px;">Aucun pronostic manuel</td></tr>';
+}
+
+function addUser() {
+  var email = document.getElementById('newUserEmail').value;
+  var role = document.getElementById('newUserRole').value;
+  var plan = document.getElementById('newUserPlan').value;
+  if (!email) return;
+  var users = getUsers();
+  users.push({ email: email, role: role, plan: plan, date: new Date().toLocaleDateString() });
+  saveUsers(users);
+  renderUsers();
+  renderSubs();
+  closeModal('addUser');
+  document.getElementById('newUserEmail').value = '';
+}
+
+function deleteUser(i) {
+  var users = getUsers();
+  users.splice(i, 1);
+  saveUsers(users);
+  renderUsers();
+  renderSubs();
+}
+
+function editUser(i) {
+  var users = getUsers();
+  var u = users[i];
+  var newPlan = prompt('Plan actuel: ' + u.plan + '\nNouveau plan (free/weekly/monthly/yearly):', u.plan);
+  if (newPlan) { users[i].plan = newPlan; saveUsers(users); renderUsers(); renderSubs(); }
+}
+
+function addEditor() {
+  var email = document.getElementById('newEditorEmail').value;
+  var perm = document.getElementById('newEditorPerm').value;
+  if (!email) return;
+  var editors = getEditors();
+  editors.push({ email: email, perm: perm, date: new Date().toLocaleDateString() });
+  saveEditors(editors);
+  renderEditors();
+  closeModal('addEditor');
+  document.getElementById('newEditorEmail').value = '';
+}
+
+function deleteEditor(i) {
+  var editors = getEditors();
+  editors.splice(i, 1);
+  saveEditors(editors);
+  renderEditors();
+}
+
+function addPronostic() {
+  var home = document.getElementById('proHome').value;
+  var away = document.getElementById('proAway').value;
+  var league = document.getElementById('proLeague').value;
+  var pick = document.getElementById('proPick').value;
+  var conf = document.getElementById('proConf').value;
+  var date = document.getElementById('proDate').value;
+  if (!home || !away || !conf) return;
+  var pros = getPros();
+  pros.push({ home: home, away: away, league: league, pick: pick, conf: conf, date: date });
+  savePros(pros);
+  renderPros();
+  document.getElementById('proHome').value = '';
+  document.getElementById('proAway').value = '';
+  document.getElementById('proConf').value = '';
+}
+
+function deletePro(i) {
+  var pros = getPros();
+  pros.splice(i, 1);
+  savePros(pros);
+  renderPros();
+}
+
+function sendNotif() {
+  var title = document.getElementById('notifTitle').value;
+  var msg = document.getElementById('notifMsg').value;
+  if (!title || !msg) return;
+  alert('✅ Notification envoyée: ' + title);
+  document.getElementById('notifTitle').value = '';
+  document.getElementById('notifMsg').value = '';
+}
+
+function saveSettings() { alert('✅ Paramètres sauvegardés'); }
+
+function changePass() {
+  var newPass = document.getElementById('newPass').value;
+  var confirm = document.getElementById('confirmPass').value;
+  if (newPass !== confirm) { alert('Les mots de passe ne correspondent pas'); return; }
+  alert('✅ Mot de passe changé');
+}
+
+function initAdmin() {
+  var now = new Date();
+  document.getElementById('adminDate').textContent = now.toLocaleDateString('fr', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  document.getElementById('nowDate').textContent = now.toLocaleString('fr');
+  renderUsers();
+  renderEditors();
+  renderSubs();
+  renderPros();
+}
+
+// Auto-login si déjà connecté
+if (localStorage.getItem('ema_admin') === '1') {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('adminScreen').style.display = 'block';
+  initAdmin();
+}
+
+// Enter pour login
+document.getElementById('loginPass').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') doLogin();
+});
+</script>
+</body>
+</html>
