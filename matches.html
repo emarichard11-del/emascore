@@ -224,6 +224,7 @@
     function filterAndRender() {
       var filtered = allMatchesData.filter(function(m) {
         if (!m.utcDate) return false;
+        if (m.status === 'FINISHED') return false;
         var localDate = new Date(m.utcDate).toLocaleDateString("en-CA");
         return localDate === selectedDate;
       });
