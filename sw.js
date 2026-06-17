@@ -1,4 +1,4 @@
-const CACHE_NAME = 'emascore-v3';
+const CACHE_NAME = 'emascore-v4';
 const urlsToCache = [
   '/home.html',
   '/index.html',
