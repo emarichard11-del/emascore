@@ -440,8 +440,8 @@
       const over35 = Math.max(over25 - 25, 10);
       
       // Probabilités équipe de marquer cohérentes avec hG/aG
-      const hOver05 = hG >= 1 ? Math.max(p.hWin + 25, 65) : Math.min(p.hWin + 25, 55);
-      const aOver05 = aG >= 1 ? Math.max(p.aWin + 25, 60) : Math.min(p.aWin + 25, 50);
+      const hOver05 = Math.min(99, hG >= 1 ? Math.max(p.hWin + 25, 65) : Math.min(p.hWin + 25, 55));
+      const aOver05 = Math.min(99, aG >= 1 ? Math.max(p.aWin + 25, 60) : Math.min(p.aWin + 25, 50));
       
       // Score exact cohérent
       const hGr = Math.min(p.hGoals || 1.2, 2.5);
