@@ -330,20 +330,26 @@ tr:last-child td { border-bottom:none; }
 </div>
 
 <script>
-const ADMIN_EMAIL = 'emarichard11@gmail.com';
-const ADMIN_PASS = 'RITCHJS97';
-
 function doLogin() {
   var email = document.getElementById('loginEmail').value;
   var pass = document.getElementById('loginPass').value;
-  if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
-    localStorage.setItem('ema_admin', '1');
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('adminScreen').style.display = 'block';
-    initAdmin();
-  } else {
+  fetch('https://emascore-api.onrender.com/api/admin/login', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({email: email, password: pass})
+  }).then(function(r) { return r.json(); }).then(function(d) {
+    if (d.success) {
+      localStorage.setItem('ema_admin', d.token);
+      localStorage.setItem('ema_admin_email', email);
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminScreen').style.display = 'block';
+      initAdmin();
+    } else {
+      document.getElementById('loginError').style.display = 'block';
+    }
+  }).catch(function() {
     document.getElementById('loginError').style.display = 'block';
-  }
+  });
 }
 
 function doLogout() {
@@ -514,7 +520,7 @@ function initAdmin() {
 }
 
 // Auto-login si déjà connecté
-if (localStorage.getItem('ema_admin') === '1') {
+if (localStorage.getItem('ema_admin') && localStorage.getItem('ema_admin').startsWith('EMA_ADMIN_')) {
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('adminScreen').style.display = 'block';
   initAdmin();

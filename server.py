@@ -313,6 +313,21 @@ class Handler(BaseHTTPRequestHandler):
                     self.send_json(data)
                 else:
                     self.send_json({'error': 'not found'}, 404)
+        elif parsed.path == '/api/admin/login':
+            import json as json2
+            try:
+                length = int(self.headers.get('Content-Length', 0))
+                body = json2.loads(self.rfile.read(length).decode())
+                email = body.get('email', '')
+                password = body.get('password', '')
+                ADMIN_EMAILS = ['emarichard11@gmail.com']
+                ADMIN_PASS = 'RITCHJS97'
+                if email in ADMIN_EMAILS and password == ADMIN_PASS:
+                    self.send_json({'success': True, 'token': 'EMA_ADMIN_' + email})
+                else:
+                    self.send_json({'success': False, 'error': 'Accès refusé'}, 403)
+            except Exception as e:
+                self.send_json({'error': str(e)}, 400)
         elif parsed.path == '/api/fixture_stats':
             fixture_id = params.get('id', [None])[0]
             if fixture_id:
