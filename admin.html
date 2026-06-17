@@ -82,12 +82,9 @@ tr:last-child td { border-bottom:none; }
 
 /* RESPONSIVE MOBILE */
 @media (max-width: 768px) {
-  .sidebar { width:60px; }
-  .sidebar-logo { padding:10px; }
-  .sidebar-logo span, .sidebar-logo p { display:none; }
-  .nav-item span:not(.icon) { display:none; }
-  .nav-item { padding:14px; justify-content:center; }
-  .main { margin-left:60px; padding:12px; }
+  .sidebar { display:none; }
+  .sidebar.open { display:block; position:fixed; top:0; left:0; bottom:0; width:240px; z-index:1000; }
+  .main { margin-left:0; padding:12px; }
   .stats-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
   .stat-card { padding:14px; }
   .stat-card .value { font-size:20px; }
@@ -96,7 +93,12 @@ tr:last-child td { border-bottom:none; }
   th, td { padding:8px 10px; }
   .btn-action { padding:3px 6px; font-size:10px; }
   #adminDate { display:none; }
+  .hamburger { display:flex; }
 }
+.hamburger { display:none; position:fixed; top:16px; left:16px; z-index:1001; background:#0f1923; border:1px solid #1e2d3d; border-radius:8px; padding:8px 10px; cursor:pointer; flex-direction:column; gap:4px; }
+.hamburger span { display:block; width:20px; height:2px; background:#5DBE74; }
+.overlay { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.7); z-index:999; }
+.overlay.open { display:block; }
 /* LOGOUT */
 .btn-logout { background:none; border:1px solid #e84545; color:#e84545; border-radius:8px; padding:8px 16px; font-size:12px; cursor:pointer; }
 
@@ -134,6 +136,10 @@ tr:last-child td { border-bottom:none; }
 
 <!-- ADMIN -->
 <div id="adminScreen">
+  <div class="hamburger" onclick="toggleSidebar()" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
   <div class="sidebar">
     <div class="sidebar-logo">
       <span>EMASCORE</span>
