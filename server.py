@@ -263,7 +263,6 @@ class Handler(BaseHTTPRequestHandler):
         parsed = urlparse(self.path)
         params = parse_qs(parsed.query)
 
-        print("PATH:", repr(parsed.path))
         if parsed.path == '/ping':
             self.send_json({"status": "ok"})
         elif parsed.path == '/api/matches':
