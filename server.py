@@ -290,7 +290,6 @@ class Handler(BaseHTTPRequestHandler):
             probs = self.calc_probs(home_id, away_id, league)
             self.send_json(probs)
 
-        else:
         elif parsed.path == '/api/fixture_stats':
             fixture_id = params.get('id', [None])[0]
             if fixture_id:
