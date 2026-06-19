@@ -132,7 +132,7 @@ tr:last-child td { border-bottom:none; }
     </div>
     <div class="form-group">
       <label>Mot de passe</label>
-      <input type="password" id="loginPass" placeholder="••••••••">
+      <div style="position:relative;"><input type="password" id="loginPass" placeholder="••••••••" style="padding-right:44px;"><button onclick="var i=document.getElementById('loginPass');i.type=i.type==='password'?'text':'password';this.textContent=i.type==='password'?'👁':' 🙈';" type="button" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;">👁</button></div>
     </div>
     <button class="btn-login" onclick="doLogin()">Se connecter</button>
     <div class="login-error" id="loginError">Email ou mot de passe incorrect</div>
