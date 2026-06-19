@@ -165,14 +165,18 @@ function showError(msg) {
     setTimeout(function(){ if(document.getElementById('loginError')) document.getElementById('loginError').remove(); }, 4000);
   }
   async function login() {
-  var email = document.querySelector("input[type=email]").value;
-  var password = document.querySelector("input[type=password]").value;
-  if (!email || !password) { showError("Remplis tous les champs !"); return; }
-  var result = await supabase.auth.signInWithPassword({ email: email, password: password });
-  if (result.error) { showError("Invalid username or password."); return; }
-  localStorage.setItem("ema_user", JSON.stringify(result.data.user));
-  window.location.href = "home.html";
-}
+    var email = document.querySelector("input[type=email]").value;
+    var password = document.querySelector("input[type=password]").value;
+    if (!email || !password) { showError("Remplis tous les champs !"); return; }
+    try {
+      var result = await supabase.auth.signInWithPassword({ email: email, password: password });
+      if (result.error) { showError("Invalid username or password."); return; }
+      localStorage.setItem("ema_user", JSON.stringify(result.data.user));
+      window.location.href = "home.html";
+    } catch(e) {
+      showError("Service temporairement indisponible. Réessayez.");
+    }
+  }
 </script>
 </body>
 </html>
