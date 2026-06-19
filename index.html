@@ -185,6 +185,7 @@
   </div>
 
   <script>
+  if (window.location.hash && window.location.hash.includes("type=recovery")) { window.location.href = "reset-password.html" + window.location.hash; }
     const grass = document.getElementById('grass');
     for(let i=0;i<20;i++){
       const s = document.createElement('div');
