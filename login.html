@@ -161,7 +161,7 @@ function showError(msg) {
     err.id = 'loginError';
     err.style.cssText = 'background:#1a0a0a;border:1px solid #e84545;border-radius:8px;padding:12px 16px;color:#e84545;font-size:13px;margin-top:12px;text-align:center;';
     err.textContent = msg;
-    document.querySelector('.form-btn') ? document.querySelector('.form-btn').insertAdjacentElement('afterend', err) : document.body.appendChild(err);
+    document.querySelector('.form-btn') ? document.querySelector('.form-btn').insertAdjacentElement('beforebegin', err) : document.body.appendChild(err);
     setTimeout(function(){ if(document.getElementById('loginError')) document.getElementById('loginError').remove(); }, 4000);
   }
   async function login() {
@@ -169,7 +169,7 @@ function showError(msg) {
   var password = document.querySelector("input[type=password]").value;
   if (!email || !password) { showError("Remplis tous les champs !"); return; }
   var result = await supabase.auth.signInWithPassword({ email: email, password: password });
-  if (result.error) { showError("Erreur : " + result.error.message); return; }
+  if (result.error) { showError("Invalid username or password."); return; }
   localStorage.setItem("ema_user", JSON.stringify(result.data.user));
   window.location.href = "home.html";
 }
