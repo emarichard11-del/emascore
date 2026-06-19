@@ -136,11 +136,11 @@
       </div>
       <div>
         <label class="form-label" data-i18n="login_email">ADRESSE E-MAIL</label>
-        <input class="form-input" type="email" placeholder="exemple@email.com">
+        <input class="form-input" id="loginEmail" type="email" placeholder="exemple@email.com">
       </div>
       <div>
         <label class="form-label" data-i18n="login_password">MOT DE PASSE</label>
-        <div style="position:relative;"><input class="form-input" type="password" placeholder="••••••••" style="padding-right:48px;"><button type="button" onclick="var i=this.previousElementSibling;i.type=i.type==='password'?'text':'password';this.querySelector('svg').style.opacity=i.type==='text'?'1':'0.5';" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b949e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.5;transition:opacity 0.2s;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button></div>
+        <div style="position:relative;"><input class="form-input" id="loginPass" type="password" placeholder="••••••••" style="padding-right:48px;"><button type="button" onclick="var i=this.previousElementSibling;i.type=i.type==='password'?'text':'password';this.querySelector('svg').style.opacity=i.type==='text'?'1':'0.5';" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b949e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.5;transition:opacity 0.2s;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button></div>
       </div>
       <div class="forgot" data-i18n="login_forgot">Mot de passe oublié ?</div>
       <button class="btn-green" onclick="login()"><span data-i18n="login_btn">SE CONNECTER</span></button>
@@ -165,8 +165,8 @@ function showError(msg) {
     setTimeout(function(){ if(document.getElementById('loginError')) document.getElementById('loginError').remove(); }, 4000);
   }
   async function login() {
-    var email = document.querySelector("input[type=email]").value;
-    var password = document.querySelector("input[type=password]").value;
+    var email = document.getElementById("loginEmail").value;
+    var password = document.getElementById("loginPass").value;
     if (!email || !password) { showError("Remplis tous les champs !"); return; }
     try {
       var result = await supabase.auth.signInWithPassword({ email: email, password: password });
