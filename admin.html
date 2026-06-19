@@ -132,7 +132,12 @@ tr:last-child td { border-bottom:none; }
     </div>
     <div class="form-group">
       <label>Mot de passe</label>
-      <div style="position:relative;"><input type="password" id="loginPass" placeholder="••••••••" style="padding-right:44px;"><button id="togglePass" onclick="var i=document.getElementById('loginPass');i.type=i.type==='password'?'text':'password';document.getElementById('togglePass').style.opacity=i.type==='text'?'1':'0.4';" type="button" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;opacity:0.4;color:#5DBE74;font-size:12px;font-weight:600;letter-spacing:1px;">VOIR</button></div>
+      <div style="position:relative;">
+  <input type="password" id="loginPass" placeholder="••••••••" style="padding-right:48px;">
+  <button type="button" onclick="var i=document.getElementById('loginPass');i.type=i.type==='password'?'text':'password';this.querySelector('svg').style.opacity=i.type==='text'?'1':'0.5';" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b949e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.5;transition:opacity 0.2s;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+  </button>
+</div>
     </div>
     <button class="btn-login" onclick="doLogin()">Se connecter</button>
     <div class="login-error" id="loginError">Email ou mot de passe incorrect</div>
