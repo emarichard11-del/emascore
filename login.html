@@ -152,6 +152,10 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 var SUPABASE_URL = "https://zgtilvrlozkurnrwkjvt.supabase.co";
+// Détecter token de reset password
+if (window.location.hash && window.location.hash.includes('type=recovery')) {
+  window.location.href = 'reset-password.html' + window.location.hash;
+}
 var SUPABASE_KEY = "sb_publishable_T-ufmToZRC3oneHG0gef6Q_wgfhaQ9D";
 var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 function showError(msg) {
